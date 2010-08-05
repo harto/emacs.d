@@ -9,3 +9,9 @@
 
 (require 'slime)
 (require 'swank-clojure)
+
+;; FIXME: this simple one works for Win32
+;; (require 'slime)
+;; (add-hook 'clojure-mode-hook
+;;           (lambda ()
+;;             (paredit-mode 1)))

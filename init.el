@@ -22,5 +22,7 @@
 (load-library "init-theme")
 
 ;; Language-specific mode configurations
+(load-library "init-asp")
 (load-library "init-clojure")
 (load-library "init-javascript")
+(load-library "init-sql")
