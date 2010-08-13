@@ -1,0 +1,3 @@
+[submodule "vendor/swank-clojure"]
+	path = vendor/swank-clojure
+	url = git://github.com/technomancy/swank-clojure.git
