@@ -1,4 +1,4 @@
 ;; Markdown
 
-(autoload 'markdown-mode "~/.emacs.d/vendor/markdown-mode/markdown-mode")
+(autoload 'markdown-mode "markdown-mode.el")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))

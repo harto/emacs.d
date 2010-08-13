@@ -1,4 +1,4 @@
 ;; ASP mode
 
-(autoload 'asp-mode "~/.emacs.d/vendor/asp-mode/asp-mode")
+(autoload 'asp-mode "asp-mode.el")
 (add-to-list 'auto-mode-alist '("\\.asp$" . asp-mode))
