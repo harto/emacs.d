@@ -25,4 +25,5 @@
 (load-library "init-asp")
 (load-library "init-clojure")
 (load-library "init-javascript")
+(load-library "init-markdown")
 (load-library "init-sql")
