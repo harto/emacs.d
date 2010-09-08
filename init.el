@@ -16,6 +16,7 @@
 (load-library "init-elpa")
 
 ;; Miscellaneous configuration
+(load-library "init-linum")
 (load-library "init-misc")
 
 ;; Colour theme
