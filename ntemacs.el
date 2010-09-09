@@ -20,5 +20,7 @@
  '(default ((t (:stipple nil :background "#333333" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :family "Consolas"))))
  '(fixed-pitch ((t nil))))
 
-(set-cursor-color "#999999")
 (setq w32-use-w32-font-dialog nil)
+
+(add-to-list 'default-frame-alist
+             '(cursor-color . "#999999"))
