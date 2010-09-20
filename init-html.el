@@ -1,7 +1,7 @@
 ;; HTML helper mode
 
 (setq html-helper-new-buffer-template
-      '("<DOCTYPE html>
+      '("<!DOCTYPE html>
 <html>
 <head>
   <title>" p "</title>
