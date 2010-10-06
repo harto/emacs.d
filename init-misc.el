@@ -1,4 +1,4 @@
-;; Miscellaneous settings
+;; Settings
 
 (setq-default indent-tabs-mode nil)
 
@@ -6,6 +6,9 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'set-goal-column 'disabled nil)
+
+(load "~/.emacs.d/vendor/find-file-in-project/find-file-in-project.el")
+(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
 ;; Miscellaneous elisp functions
 
