@@ -7,6 +7,10 @@
 (put 'scroll-left 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
+
+(load "~/.emacs.d/vendor/mybuffers.el")
+(global-set-key [(control tab)] 'mybuffers-switch)
+
 (load "~/.emacs.d/vendor/find-file-in-project/find-file-in-project.el")
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
