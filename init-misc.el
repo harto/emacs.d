@@ -7,15 +7,20 @@
 (put 'scroll-left 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
+;; Provide C-Tab switching between buffers
+
 (load "~/.emacs.d/vendor/mybuffers.el")
 (global-set-key [(control tab)] 'mybuffers-switch)
+
+;; FFIP
 
 (load "~/.emacs.d/vendor/find-file-in-project/find-file-in-project.el")
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
-;; Pretend LESS is CSS
+;; Line numbering
 
-(add-to-list 'auto-mode-alist '("\\.less$" . css-mode))
+(require 'linum)
+(global-linum-mode 1)
 
 ;; Miscellaneous elisp functions
 

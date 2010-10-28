@@ -15,17 +15,14 @@
 
 (load-library "init-elpa")
 
-;; Miscellaneous configuration
-(load-library "init-linum")
-(load-library "init-misc")
-
 ;; Colour theme
 (load-library "init-theme")
 
+;; Miscellaneous configuration
+(load-library "init-misc")
+
 ;; Language-specific mode configurations
-(load-library "init-asp")
+(load-library "init-web")
 (load-library "init-clojure")
-(load-library "init-html")
-(load-library "init-javascript")
 (load-library "init-markdown")
 (load-library "init-sql")
