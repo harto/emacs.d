@@ -1,8 +1,6 @@
 ;; Clojure configuration
 ;; Adapted from http://github.com/vu3rdd/swank-clojure/blob/master/config.txt
 
-;; clojure-mode
-
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 
@@ -27,11 +25,20 @@
 
 (ad-activate 'slime-read-interactive-args)
 
-;; paredit
+;; Paredit
 
-;(require 'paredit)
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
 (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
 
+;; Clojure Debugging Toolkit
+
+;; (setq cdt-dir "/Users/stuart/Development/src/cdt")
+;; (setq cdt-source-path (mapconcat (lambda (s) (concat "/Users/stuart/Development/src/" s))
+;;                                  '("clojure/src/clj"
+;;                                    "clojure/src/jvm"
+;;                                    "clojure-contrib/src/main/clojure")
+;;                                  ":"))
+
+;(load-file (concat cdt-dir "/ide/emacs/cdt.el"))
 
