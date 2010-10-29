@@ -1,6 +1,7 @@
 ;; Settings
 
 (setq-default indent-tabs-mode nil)
+(setq-default require-final-newline t)
 
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
