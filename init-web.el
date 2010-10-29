@@ -27,6 +27,14 @@
 ;; LESS
 
 (add-to-list 'auto-mode-alist '("\\.less$" . css-mode))
+;; (add-hook 'css-mode-hook
+;;           (lambda ()
+;;             (add-hook 'after-save-hook
+;;                       (lambda ()
+;;                         ;; ensure LESS saved
+;;                         ;; look for cake
+;;                         ;; compile CSS
+;;                         nil))))
 
 ;; ASP (!)
 
