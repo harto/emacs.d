@@ -24,17 +24,17 @@
 
 (setq css-indent-offset 2)
 
-;; LESS
+;; LESS quasi-mode
 
 (add-to-list 'auto-mode-alist '("\\.less$" . css-mode))
-;; (add-hook 'css-mode-hook
-;;           (lambda ()
-;;             (add-hook 'after-save-hook
-;;                       (lambda ()
-;;                         ;; ensure LESS saved
-;;                         ;; look for cake
-;;                         ;; compile CSS
-;;                         nil))))
+(setq-default compile-less nil)
+(add-hook 'css-mode-hook
+          (lambda ()
+            (when (string-match "\\.less$" buffer-file-name)
+              (add-hook 'after-save-hook
+                        (lambda ()
+                          (when compile-less
+                            (funcall compile-less)))))))
 
 ;; ASP (!)
 
