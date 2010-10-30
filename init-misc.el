@@ -20,7 +20,6 @@
 
 ;; Line numbering
 
-(require 'linum)
 (global-linum-mode 1)
 
 ;; Miscellaneous elisp functions
