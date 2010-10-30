@@ -5,3 +5,6 @@
 ;; Use this file in place of ~/.emacs (which is loaded as well.)
 
 (load-file "~/.emacs.d/init.el")
+
+(tabbar-mode nil)
+

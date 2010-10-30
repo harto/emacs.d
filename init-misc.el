@@ -3,6 +3,8 @@
 (setq-default indent-tabs-mode nil)
 (setq-default require-final-newline t)
 
+(scroll-bar-mode nil)
+
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
