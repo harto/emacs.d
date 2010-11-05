@@ -1,8 +1,13 @@
-;; Clojure configuration
-;; Adapted from http://github.com/vu3rdd/swank-clojure/blob/master/config.txt
+(autoload 'paredit-mode "paredit")
+
+;;; Clojure
 
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+(add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
+
+;; Some mucking around is required to start a Clojure REPL when invoking `slime'.
+;; Adapted from http://github.com/vu3rdd/swank-clojure/blob/master/config.txt
 
 ;; SLIME
 
@@ -13,23 +18,18 @@
 
 (require 'slime)
 
-;; swank
+;; Swank
 
 (eval-after-load "slime"
   '(progn
      (require 'swank-clojure)
-     (add-to-list 'slime-lisp-implementations `(clojure ,(swank-clojure-cmd) :init swank-clojure-init) t)
+     (add-to-list 'slime-lisp-implementations
+                  `(clojure ,(swank-clojure-cmd) :init swank-clojure-init) t)
      (add-hook 'slime-indentation-update-hooks 'swank-clojure-update-indentation)
      (add-hook 'slime-repl-mode-hook 'swank-clojure-slime-repl-modify-syntax t)
      (add-hook 'clojure-mode-hook 'swank-clojure-slime-mode-hook t)))
 
 (ad-activate 'slime-read-interactive-args)
-
-;; Paredit
-
-(autoload 'paredit-mode "paredit"
-  "Minor mode for pseudo-structurally editing Lisp code." t)
-(add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
 
 ;; Clojure Debugging Toolkit
 
@@ -41,4 +41,16 @@
 ;;                                  ":"))
 
 ;(load-file (concat cdt-dir "/ide/emacs/cdt.el"))
+
+;;; Emacs Lisp
+
+(add-hook 'elisp-mode-hook (lambda () (paredit-mode +1)))
+
+;; Miscellaneous helpers
+
+(defun unquote-string (start end)
+  "Removes quotation marks from start and end of each line in region."
+  (interactive "r")
+  (replace-regexp "^[[:space:]]*\"\\|\"[[:space:]]*\\(\\+\\|;\\)[[:space:]]*$"
+                  "" nil start end))
 

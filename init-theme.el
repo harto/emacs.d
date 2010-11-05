@@ -1,4 +1,4 @@
-;; Favourite colour theme
+;; FIXME: only works in Aquamacs
 
 (when (require 'color-theme nil t)
   (color-theme-initialize)
