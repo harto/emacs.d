@@ -32,13 +32,11 @@
 
 (add-to-list 'auto-mode-alist '("\\.less$" . css-mode))
 (setq-default compile-less nil)
-(add-hook 'css-mode-hook
+(add-hook 'after-save-hook
           (lambda ()
-            (when (string-match "\\.less$" buffer-file-name)
-              (add-hook 'after-save-hook
-                        (lambda ()
-                          (when compile-less
-                            (funcall compile-less)))))))
+            (when (and (string-match "\\.less$" buffer-file-name)
+                       compile-less)
+              (funcall compile-less))))
 
 ;; ASP (!)
 
