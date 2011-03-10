@@ -2,6 +2,7 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default require-final-newline t)
+(set-fill-column 80)
 
 (scroll-bar-mode nil)
 
