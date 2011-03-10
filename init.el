@@ -1,28 +1,48 @@
 ;; Top-level emacs configuration
 ;; Adapted from http://github.com/EnigmaCurry/emacs
 
-;; Keep all libs under ~/.emacs.d
+;; All libs are located under ~/.emacs.d. Third-party libs reside in
+;; ~/.emacs.d/vendor.
+
 (add-to-list 'load-path "~/.emacs.d")
 
-;; Add top-level dirs in ~/.emacs.d to load path
 (progn (cd "~/.emacs.d")
        (normal-top-level-add-subdirs-to-load-path))
 
-;; Add 3rd-party dirs in ~/.emacs.d/vendor to load path
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (progn (cd "~/.emacs.d/vendor")
        (normal-top-level-add-subdirs-to-load-path))
 
 (load-library "init-elpa")
 
-;; Colour theme
-(load-library "init-theme")
-
-;; Miscellaneous configuration
-(load-library "init-misc")
-
-;; Language-specific mode configurations
 (load-library "init-web")
-(load-library "init-clojure")
+(load-library "init-lisp")
 (load-library "init-markdown")
 (load-library "init-sql")
+
+;;; Miscellany
+
+(load-library "init-theme")
+
+(setq-default indent-tabs-mode nil)
+(setq-default require-final-newline t)
+(set-fill-column 80)
+
+(scroll-bar-mode nil)
+
+(put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
+(put 'set-goal-column 'disabled nil)
+
+;; Provide C-Tab switching between buffers
+(load "~/.emacs.d/vendor/mybuffers.el")
+(global-set-key [(control tab)] 'mybuffers-switch)
+
+;; FFIP
+(load "~/.emacs.d/vendor/find-file-in-project/find-file-in-project.el")
+(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+
+;; Line numbering
+(global-linum-mode 1)
+
