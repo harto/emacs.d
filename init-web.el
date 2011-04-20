@@ -24,6 +24,12 @@
 (setq js2-consistent-level-indent-inner-bracket-p t)
 (setq js2-use-ast-for-indentation-p t)
 
+(defun jslint ()
+  (interactive)
+  (let ((fname (buffer-file-name)))
+    (when fname
+      (shell-command (format "jslint %s" fname)))))
+
 ;; CSS
 
 (setq css-indent-offset 2)
