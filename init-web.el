@@ -24,6 +24,17 @@
 (setq js2-consistent-level-indent-inner-bracket-p t)
 (setq js2-use-ast-for-indentation-p t)
 
+(defun js2-declare-jslinted-externs ()
+  "Use JSLint /*global ... */ declarations to define js2-additional-externs"
+  (save-excursion
+    (goto-char (point-min))
+    (when (re-search-forward "/\\*global \\([^*]+\\)\\*/" nil t)
+      (setq js2-additional-externs
+            (append (split-string (match-string-no-properties 1) "[ \n\t]*,[ \n\t]*")
+                    js2-additional-externs)))))
+
+(add-hook 'js2-mode-hook 'js2-declare-jslinted-externs)
+
 ;; CSS
 
 (setq css-indent-offset 2)
