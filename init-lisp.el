@@ -42,9 +42,12 @@
 
 ;(load-file (concat cdt-dir "/ide/emacs/cdt.el"))
 
-;;; Emacs Lisp
+;;; Elisp
 
-(add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (when (not (equal (buffer-name) "*scratch*"))
+              (paredit-mode +1))))
 
 ;; Miscellaneous helpers
 
