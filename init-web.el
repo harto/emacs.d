@@ -17,7 +17,7 @@
 
 ;; JavaScript
 
-(autoload 'js2-mode "js2-mode" nil t)
+(autoload 'js2-mode "js2-mode")
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (setq js2-bounce-indent-p t)
 (setq js2-cleanup-whitespace t)
@@ -40,6 +40,18 @@
                     js2-additional-externs)))))
 
 (add-hook 'js2-mode-hook 'js2-declare-jslinted-externs)
+
+;; CoffeeScript
+
+(autoload 'coffee-mode "coffee-mode")
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+
+(setq coffee-tab-width 2)
+(setq coffee-args-compile '("-c" "--bare"))
+
+(add-hook 'coffee-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'coffee-compile-file nil t)))
 
 ;; CSS
 
