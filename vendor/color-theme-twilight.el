@@ -25,7 +25,7 @@
   (interactive)
   (color-theme-install
    '(color-theme-twilight
-     ((background-color . "#141414")
+     ((background-color . "#111")
       (background-mode . dark)
       (border-color . "black")
       (cursor-color . "#A7A7A7")
