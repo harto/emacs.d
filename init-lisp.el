@@ -42,9 +42,12 @@
 
 ;(load-file (concat cdt-dir "/ide/emacs/cdt.el"))
 
-;;; Emacs Lisp
+;;; Elisp
 
-(add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (when (not (equal (buffer-name) "*scratch*"))
+              (paredit-mode +1))))
 
 ;; Miscellaneous helpers
 
@@ -54,3 +57,8 @@
   (replace-regexp "^[[:space:]]*\"\\|\"[[:space:]]*\\(\\+\\|;\\)[[:space:]]*$"
                   "" nil start end))
 
+(defun project-todo ()
+  "Lists outstanding tasks as listed in the sources of the current project."
+  (interactive)
+  (grep-find (format "find %s -type f -exec grep -EHn '\\b(TODO|FIXME|XXX)\\b' {} \\;"
+                     (directory-file-name (ffip-project-root)))))
