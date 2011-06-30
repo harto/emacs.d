@@ -57,7 +57,7 @@
       (re-search-forward js2-jslint-imports)
       (replace-match "/*global ")
       (dolist (import imports)
-        (when (>= (+ (length import) (current-column)) 80)
+        (when (>= (+ (current-column) (length import) 1) 80)
           (delete-char -1)              ;delete trailing " "
           (insert "\n  "))
         (insert import ", "))
