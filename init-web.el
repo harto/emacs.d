@@ -41,7 +41,7 @@
   (save-excursion
     (goto-char (point-min))
     (when (re-search-forward js2-jslint-imports nil t)
-      (mapcar #'trim (split-string (match-string-no-properties 1) ",")))))
+      (delete-dups (mapcar #'trim (split-string (match-string-no-properties 1) ","))))))
 
 (defun js2-declare-jslint-imports ()
   "Use JSLint /*global ... */ declarations to define js2-additional-externs"
@@ -51,7 +51,7 @@
   "Make /*global ...*/ declarations look nice."
   (interactive)
   (when-let (imports (js2-find-jslint-imports))
-    (sort imports 'string<)
+    (setq imports (sort imports 'string<))
     (save-excursion
       (goto-char (point-min))
       (re-search-forward js2-jslint-imports)
