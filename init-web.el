@@ -45,7 +45,7 @@
 
 (defun js2-declare-jslint-imports ()
   "Use JSLint /*global ... */ declarations to define js2-additional-externs"
-  (setq js2-additional-externs (append (js2-jslint-imports) js2-additional-externs)))
+  (setq js2-additional-externs (append (js2-find-jslint-imports) js2-additional-externs)))
 
 (defun js2-organise-jslint-imports ()
   "Make /*global ...*/ declarations look nice."
