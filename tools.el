@@ -1,5 +1,8 @@
 ;;; General-purpose Elisp functions
 
+(defun trim (s)
+  (replace-regexp-in-string "^[[:blank:]\n]+\\|[[:blank:]\n]+$" "" s))
+
 (defun unquote-string (start end)
   "Removes quotation marks from start and end of each line in region."
   (interactive "r")

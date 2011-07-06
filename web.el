@@ -19,6 +19,7 @@
 
 (autoload 'js2-mode "js2-mode")
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 (setq js2-bounce-indent-p t)
 (setq js2-cleanup-whitespace t)
 (setq js2-consistent-level-indent-inner-bracket-p t)
@@ -32,9 +33,6 @@
 
 (defvar js2-jslint-imports
   "/\\*global \\([^*]+\\)\\*/")
-
-(defun trim (s)
-  (replace-regexp-in-string "^[[:blank:]\n]+\\|[[:blank:]\n]+$" "" s))
 
 (defun js2-find-jslint-imports ()
   "Returns a list of JSLint imports as declared in a /*global ... */ block."
@@ -127,6 +125,6 @@
 
 ;; ASP (!)
 
-(autoload 'asp-mode "asp-mode.el")
+(autoload 'asp-mode "asp-mode")
 (add-to-list 'auto-mode-alist '("\\.asp$" . asp-mode))
 
