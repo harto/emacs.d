@@ -23,6 +23,7 @@
 (eval-after-load "slime"
   '(progn
      (setq slime-use-autodoc-mode nil)
+     (setq slime-net-coding-system 'utf-8-unix)
      (slime-setup '(slime-repl))))
 
 (require 'slime)
