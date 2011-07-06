@@ -1,4 +1,13 @@
+;;; Paredit
+
 (autoload 'paredit-mode "paredit")
+;; (eval-after-load "paredit"
+;;   ;; Disable newline on close-paren
+;;   '(progn
+;;      (define-key paredit-mode-map (kbd ")")
+;;        'paredit-close-parenthesis)
+;;      (define-key paredit-mode-map (kbd "M-)")
+;;        'paredit-close-parenthesis-and-newline)))
 
 ;;; Clojure
 
@@ -48,17 +57,3 @@
           (lambda ()
             (when (not (equal (buffer-name) "*scratch*"))
               (paredit-mode +1))))
-
-;; Miscellaneous helpers
-
-(defun unquote-string (start end)
-  "Removes quotation marks from start and end of each line in region."
-  (interactive "r")
-  (replace-regexp "^[[:space:]]*\"\\|\"[[:space:]]*\\(\\+\\|;\\)[[:space:]]*$"
-                  "" nil start end))
-
-(defun project-todo ()
-  "Lists outstanding tasks as listed in the sources of the current project."
-  (interactive)
-  (grep-find (format "find %s -type f -exec grep -EHn '\\b(TODO|FIXME|XXX)\\b' {} \\;"
-                     (directory-file-name (ffip-project-root)))))

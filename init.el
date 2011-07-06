@@ -27,7 +27,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default require-final-newline t)
-(set-fill-column 80)
 
 (scroll-bar-mode nil)
 
@@ -47,3 +46,4 @@
 ;; Line numbering
 (global-linum-mode 1)
 
+(load-library "tools")
