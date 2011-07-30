@@ -46,8 +46,8 @@
   (setq js2-additional-externs (append (js2-find-jslint-imports) js2-additional-externs)))
 
 (defun js2-unreferenced-import-p (import)
-  "Returns true if the given symbol is unreference beyond the JSLint globals
-   declaration. Note: imports may be of the form 'symbol: true' to indicate that
+  "Returns true if the given symbol is unreferenced beyond the JSLint globals
+   declaration. Note: imports may be of the form 'symbol:true' to indicate that
    reassignment of the variable is allowed."
   (setq symbol (car (split-string import ":")))
   (save-excursion
