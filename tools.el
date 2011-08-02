@@ -32,3 +32,16 @@
 
 (global-set-key (kbd "C-c t") 'project-todo)
 (global-set-key (kbd "C-c m") 'project-make)
+
+;; Allow hooks to be defined in .dir-locals.el
+
+(defun project-apply-directory-hooks ()
+  "Sets directory-local hooks using the value of `directory-hooks', which is a
+   list of (hook-name hook-function) pairs."
+  (when (boundp 'directory-hooks)
+    (dolist (hook-definition directory-hooks)
+      (add-hook (car hook-definition)
+                (cdr hook-definition)
+                nil t))))
+
+(add-hook 'hack-local-variables-hook #'project-apply-directory-hooks)
