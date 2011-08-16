@@ -45,12 +45,26 @@
   "Use JSLint /*global ... */ declarations to define js2-additional-externs"
   (setq js2-additional-externs (append (js2-find-jslint-imports) js2-additional-externs)))
 
+(defun js2-unreferenced-import-p (import)
+  "Returns true if the given symbol is unreference beyond the JSLint globals
+   declaration. Note: imports may be of the form 'symbol: true' to indicate that
+   reassignment of the variable is allowed."
+  (setq symbol (car (split-string import ":")))
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward js2-jslint-imports)
+    (not (re-search-forward (format "\\b%s\\b" symbol) nil t))))
+
 (defun js2-organise-jslint-imports ()
   "Make /*global ...*/ declarations look nice."
   (interactive)
   (when-let (imports (js2-find-jslint-imports))
+    ;; Remove unused imports
+    (setq imports (remove-if #'js2-unreferenced-import-p imports))
+    ;; Sort output (XXX: would be nice to have uppercased stuff appear first)
     (setq imports (sort imports 'string<))
     (save-excursion
+      ;; Replace existing import list
       (goto-char (point-min))
       (re-search-forward js2-jslint-imports)
       (replace-match "/*global ")
