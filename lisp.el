@@ -9,10 +9,10 @@
 ;;      (define-key paredit-mode-map (kbd "M-)")
 ;;        'paredit-close-parenthesis-and-newline)))
 
-;;; Clojure
+;;; Clojure / ClojureScript
 
 (require 'clojure-mode)
-(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs?$" . clojure-mode))
 (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
 
 ;; Some mucking around is required to start a Clojure REPL when invoking `slime'.
