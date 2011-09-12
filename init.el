@@ -16,6 +16,8 @@
 ;; ELPA initialisation
 
 (load-library "package")
+(setq package-user-dir
+      (expand-file-name (convert-standard-filename "~/.emacs.d/vendor/elpa")))
 (package-initialize)
 
 ;; Language/environment-specific configs
