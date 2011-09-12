@@ -1,34 +1,29 @@
 ;;; Top-level emacs configuration
 ;;; Adapted from http://github.com/EnigmaCurry/emacs
 ;;;
-;;; All libs are located under ~/.emacs.d. Third-party libs reside in
-;;; ~/.emacs.d/vendor.
+;;; Third-party libs live in ~/.emacs.d/vendor
+;;; ELPA packages live in ~/.emacs.d/vendor/elpa
 
 (add-to-list 'load-path "~/.emacs.d")
-
-;; (progn (cd "~/.emacs.d")
-;;        (normal-top-level-add-subdirs-to-load-path))
-
 (add-to-list 'load-path "~/.emacs.d/vendor")
-(progn (cd "~/.emacs.d/vendor")
-       (normal-top-level-add-subdirs-to-load-path))
+(cd "~/.emacs.d/vendor")
+(normal-top-level-add-subdirs-to-load-path)
 
 ;; ELPA initialisation
-
 (load-library "package")
 (setq package-user-dir
       (expand-file-name (convert-standard-filename "~/.emacs.d/vendor/elpa")))
 (package-initialize)
 
 ;; Language/environment-specific configs
-
 (load-library "tools")
 (load-library "web")
 (load-library "lisp")
 
-;; Miscellany
-
-(load-library "theme")
+;; Appearance
+(load-library "color-theme")
+(load-library "color-theme-twilight")
+(color-theme-twilight)
 (scroll-bar-mode nil)
 
 (setq-default indent-tabs-mode nil)
@@ -55,3 +50,5 @@
 (autoload 'markdown-mode "markdown-mode.el")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.pl[sb]$" . sql-mode))
+
+(cd "~")

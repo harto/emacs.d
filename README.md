@@ -1,14 +1,14 @@
 .emacs.d
 ========
 
-My boring Emacs configuration.
+My Emacs configuration.
 
-NTEmacs
+Windows
 -------
 
 * Include the following in `~/.emacs`:
 
-    (load (expand-file-name "~/.emacs.d/ntemacs.el"))
+    (load (expand-file-name "~/.emacs.d/win.el"))
 
 Aquamacs
 --------
