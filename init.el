@@ -35,6 +35,10 @@
 (put 'scroll-left 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
+;; ido
+(when (boundp 'ido-mode)
+  (ido-mode))
+
 ;; C-TAB buffer switching
 (load-library "mybuffers")
 (global-set-key [(control tab)] 'mybuffers-switch)
@@ -44,7 +48,8 @@
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
 ;; Line numbering
-(global-linum-mode 1)
+(when (boundp 'global-linum-mode)
+  (global-linum-mode 1))
 
 ;; Other file/mode associations
 (autoload 'markdown-mode "markdown-mode.el")
