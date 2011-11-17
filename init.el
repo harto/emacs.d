@@ -10,9 +10,9 @@
 (normal-top-level-add-subdirs-to-load-path)
 
 ;; ELPA initialisation
-(load-library "package")
-(setq package-user-dir
-      (expand-file-name (convert-standard-filename "~/.emacs.d/vendor/elpa")))
+(require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(setq package-user-dir (expand-file-name (convert-standard-filename "~/.emacs.d/vendor/elpa")))
 (package-initialize)
 
 ;; Language/environment-specific configs
