@@ -7,9 +7,6 @@
 [submodule "vendor/markdown-mode"]
 	path = vendor/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
-[submodule "vendor/find-file-in-project"]
-	path = vendor/find-file-in-project
-	url = git://github.com/technomancy/find-file-in-project
 [submodule "vendor/js2-mode"]
 	path = vendor/js2-mode
 	url = git://github.com/mooz/js2-mode
