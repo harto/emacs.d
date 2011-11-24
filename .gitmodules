@@ -1,6 +1,3 @@
-[submodule "vendor/swank-clojure"]
-	path = vendor/swank-clojure
-	url = git://github.com/technomancy/swank-clojure.git
 [submodule "vendor/asp-mode"]
 	path = vendor/asp-mode
 	url = http://github.com/chrisdone/asp-mode.git
