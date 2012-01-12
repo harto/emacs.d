@@ -12,8 +12,9 @@
 ;; Project utilities
 
 (defun project-directory ()
-  (when-let (root (ffip-project-root))
-    (directory-file-name root)))
+  (let ((root (ffip-project-root)))
+    (when root
+      (directory-file-name root))))
 
 (setq project-todo-pattern "\\b(TODO|FIXME|XXX)\\b")
 
