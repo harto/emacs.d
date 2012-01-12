@@ -44,7 +44,7 @@
 (global-set-key [(control tab)] 'mybuffers-switch)
 
 ;; FFIP
-(load-library "find-file-in-project")
+(require 'find-file-in-project)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
 ;; Line numbering
