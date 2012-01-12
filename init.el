@@ -21,9 +21,9 @@
 (load-library "lisp")
 
 ;; Appearance
-(load-library "color-theme")
-(load-library "color-theme-twilight")
-(color-theme-twilight)
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
 (scroll-bar-mode nil)
 
 (setq-default indent-tabs-mode nil)
