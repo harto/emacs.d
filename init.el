@@ -39,6 +39,8 @@
 (when (boundp 'ido-mode)
   (ido-mode))
 
+(setq org-startup-indented t)
+
 ;; C-TAB buffer switching
 (load-library "mybuffers")
 (global-set-key [(control tab)] 'mybuffers-switch)
