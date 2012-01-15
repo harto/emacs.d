@@ -2,4 +2,5 @@
 sqlnet.log
 /*.elc
 /swank
-/vendor/elpa/archives
+/vendor/elpa/archive-contents
+/vendor/elpa/builtin-packages
