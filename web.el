@@ -7,7 +7,8 @@
 <html>
 <head>
   <title>" p "</title>
-  <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/" p "\" />
+  <link rel=\"stylesheet\" href=\"" p "\">
+  <script src=\"\"></script>
 </head>
 
 <body>
