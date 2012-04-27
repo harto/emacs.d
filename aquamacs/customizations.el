@@ -46,12 +46,29 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#141414" :foreground "#CACACA" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "apple" :family "Consolas"))))
+ '(default ((t (:inherit nil
+                :stipple nil
+                :background "#141414"
+                :foreground "#CACACA"
+                :inverse-video nil
+                :box nil
+                :strike-through nil
+                :overline nil
+                :underline nil
+                :slant normal
+                :weight normal
+                :height 120
+                :width normal
+                :foundry "apple"
+                :family "Consolas"))))
  '(aquamacs-variable-width ((((type ns)) (:inherit variable-pitch))))
  '(echo-area ((t nil)))
  '(fixed-pitch ((t nil)))
- '(mode-line ((t (:inherit variable-pitch :background "grey75" :foreground "black"))))
+ '(mode-line ((t (:inherit variable-pitch
+                  :background "grey75"
+                  :foreground "black"))))
  '(mode-line-flags ((t nil)))
  '(tabbar-default ((t (:inherit variable-pitch))))
  '(text-mode-default ((((type ns)) (:inherit autoface-default))))
- '(variable-pitch ((t (:height 1.0 :family "Helvetica")))))
+ '(variable-pitch ((t (:height 1.0
+                       :family "Helvetica")))))
