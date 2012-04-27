@@ -13,4 +13,5 @@ Windows
 Aquamacs
 --------
 
-* Link files in `~/.emacs.d/aquamacs` into `~/Library/Preferences/Aquamacs`.
+* Link `~/.emacs.d/aquamacs/Preferences.el` into
+  `~/Library/Preferences/Aquamacs Emacs`.
