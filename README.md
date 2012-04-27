@@ -8,7 +8,7 @@ Windows
 
 * Include the following in `~/.emacs`:
 
-    (load (expand-file-name "~/.emacs.d/win.el"))
+        (load (expand-file-name "~/.emacs.d/win.el"))
 
 Aquamacs
 --------
