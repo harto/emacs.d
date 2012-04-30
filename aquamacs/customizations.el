@@ -13,15 +13,8 @@
                                (cursor-type . box)
                                (fringe)
                                (modeline . t)
-                               (color-theme-name . color-theme-twilight)
                                (tool-bar-lines . 0)
-                               (menu-bar-lines . 1)
-                               (background-color . "#141414")
-                               (background-mode . dark)
-                               (border-color . "black")
-                               (cursor-color . "#A7A7A7")
-                               (foreground-color . "#F8F8F8")
-                               (mouse-color . "sienna1"))))
+                               (menu-bar-lines . 1))))
  '(global-hl-line-mode t)
  '(global-linum-mode t)
  '(ns-tool-bar-display-mode (quote both) t)
@@ -49,7 +42,6 @@
  '(default ((t (:inherit nil
                 :stipple nil
                 :background "#141414"
-                :foreground "#CACACA"
                 :inverse-video nil
                 :box nil
                 :strike-through nil
