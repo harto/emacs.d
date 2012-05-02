@@ -10,5 +10,6 @@
 
 (load-file "~/.emacs.d/init.el")
 
+(setq-default line-spacing 1)
 (tabbar-mode nil)
 

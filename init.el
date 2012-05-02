@@ -26,7 +26,6 @@
 (color-theme-solarized-dark)
 (scroll-bar-mode nil)
 
-(setq-default line-spacing 1)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default require-final-newline t)
