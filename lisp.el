@@ -15,6 +15,9 @@
   (when (not (string-match "\\.cljs$" (buffer-name)))
     ad-do-it))
 
+(setq slime-kill-without-query-p t)
+(setq slime-compile-presave? t)
+
 ;;; Elisp
 
 (add-hook 'emacs-lisp-mode-hook
