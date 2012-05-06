@@ -4,10 +4,6 @@
 ;; evaluating this file and print errors in the *Messags* buffer.
 ;; Use this file in place of ~/.emacs (which is loaded as well.)
 
-;; Keep customisations in .emacs.d instead of ~/Library/Preferences
-(setq custom-file "~/.emacs.d/aquamacs/customizations.el")
-(load custom-file)
-
 (load-file "~/.emacs.d/init.el")
 
 (setq-default line-spacing 1)
