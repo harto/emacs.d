@@ -138,8 +138,3 @@
                                            less-css-target-directory)))
                       nil t)))
 
-;; ASP (!)
-
-(autoload 'asp-mode "asp-mode")
-(add-to-list 'auto-mode-alist '("\\.asp$" . asp-mode))
-
