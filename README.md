@@ -1,18 +1,13 @@
-.emacs.d
-========
-
 My Emacs configuration.
 
-Windows
--------
+## Windows
 
-* Include the following in `~/.emacs`:
+Include the following in `~/.emacs`:
 
-        (load (expand-file-name "~/.emacs.d/env/win.el"))
+    (load (expand-file-name "~/.emacs.d/env/win.el"))
 
-Aquamacs
---------
+## Aquamacs
 
-* Link `~/Library/Preferences/Aquamacs Emacs/Preferences.el` to
-  `~/.emacs.d/env/aquamacs.el`.
-  
+Include the following in `~/Library/Preferences/Aquamacs Emacs/Preferences.el`:
+
+    (load-file "~/.emacs.d/env/aquamacs.el")
