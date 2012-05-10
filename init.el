@@ -24,7 +24,9 @@
 (require 'color-theme)
 (require 'color-theme-solarized)
 (color-theme-solarized-dark)
-(scroll-bar-mode nil)
+(menu-bar-mode -1)
+(if (boundp 'scroll-bar-mode)
+    (scroll-bar-mode nil))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -35,27 +37,22 @@
 (put 'scroll-left 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
-;; ido
-(when (boundp 'ido-mode)
-  (ido-mode))
-
 (setq org-startup-indented t)
 
 ;; C-TAB buffer switching
 (load-library "mybuffers")
 (global-set-key [(control tab)] 'mybuffers-switch)
 
-;; FFIP
+;; Find things quickly
+(ido-mode)
 (require 'find-file-in-project)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
 ;; Line numbering
-(when (boundp 'global-linum-mode)
-  (global-linum-mode 1))
+(if (boundp 'global-linum-mode)
+    (global-linum-mode 1))
 
 ;; Other file/mode associations
 (autoload 'markdown-mode "markdown-mode.el")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.pl[sb]$" . sql-mode))
-
-(cd "~")

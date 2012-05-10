@@ -17,7 +17,3 @@
  '(fixed-pitch ((t nil))))
 
 (setq w32-use-w32-font-dialog nil)
-(menu-bar-mode -1)
-
-;; (add-to-list 'default-frame-alist
-;;              '(cursor-color . "#999999"))
