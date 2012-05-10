@@ -6,8 +6,10 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
-(cd "~/.emacs.d/vendor")
-(normal-top-level-add-subdirs-to-load-path)
+(let ((current-directory default-directory))
+  (cd "~/.emacs.d/vendor")
+  (normal-top-level-add-subdirs-to-load-path)
+  (cd current-directory))
 
 ;; ELPA initialisation
 (require 'package)
