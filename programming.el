@@ -142,6 +142,10 @@
 
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 
+;; ## Ruby
+
+(add-to-list 'auto-mode-alist '("\\(\\bRakefile\\|\\.rake\\)$" . ruby-mode))
+
 ;; ## SQL
 
 (add-to-list 'auto-mode-alist '("\\.pl[sb]$" . sql-mode))
