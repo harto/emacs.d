@@ -1,6 +1,6 @@
-;;; Support for various web-related languages
+;; Support for various programming languages
 
-;; HTML
+;; ## HTML
 
 (setq html-helper-new-buffer-template
       '("<!DOCTYPE html>
@@ -16,7 +16,7 @@
 </body>
 </html>"))
 
-;; JavaScript
+;; ## JavaScript
 
 (autoload 'js2-mode "js2-mode")
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -100,11 +100,11 @@
           (lambda ()
             (add-hook 'after-save-hook #'coffee-compile-file nil t)))
 
-;; CSS
+;; ## CSS
 
 (setq css-indent-offset 2)
 
-;; LESS CSS
+;; LESS
 
 (autoload 'less-css-mode "less-css-mode")
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
@@ -138,6 +138,45 @@
                                            less-css-target-directory)))
                       nil t)))
 
-;; PHP
+;; ## PHP
 
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+
+;; ## SQL
+
+(add-to-list 'auto-mode-alist '("\\.pl[sb]$" . sql-mode))
+
+;; ## Lisp
+
+(autoload 'paredit-mode "paredit")
+
+;; Clojure / ClojureScript
+
+(defun cljs-buffer-p ()
+  "Test if current buffer is a ClojureScript buffer."
+  (string-match "\\.cljs$" (buffer-name)))
+
+(require 'clojure-mode)
+(add-to-list 'auto-mode-alist '("\\.cljs?$" . clojure-mode))
+(add-hook 'clojure-mode-hook
+          (lambda ()
+            (paredit-mode +1)
+            (when (not (cljs-buffer-p))
+              (define-key clojure-mode-map (kbd "C-c C-j") 'clojure-jack-in))))
+
+;; ClojureScript doesn't work with SLIME. When we evaluate cljs forms they
+;; should be sent to the inferior-lisp REPL instead.
+(defadvice slime-mode (around cljs-disable-slime)
+  "Activates `slime-mode' iff the current buffer isn't a .cljs file."
+  (when (not (cljs-buffer-p))
+    ad-do-it))
+
+(setq slime-kill-without-query-p t)
+
+;; Elisp
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (when (not (equal (buffer-name) "*scratch*"))
+              (paredit-mode +1))))
+
