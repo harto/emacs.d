@@ -138,3 +138,6 @@
                                            less-css-target-directory)))
                       nil t)))
 
+;; PHP
+
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
