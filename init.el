@@ -50,8 +50,8 @@
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
 
 ;; Line numbering
-(if (boundp 'global-linum-mode)
-    (global-linum-mode 1))
+(line-number-mode 1)
+(column-number-mode 1)
 
 ;; Other file/mode associations
 (autoload 'markdown-mode "markdown-mode.el")
