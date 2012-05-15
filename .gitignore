@@ -1,5 +1,6 @@
 *~
 sqlnet.log
+/local.el
 /*.elc
 /swank
 /vendor/elpa/archives

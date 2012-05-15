@@ -71,3 +71,6 @@
 (autoload 'markdown-mode "markdown-mode.el")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+(let ((local-settings "~/.emacs.d/local.el"))
+  (if (file-readable-p local-settings)
+      (load-file local-settings)))
