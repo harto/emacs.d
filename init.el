@@ -44,6 +44,20 @@
 (load-library "mybuffers")
 (global-set-key [(control tab)] 'mybuffers-switch)
 
+;; Console mouse support
+(when (not (display-graphic-p))
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  ;(defun track-mouse (e))
+  (global-set-key [mouse-4]
+                  '(lambda ()
+                     (interactive)
+                     (scroll-down 1)))
+  (global-set-key [mouse-5]
+                  '(lambda ()
+                     (interactive)
+                     (scroll-up 1))))
+
 ;; Find things quickly
 (ido-mode)
 (require 'find-file-in-project)
