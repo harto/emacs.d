@@ -28,6 +28,10 @@
 (menu-bar-mode -1)
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode nil))
+; Hide vertical buffer separator
+(set-face-foreground 'vertical-border (face-background 'default))
+
+(setq inhibit-startup-message t)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
