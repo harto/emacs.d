@@ -142,6 +142,12 @@
 
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 
+(defun php-mode-settings ()
+  (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
+  (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun))
+
+(add-hook 'php-mode-hook #'php-mode-settings)
+
 ;; ## Ruby
 
 (add-to-list 'auto-mode-alist '("\\(\\bRakefile\\|\\.rake\\)$" . ruby-mode))
