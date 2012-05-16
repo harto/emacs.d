@@ -1,6 +1,4 @@
-;; Aquamacs configuration
-
-(load-file "~/.emacs.d/init.el")
+;; Aquamacs-specific configuration
 
 (setq-default line-spacing 1)
 (setq inhibit-startup-echo-area-message t)
