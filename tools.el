@@ -9,6 +9,9 @@
   (replace-regexp "^[[:space:]]*\"\\|\"[[:space:]]*\\(\\+\\|;\\)[[:space:]]*$"
                   "" nil start end))
 
+(defun string-join (strings sep)
+  (mapconcat #'identity strings sep))
+
 ;; Project utilities
 
 (defun project-directory ()
@@ -35,7 +38,7 @@ called with \\[universal-argument] prefix."
                              "XXX"))
 
 (defun project-todo-pattern ()
-  (format "\\b\\(%s\\)\\b" (mapconcat #'identity project-todo-markers "\\|")))
+  (format "\\b\\(%s\\)\\b" (string-join project-todo-markers "\\|")))
 
 (defun project-todo ()
   "Lists outstanding tasks as listed in the sources of the current project."
