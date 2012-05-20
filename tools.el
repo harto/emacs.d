@@ -13,8 +13,22 @@
 
 (defun project-directory ()
   (let ((root (ffip-project-root)))
-    (when root
-      (directory-file-name root))))
+    (if root (directory-file-name root))))
+
+(defun project-grep (regexp &optional files dir)
+  "Calls `rgrep' at the root of the project, or at the selected directory if
+called with \\[universal-argument] prefix."
+  (interactive
+   (progn
+     (grep-compute-defaults)
+     (let* ((regexp (grep-read-regexp))
+            (files (grep-read-files regexp))
+            (dir (if (equal current-prefix-arg '(4))
+                     (read-directory-name "Base directory: "
+                                          nil default-directory t)
+                   (project-directory))))
+       (list regexp files dir))))
+  (rgrep regexp files dir nil))
 
 (setq project-todo-pattern "\\b(TODO|FIXME|XXX)\\b")
 
