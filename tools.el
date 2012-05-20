@@ -30,14 +30,17 @@ called with \\[universal-argument] prefix."
        (list regexp files dir))))
   (rgrep regexp files dir nil))
 
-(setq project-todo-pattern "\\b(TODO|FIXME|XXX)\\b")
+(setq project-todo-markers '("TODO"
+                             "FIXME"
+                             "XXX"))
+
+(defun project-todo-pattern ()
+  (format "\\b\\(%s\\)\\b" (mapconcat #'identity project-todo-markers "\\|")))
 
 (defun project-todo ()
   "Lists outstanding tasks as listed in the sources of the current project."
   (interactive)
-  (grep-find (format "find %s -type f ! -path '*/.git/*' -exec grep -EHn '%s' {} \\;"
-                     (project-directory)
-                     project-todo-pattern)))
+  (project-grep (project-todo-pattern) "*" (project-directory)))
 
 (defun project-make ()
   (interactive)
