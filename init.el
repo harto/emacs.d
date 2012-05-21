@@ -29,7 +29,8 @@
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode nil))
 ; Hide vertical buffer separator
-(set-face-foreground 'vertical-border (face-background 'default))
+(set-face-background 'vertical-border "#000")
+(set-face-foreground 'vertical-border "#000")
 
 (setq inhibit-startup-message t)
 
