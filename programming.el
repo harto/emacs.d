@@ -109,35 +109,6 @@
 (autoload 'less-css-mode "less-css-mode")
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
 
-(setq-default less-css-target-directory nil)
-
-(defun less-css-target-filename (source-file &optional target-directory)
-  "Calculates the target (CSS) filename for a given source (LESS) path. If the
-   given target-directory is nil, the directory of the source file is used."  
-  (expand-file-name
-   (replace-regexp-in-string "\.less$" ".css" (file-name-nondirectory source-file))
-   (file-name-as-directory (or target-directory (file-name-directory source-file)))))
-
-(defun less-css-compile (source-file target-file)
-  "Compiles a LESS file to the target CSS file."
-  (when (file-exists-p target-file)
-    (delete-file target-file))
-  (with-temp-buffer
-    (call-process "lessc" nil (current-buffer) nil (file-truename source-file))
-    (write-file (file-truename target-file)))
-  (minibuffer-message "Compiled %s" target-file))
-
-(add-hook 'less-css-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook
-                      (lambda ()
-                        "Compiles current LESS file into a CSS file."
-                        (less-css-compile buffer-file-name
-                                          (less-css-target-filename
-                                           buffer-file-name
-                                           less-css-target-directory)))
-                      nil t)))
-
 ;; ## PHP
 
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
