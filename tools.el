@@ -52,9 +52,6 @@ called with \\[universal-argument] prefix."
         (shell-command (format "cd %s && make" root))
       (message "No Makefile found"))))
 
-(global-set-key (kbd "C-c t") 'project-todo)
-(global-set-key (kbd "C-c m") 'project-make)
-
 ;; Allow hooks to be defined in .dir-locals.el
 
 (defun project-apply-directory-hooks ()
