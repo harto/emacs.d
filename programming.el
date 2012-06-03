@@ -26,67 +26,16 @@
 (setq js2-consistent-level-indent-inner-bracket-p t)
 (setq js2-use-ast-for-indentation-p t)
 
-(defun js2-jslint ()
-  (interactive)
-  (let ((fname (buffer-file-name)))
-    (when fname
-      (shell-command (format "jslint %s" fname)))))
-
-(defvar js2-jslint-imports
-  "/\\*global \\([^*]+\\)\\*/")
-
-(defun js2-find-jslint-imports ()
-  "Returns a list of JSLint imports as declared in a /*global ... */ block."
-  (save-excursion
-    (goto-char (point-min))
-    (when (re-search-forward js2-jslint-imports nil t)
-      (delete-dups (mapcar #'trim (split-string (match-string-no-properties 1) ","))))))
-
-(defun js2-declare-jslint-imports ()
-  "Use JSLint /*global ... */ declarations to define js2-additional-externs"
-  (setq js2-additional-externs (append (js2-find-jslint-imports) js2-additional-externs)))
-
-(defun js2-unreferenced-import-p (import)
-  "Returns true if the given symbol is unreferenced beyond the JSLint globals
-   declaration. Note: imports may be of the form 'symbol:true' to indicate that
-   reassignment of the variable is allowed."
-  (setq symbol (car (split-string import ":")))
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward js2-jslint-imports)
-    (not (re-search-forward (format "\\b%s\\b" symbol) nil t))))
-
-(defun js2-organise-jslint-imports ()
-  "Make /*global ...*/ declarations look nice."
-  (interactive)
-  (when-let (imports (js2-find-jslint-imports))
-    ;; Remove unused imports
-    (setq imports (remove-if #'js2-unreferenced-import-p imports))
-    ;; Sort output (XXX: would be nice to have uppercased stuff appear first)
-    (setq imports (sort imports 'string<))
-    (save-excursion
-      ;; Replace existing import list
-      (goto-char (point-min))
-      (re-search-forward js2-jslint-imports)
-      (replace-match "/*global ")
-      (dolist (import imports)
-        (when (>= (+ (current-column) (length import) 1) 80)
-          (delete-char -1)              ;delete trailing " "
-          (insert "\n  "))
-        (insert import ", "))
-      (delete-char -2)                  ;delete trailing ", "
-      (insert " */"))))
-
 (add-hook 'js2-mode-hook
           (lambda ()
+            (load-library "jslint")
             ;; Declare imports on load and save
             (js2-declare-jslint-imports)
             (add-hook 'after-save-hook
                       'js2-declare-jslint-imports
                       nil t)
-            ;; FIXME: key mappings
-            (define-key js2-mode-map (kbd "C-c l") 'js2-jslint)
-            (define-key js2-mode-map (kbd "C-c o") 'js2-organise-jslint-imports)))
+            (define-key js2-mode-map (kbd "C-c l") 'jslint-buffer-file)
+            (define-key js2-mode-map (kbd "C-c o") 'jslint-organise-imports)))
 
 ;; CoffeeScript
 
