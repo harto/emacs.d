@@ -32,6 +32,7 @@
 (set-face-background 'vertical-border "#000")
 (set-face-foreground 'vertical-border "#000")
 
+(setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 
 (setq-default indent-tabs-mode nil)
