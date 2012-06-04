@@ -86,7 +86,6 @@
   "Test if current buffer is a ClojureScript buffer."
   (string-match "\\.cljs$" (buffer-name)))
 
-(require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.cljs?$" . clojure-mode))
 (add-hook 'clojure-mode-hook
           (lambda ()
