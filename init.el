@@ -14,7 +14,7 @@
 ;; ELPA initialisation
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(setq package-user-dir (expand-file-name (convert-standard-filename "~/.emacs.d/vendor/elpa")))
+(setq package-user-dir (expand-file-name "~/.emacs.d/vendor/elpa"))
 (package-initialize)
 
 ;; Language/environment-specific configs
@@ -28,9 +28,6 @@
 (menu-bar-mode -1)
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode nil))
-; Hide vertical buffer separator
-(set-face-background 'vertical-border "#000")
-(set-face-foreground 'vertical-border "#000")
 
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
@@ -50,8 +47,9 @@
 (load-library "mybuffers")
 (global-set-key [(control tab)] 'mybuffers-switch)
 
-;; Console mouse support
-(when (not (display-graphic-p))
+;; Console-specific stuff
+(unless (display-graphic-p)
+  ;; Basic mouse support
   (require 'mouse)
   (xterm-mouse-mode t)
   ;(defun track-mouse (e))
@@ -62,12 +60,17 @@
   (global-set-key [mouse-5]
                   '(lambda ()
                      (interactive)
-                     (scroll-up 1))))
+                     (scroll-up 1)))
+  
+  ; Hide vertical buffer separator
+  (set-face-background 'vertical-border "#000")
+  (set-face-foreground 'vertical-border "#000"))
 
 ;; Find things quickly
-(ido-mode)
 (require 'find-file-in-project)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+
+(ido-mode)
 ;; Layout ido results vertically, rather than horizontally
 (setq ido-decorations (list "\n-> " ""
                             "\n   "
