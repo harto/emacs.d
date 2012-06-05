@@ -68,6 +68,16 @@
 (ido-mode)
 (require 'find-file-in-project)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+;; Layout ido results vertically, rather than horizontally
+(setq ido-decorations (list "\n-> " ""
+                            "\n   "
+                            "\n   ..."
+                            "[" "]"
+                            " [No match]"
+                            " [Matched]"
+                            " [Not readable]"
+                            " [Too big]"
+                            " [Confirm]"))
 
 ;; Line numbering
 (line-number-mode 1)
