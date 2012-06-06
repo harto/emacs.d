@@ -1,5 +1,11 @@
 My Emacs configuration.
 
+## Vanilla Emacsen
+
+Include the following in `~/.emacs` with site-specific settings:
+
+    (load-file "~/.emacs.d/init.el")
+
 ## Windows
 
 Include the following in `~/.emacs`:
