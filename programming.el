@@ -64,7 +64,10 @@
 
 (defun php-mode-settings ()
   (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
-  (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun))
+  (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
+  (set (make-local-variable 'comment-start) "//")
+  (set (make-local-variable 'comment-end) "")
+  (set (make-local-variable 'comment-style) 'indent))
 
 (add-hook 'php-mode-hook #'php-mode-settings)
 
