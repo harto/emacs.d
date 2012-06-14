@@ -7,3 +7,4 @@ sqlnet.log
 /vendor/elpa/archive-contents
 /vendor/elpa/builtin-packages
 /tramp
+/url
