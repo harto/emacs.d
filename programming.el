@@ -26,15 +26,80 @@
 (setq js2-consistent-level-indent-inner-bracket-p t)
 (setq js2-use-ast-for-indentation-p t)
 
+;; /*global ...*/ organisation
+;; 
+;; Use `jslint-organise-imports' to remove unused imports and arrange imports
+;; nicely. Use `js2-declare-jslint-imports' to add imports to
+;; `js2-additional-externs', avoiding `js2-mode' warnings.
+
+(defvar jslint-imports-pattern "/\\*global \\([^*]+\\)\\*/"
+  "Regular expression matching /*global ...*/ declarations.")
+
+(defvar jslint-global-max-column 80
+  "Column at which to wrap /*global ...*/ declarations.")
+
+(defun jslint-import-declarations ()
+  "Returns a list of import declarations within the /*global ...*/ block of the
+   current buffer."
+  (save-excursion
+    (goto-char (point-min))
+    (if (re-search-forward jslint-imports-pattern nil t)
+        (let ((body (match-string-no-properties 1)))
+          (delete-dups (mapcar #'string-trim (split-string body ",")))))))
+
+(defun jslint-symbol (import-declaration)
+  "Returns the name of the symbol in an import declaration. Imports may be of
+   the form `<symbol>:true`, indicating that variable reassignment is allowed."
+  (car (split-string import-declaration ":")))
+
+(defun jslint-unreferenced-symbol-p (symbol)
+  "Returns true if a symbol is unreferenced beyond the JSLint /*global ...*/
+   declaration."
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward jslint-imports-pattern)
+    (not (re-search-forward (format "\\b%s\\b" symbol) nil t))))
+
+(defun jslint-organise-imports ()
+  "Makes existing /*global ...*/ block look nice."
+  (interactive)
+  (let ((imports (jslint-import-declarations)))
+    (when imports
+      ;; Remove unused imports
+      (setq imports (remove-if (lambda (import-declaration)
+                                 (jslint-unreferenced-symbol-p
+                                  (jslint-symbol import-declaration)))
+                               imports))
+      ;; TODO: would be nice to have uppercased stuff appear first
+      (setq imports (sort imports 'string<))
+      (save-excursion
+        ;; Replace existing import list
+        (goto-char (point-min))
+        (re-search-forward jslint-imports-pattern)
+        (replace-match "/*global ")
+        (dolist (import imports)
+          (when (>= (+ (current-column) (length import) 1)
+                    jslint-global-max-column)
+            (delete-char -1)              ;delete trailing " "
+            (insert "\n  "))
+          (insert import ", "))
+        (delete-char -2)                  ;delete trailing ", "
+        (insert " */")))))
+
+(defun js2-declare-jslint-imports ()
+  "Use JSLint /*global ... */ declarations to define `js2-additional-externs'."
+  (setq js2-additional-externs
+        (delete-dups (append (mapcar #'jslint-symbol
+                                     (jslint-import-declarations))
+                             js2-additional-externs))))
+
 (add-hook 'js2-mode-hook
           (lambda ()
-            (load-library "jslint")
-            ;; Declare imports on load and save
+            ;; Update js2-additional-externs on load and save
             (js2-declare-jslint-imports)
             (add-hook 'after-save-hook
                       'js2-declare-jslint-imports
                       nil t)
-            (define-key js2-mode-map (kbd "C-c l") 'jslint-buffer-file)
             (define-key js2-mode-map (kbd "C-c o") 'jslint-organise-imports)))
 
 ;; CoffeeScript
