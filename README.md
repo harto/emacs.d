@@ -1,19 +1,11 @@
-My Emacs configuration.
-
-## Vanilla Emacsen
-
-Include the following in `~/.emacs` with site-specific settings:
+**Vanilla Emacsen**: Add to `~/.emacs` with any site-specific settings:
 
     (load-file "~/.emacs.d/init.el")
 
-## Windows
+**Windows**: Add to `~/.emacs`:
 
-Include the following in `~/.emacs`:
+    (load-file "~/.emacs.d/env/win.el"))
 
-    (load (expand-file-name "~/.emacs.d/env/win.el"))
-
-## Aquamacs
-
-Include the following in `~/Library/Preferences/Aquamacs Emacs/Preferences.el`:
+**Aquamacs**: Add to `~/Library/Preferences/Aquamacs Emacs/Preferences.el`:
 
     (load-file "~/.emacs.d/env/aquamacs.el")
