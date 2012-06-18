@@ -43,10 +43,6 @@
 
 (setq org-startup-indented t)
 
-;; C-TAB buffer switching
-(load-library "mybuffers")
-(global-set-key [(control tab)] 'mybuffers-switch)
-
 ;; Console-specific stuff
 (unless (display-graphic-p)
   ;; Basic mouse support
