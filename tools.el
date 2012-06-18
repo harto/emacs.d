@@ -64,3 +64,21 @@ called with \\[universal-argument] prefix."
                 nil t))))
 
 (add-hook 'hack-local-variables-hook #'project-apply-directory-hooks)
+
+;; Make FFIP more useful for projects with a large number of files
+
+(defvar ffip-project-files-cache nil
+  "A plist mapping project directories to the results of `ffip-project-files'.")
+
+(defun ffip-invalidate-project-files-cache ()
+  "Resets ffip-project-files-cache for the current project."
+  (interactive)
+  (setq ffip-project-files-cache
+        (assq-delete-all (ffip-project-root)
+                         ffip-project-files-cache)))
+
+(defadvice ffip-project-files (around ffip-cache-project-files)
+  (let ((project-root (ffip-project-root)))
+    (unless (assoc project-root ffip-project-files-cache)
+      (add-to-list 'ffip-project-files-cache (cons project-root ad-do-it)))
+    (setq ad-return-value (cdr (assoc project-root ffip-project-files-cache)))))
