@@ -68,10 +68,10 @@ called with \\[universal-argument] prefix."
 ;; Make FFIP more useful for projects with a large number of files
 
 (defvar ffip-project-files-cache nil
-  "A plist mapping project directories to the results of `ffip-project-files'.")
+  "An alist that maps project directories to the results of `ffip-project-files'.")
 
 (defun ffip-invalidate-project-files-cache ()
-  "Resets ffip-project-files-cache for the current project."
+  "Resets `ffip-project-files-cache' for the current project."
   (interactive)
   (setq ffip-project-files-cache
         (assq-delete-all (ffip-project-root)
