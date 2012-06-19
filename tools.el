@@ -74,8 +74,9 @@ called with \\[universal-argument] prefix."
   "Resets `ffip-project-files-cache' for the current project."
   (interactive)
   (setq ffip-project-files-cache
-        (assq-delete-all (ffip-project-root)
-                         ffip-project-files-cache)))
+        (remove* (ffip-project-root)
+                 ffip-project-files-cache
+                 :test 'equal :key 'car)))
 
 (defadvice ffip-project-files (around ffip-cache-project-files)
   (let ((project-root (ffip-project-root)))
