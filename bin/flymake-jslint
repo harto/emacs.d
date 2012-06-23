@@ -1,4 +1,4 @@
-#!/bin/bash
+#/usr/bin/env bash
 
 # Transforms the output of node's `jslint` command into something that
 # can be consumed by flymake-jslint, i.e.
