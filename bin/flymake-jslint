@@ -9,6 +9,16 @@
 #
 #   $ npm install jslint
 
+# `jslint` output looks like this:
+#
+#   $ jslint foo.js 
+#
+#   foo.js
+#   #1 Missing 'use strict' statement.
+#      var glob = this; // Line 5, Pos 3
+#   #2 Expected 'var' at column 5, not column 3.
+#      var glob = this; // Line 5, Pos 3
+
 jslint $@ | sed -nE '/^ *#[0-9]+ / {
   N
   s|^ *#[0-9]+ (.+)\n.+// Line ([0-9]+), Pos ([0-9]+)|\2:\3:\1|
