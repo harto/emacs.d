@@ -63,8 +63,8 @@
   (set-face-foreground 'vertical-border "#000"))
 
 ;; Find things quickly
-(global-set-key (kbd "C-c C-f") 'ftf-find-file)
-(global-set-key (kbd "C-c C-/") 'rgrep)
+(global-set-key (kbd "C-c f") 'ftf-find-file)
+(global-set-key (kbd "C-c g") 'rgrep)
 
 (ido-mode)
 ;; Layout ido results vertically, rather than horizontally
