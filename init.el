@@ -25,7 +25,6 @@
 (require 'color-theme)
 (require 'color-theme-solarized)
 (color-theme-solarized-dark)
-(menu-bar-mode -1)
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode nil))
 
@@ -57,10 +56,12 @@
                   '(lambda ()
                      (interactive)
                      (scroll-up 1)))
-  
-  ; Hide vertical buffer separator
+  ;; Hide vertical buffer separator
   (set-face-background 'vertical-border "#000")
-  (set-face-foreground 'vertical-border "#000"))
+  (set-face-foreground 'vertical-border "#000")
+  ;; Hide menu bar
+  (menu-bar-mode -1))
+
 
 ;; Find things quickly
 (global-set-key (kbd "C-c f") 'ftf-find-file)
