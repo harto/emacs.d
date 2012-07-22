@@ -78,6 +78,8 @@
                             " [Not readable]"
                             " [Too big]"
                             " [Confirm]"))
+;; Effectively disable auto-merge
+(setq ido-auto-merge-delay-time 999)
 
 ;; Line numbering
 (line-number-mode 1)
