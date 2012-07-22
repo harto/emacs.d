@@ -154,8 +154,8 @@
 
 ;; LESS
 
-(autoload 'less-css-mode "less-css-mode")
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
+(setq less-css-lessc-options '("--no-color"))
 
 ;; ## PHP
 
