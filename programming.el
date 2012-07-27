@@ -16,6 +16,10 @@
 </body>
 </html>"))
 
+;; Jinja2 templates
+
+(add-to-list 'auto-mode-alist '("\\.jinja2$" . html-mode))
+
 ;; ## JavaScript
 
 (autoload 'js2-mode "js2-mode")
