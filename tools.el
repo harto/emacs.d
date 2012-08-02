@@ -18,33 +18,6 @@
   (let ((root (ffip-project-root)))
     (if root (directory-file-name root))))
 
-(defun project-grep (regexp &optional files dir)
-  "Calls `rgrep' at the root of the project, or at the selected directory if
-called with \\[universal-argument] prefix."
-  (interactive
-   (progn
-     (grep-compute-defaults)
-     (let* ((regexp (grep-read-regexp))
-            (files (grep-read-files regexp))
-            (dir (if (equal current-prefix-arg '(4))
-                     (read-directory-name "Base directory: "
-                                          nil default-directory t)
-                   (project-directory))))
-       (list regexp files dir))))
-  (rgrep regexp files dir nil))
-
-(setq project-todo-markers '("TODO"
-                             "FIXME"
-                             "XXX"))
-
-(defun project-todo-pattern ()
-  (format "\\b\\(%s\\)\\b" (string-join project-todo-markers "\\|")))
-
-(defun project-todo ()
-  "Lists outstanding tasks as listed in the sources of the current project."
-  (interactive)
-  (project-grep (project-todo-pattern) "*" (project-directory)))
-
 (defun project-make ()
   (interactive)
   (let ((root (locate-dominating-file (buffer-file-name) "Makefile")))
