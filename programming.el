@@ -163,6 +163,12 @@
 
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 
+(defadvice c-electric-slash (before php-close-phpdoc-comment)
+  (when (and (equal major-mode 'php-mode)
+             (eolp)
+             (looking-back "^[[:space:]]+\\*[[:space:]]+"))
+    (delete-horizontal-space t)))
+
 (defun php-mode-settings ()
   (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
   (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
