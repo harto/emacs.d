@@ -101,7 +101,9 @@
 
 (defvar flymake-jslint-cmd "~/.emacs.d/bin/flymake-jslint"
   "JSLint command used by flymake.")
-(defvar flymake-jslint-cmd-opts '("--vars" "--maxerr 100")
+(defvar flymake-jslint-cmd-opts '("--vars=true"
+                                  "--maxerr=100"
+                                  "--regexp=true")
   "Options passed to `flymake-jslint-cmd'.")
 (defvar flymake-jslint-err-patterns '(("^\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)$" nil 1 2 3))
   "Regexps matching `flymake-jslint-cmd' error messages.")
