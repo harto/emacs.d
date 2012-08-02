@@ -1,5 +1,7 @@
 ;;; General-purpose Elisp functions
 
+;; ### String utils
+
 (defun string-trim (s)
   (replace-regexp-in-string "^[[:blank:]\n]+\\|[[:blank:]\n]+$" "" s))
 
@@ -12,7 +14,13 @@
 (defun string-join (strings sep)
   (mapconcat #'identity strings sep))
 
-;; Project utilities
+(defun string-drop-prefix (s prefix)
+  "Returns S without leading PREFIX."
+  (if (string-prefix-p prefix s)
+      (substring s (length prefix))
+    s))
+
+;; ### Project utilities
 
 (defun project-directory ()
   (let ((root (ffip-project-root)))
