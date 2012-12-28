@@ -194,9 +194,10 @@
 
 (defun cljs-buffer-p ()
   "Test if current buffer is a ClojureScript buffer."
-  (string-match "\\.cljs$" (buffer-name)))
+  (equal 'clojurescript-mode major-mode))
 
-(add-to-list 'auto-mode-alist '("\\.cljs?$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
+(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 (add-hook 'clojure-mode-hook
           (lambda ()
             (paredit-mode +1)
