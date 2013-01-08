@@ -38,7 +38,6 @@
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
-(put 'set-goal-column 'disabled nil)
 
 (setq org-startup-indented t)
 
