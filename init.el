@@ -61,6 +61,11 @@
   ;; Hide menu bar
   (menu-bar-mode -1))
 
+;; Backwards window navigation
+(global-set-key (kbd "C-x p")
+                (lambda ()
+                  (interactive)
+                  (other-window -1)))
 
 ;; Find things quickly
 (global-set-key (kbd "C-c f") 'ftf-find-file)
