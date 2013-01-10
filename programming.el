@@ -138,18 +138,6 @@
             ;; inline linting
             (flymake-jslint-load)))
 
-;; CoffeeScript
-
-(autoload 'coffee-mode "coffee-mode")
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-
-(setq coffee-tab-width 2)
-(setq coffee-args-compile '("-c" "--bare"))
-
-(add-hook 'coffee-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook #'coffee-compile-file nil t)))
-
 ;; ## CSS
 
 (setq css-indent-offset 2)
