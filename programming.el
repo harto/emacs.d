@@ -190,7 +190,7 @@
           (lambda ()
             (paredit-mode +1)
             (unless (cljs-buffer-p)
-              (define-key clojure-mode-map (kbd "C-c C-j") 'clojure-jack-in))))
+              (define-key clojure-mode-map (kbd "C-c C-j") 'nrepl-jack-in))))
 
 ;; ClojureScript doesn't work with SLIME. When we evaluate cljs forms they
 ;; should be sent to the inferior-lisp REPL instead.
