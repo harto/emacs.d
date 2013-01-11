@@ -184,8 +184,9 @@
   "Test if current buffer is a ClojureScript buffer."
   (equal 'clojurescript-mode major-mode))
 
-(add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljx$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
 (add-hook 'clojure-mode-hook
           (lambda ()
             (paredit-mode +1)
