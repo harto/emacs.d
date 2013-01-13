@@ -195,12 +195,15 @@
 
 ;; ClojureScript doesn't work with SLIME. When we evaluate cljs forms they
 ;; should be sent to the inferior-lisp REPL instead.
+;; FIXME: is this relevant anymore?
 (defadvice slime-mode (around cljs-disable-slime)
   "Activates `slime-mode' iff the current buffer isn't a .cljs file."
   (unless (cljs-buffer-p)
     ad-do-it))
 
-(setq slime-kill-without-query-p t)
+;; nrepl customisations
+(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+(add-hook 'nrepl-mode-hook 'paredit-mode)
 
 ;; Elisp
 
