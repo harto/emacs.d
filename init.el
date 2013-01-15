@@ -26,7 +26,9 @@
 (require 'color-theme-solarized)
 (color-theme-solarized-dark)
 (if (boundp 'scroll-bar-mode)
-    (scroll-bar-mode nil))
+    (scroll-bar-mode -1))
+(if (boundp 'tool-bar-mode)
+    (tool-bar-mode -1))
 
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
