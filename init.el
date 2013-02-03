@@ -91,6 +91,11 @@
 (line-number-mode 1)
 (column-number-mode 1)
 
+;; Auto-balance brackets, parens etc
+;; This is superceded by paredit-mode when editing Lisp code
+(if (boundp 'electric-pair-mode)
+    (electric-pair-mode))
+
 ;; Other file/mode associations
 (autoload 'markdown-mode "markdown-mode.el")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
