@@ -5,39 +5,43 @@
 
 ;;;### (autoloads (nrepl nrepl-jack-in nrepl-disable-on-existing-clojure-buffers
 ;;;;;;  nrepl-enable-on-existing-clojure-buffers nrepl-interaction-mode)
-;;;;;;  "nrepl" "nrepl.el" (20717 23175))
+;;;;;;  "nrepl" "nrepl.el" (20750 21745))
 ;;; Generated autoloads from nrepl.el
 
 (autoload 'nrepl-interaction-mode "nrepl" "\
 Minor mode for nrepl interaction from a Clojure buffer.
 
+\\{nrepl-interaction-mode-map}
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'nrepl-enable-on-existing-clojure-buffers "nrepl" "\
-Not documented
+Enable `nrepl-interaction-mode' on existing Clojure buffers.
 
 \(fn)" t nil)
 
 (autoload 'nrepl-disable-on-existing-clojure-buffers "nrepl" "\
-Not documented
+Disable `nrepl-interaction-mode' on existing Clojure buffers.
 
 \(fn)" t nil)
 
 (autoload 'nrepl-jack-in "nrepl" "\
-Not documented
+Start a nREPL server for the current project and connect to it.
+If PROMPT-PROJECT is t, then prompt for the project for which to
+start the server.
 
 \(fn &optional PROMPT-PROJECT)" t nil)
 
 (add-hook 'nrepl-connected-hook 'nrepl-enable-on-existing-clojure-buffers)
 
 (autoload 'nrepl "nrepl" "\
-Not documented
+
 
 \(fn HOST PORT)" t nil)
 
 ;;;***
 
-;;;### (autoloads nil nil ("nrepl-pkg.el") (20717 23175 245574))
+;;;### (autoloads nil nil ("nrepl-pkg.el") (20750 21746 214189))
 
 ;;;***
 
