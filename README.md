@@ -1,3 +1,5 @@
-**Vanilla Emacsen**: Add to `~/.emacs` with any site-specific settings:
+## Usage
 
-    (load-file "~/.emacs.d/init.el")
+ 1. Install to ~/.emacs.d
+ 2. Add `(load-file "~/.emacs.d/init.el")` to `~/.emacs`, along with any
+    site-specific settings.
