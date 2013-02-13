@@ -97,36 +97,6 @@
                                      (jslint-import-declarations))
                              js2-additional-externs))))
 
-;; flymake JSLint integration
-
-(defvar flymake-jslint-cmd "~/.emacs.d/bin/flymake-jslint"
-  "JSLint command used by flymake.")
-(defvar flymake-jslint-cmd-opts '("--vars=true"
-                                  "--maxerr=100"
-                                  "--regexp=true")
-  "Options passed to `flymake-jslint-cmd'.")
-(defvar flymake-jslint-err-patterns '(("^\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)$" nil 1 2 3))
-  "Regexps matching `flymake-jslint-cmd' error messages.")
-
-(defun flymake-jslint-init ()
-  "Returns the linting command used by flymake."
-  (let ((tempfile (file-relative-name (flymake-init-create-temp-buffer-copy
-                                       'flymake-create-temp-inplace)
-                                      (file-name-directory buffer-file-name))))
-    (list flymake-jslint-cmd (append flymake-jslint-cmd-opts (list tempfile)))))
-
-(defun flymake-jslint-load ()
-  (require 'flymake)
-  (require 'flymake-cursor)
-  (set (make-local-variable 'flymake-err-line-patterns)
-       flymake-jslint-err-patterns)
-  (set (make-local-variable 'flymake-allowed-file-name-masks)
-       '(("\\.js$" flymake-jslint-init)))
-  (set (make-local-variable 'flymake-cursor-error-display-delay) 0.5)
-  (custom-set-faces '(flymake-errline ((((class color)) (:underline "yellow")))))
-  (flymake-mode 1)
-  (flymake-cursor-mode 1))
-
 (add-hook 'js2-mode-hook
           (lambda ()
             ;; Update js2-additional-externs on load and save
@@ -136,7 +106,12 @@
                       nil t)
             (define-key js2-mode-map (kbd "C-c o") 'jslint-organise-imports)
             ;; inline linting
-            (flymake-jslint-load)))
+            ;; TODO: can these be autoloaded?
+            (require 'flymake)
+            (require 'flymake-cursor)
+            (require 'flymake-jshint)
+            (flymake-mode)
+            ))
 
 ;; ## CSS
 
