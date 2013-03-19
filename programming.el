@@ -31,7 +31,7 @@
 (setq js2-use-ast-for-indentation-p t)
 
 ;; /*global ...*/ organisation
-;; 
+;;
 ;; Use `jslint-organise-imports' to remove unused imports and arrange imports
 ;; nicely. Use `js2-declare-jslint-imports' to add imports to
 ;; `js2-additional-externs', avoiding `js2-mode' warnings.
@@ -137,13 +137,15 @@
   (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
   (set (make-local-variable 'comment-start) "//")
   (set (make-local-variable 'comment-end) "")
-  (set (make-local-variable 'comment-style) 'indent))
+  (set (make-local-variable 'comment-style) 'indent)
+  (fci-mode))
 
 (add-hook 'php-mode-hook #'php-mode-settings)
 
 ;; ## Ruby
 
 (add-to-list 'auto-mode-alist '("\\(\\bRakefile\\|\\.rake\\)$" . ruby-mode))
+(add-hook 'ruby-mode-hook #'fci-mode)
 
 ;; ## SQL
 
@@ -186,4 +188,3 @@
           (lambda ()
             (unless (equal (buffer-name) "*scratch*")
               (paredit-mode +1))))
-
