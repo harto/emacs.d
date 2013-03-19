@@ -32,6 +32,12 @@
 (if (boundp 'tool-bar-mode)
     (tool-bar-mode -1))
 
+;; Line limit indicator
+(setq-default fill-column 80)
+(when (display-graphic-p)
+  (require 'fill-column-indicator)
+  (setq fci-rule-color "#073642"))
+
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 
