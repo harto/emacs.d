@@ -144,7 +144,10 @@
 
 ;; ## Ruby
 
-(add-to-list 'auto-mode-alist '("\\(\\bRakefile\\|\\.rake\\)$" . ruby-mode))
+(dolist (pattern '("\\bRakefile$"
+                   "\\.rake$"
+                   "\\bGemfile$"))
+  (add-to-list 'auto-mode-alist `(,pattern . ruby-mode)))
 (add-hook 'ruby-mode-hook #'fci-mode)
 
 ;; ## SQL
