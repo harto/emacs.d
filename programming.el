@@ -122,31 +122,17 @@
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
 (setq less-css-lessc-options '("--no-color"))
 
-;; ## PHP
+;; SASS
 
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.scss$". sass-mode))
 
-(defadvice c-electric-slash (before php-close-phpdoc-comment)
-  (when (and (equal major-mode 'php-mode)
-             (eolp)
-             (looking-back "^[[:space:]]+\\*[[:space:]]+"))
-    (delete-horizontal-space t)))
-
-(defun php-mode-settings ()
-  (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
-  (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
-  (set (make-local-variable 'comment-start) "//")
-  (set (make-local-variable 'comment-end) "")
-  (set (make-local-variable 'comment-style) 'indent)
-  (fci-mode))
-
-(add-hook 'php-mode-hook #'php-mode-settings)
 
 ;; ## Ruby
 
 (dolist (pattern '("\\bRakefile$"
                    "\\.rake$"
-                   "\\bGemfile$"))
+                   "\\bGemfile$"
+                   "\\bCapfile$"))
   (add-to-list 'auto-mode-alist `(,pattern . ruby-mode)))
 (add-hook 'ruby-mode-hook #'fci-mode)
 
