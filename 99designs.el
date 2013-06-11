@@ -5,11 +5,6 @@
 (defun 99-init-key-bindings ()
   (define-key php-mode-map (kbd "C-c t") '99-vm-run-test-file))
 
-(99-update-directory-class '99-contests-project
-                           '((nil . ((tab-width . 2)
-                                     (c-basic-offset . 2)))))
-
-
 ;; ## PHP
 
 ;; TODO: insert newline before and after opening '{'
