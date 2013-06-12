@@ -7,3 +7,6 @@
 [submodule "vendor/php-reference"]
 	path = vendor/php-reference
 	url = git@github.com:harto/php-reference.el.git
+[submodule "vendor/99-elisp"]
+	path = vendor/99-elisp
+	url = git@github.com:99designs/99-elisp.git

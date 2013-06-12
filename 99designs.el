@@ -1,6 +1,6 @@
 ;; 99designs configuration
-;; Note: this file isn't loaded by default.
-;; This file depends on https://github.com/99designs/99-elisp
+
+(load-library "99")
 
 (defun 99-init-key-bindings ()
   (define-key php-mode-map (kbd "C-c t") '99-vm-run-test-file))
