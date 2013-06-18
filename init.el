@@ -119,5 +119,10 @@
 ;; For command-line commit messages
 (add-to-list 'auto-mode-alist '("\\bCOMMIT_EDITMSG$" . diff-mode))
 
+;; Flymake config
+;; Show flymake messages in minibuffer
+(eval-after-load "flymake"
+  '(require 'flymake-cursor))
+
 ;; Work
 (load-library "99designs")

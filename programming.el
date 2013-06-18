@@ -106,12 +106,8 @@
                       nil t)
             (define-key js2-mode-map (kbd "C-c o") 'jslint-organise-imports)
             ;; inline linting
-            ;; TODO: can these be autoloaded?
-            (require 'flymake)
-            (require 'flymake-cursor)
             (require 'flymake-jshint)
-            (flymake-mode)
-            ))
+            (flymake-mode)))
 
 ;; ## CSS
 

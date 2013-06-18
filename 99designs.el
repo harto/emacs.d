@@ -30,6 +30,8 @@
   (c-set-style "99designs")
   (require 'php-reference)
   (setq php-reference-cmd-opts '("--ascii"))
+  (99-use-project-phpcs-config)
+  ;; TODO: auto-enable fci-mode for all modes
   (fci-mode)
   (99-init-key-bindings)
   (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
