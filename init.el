@@ -17,6 +17,10 @@
 (setq package-user-dir (expand-file-name "~/.emacs.d/vendor/elpa"))
 (package-initialize)
 
+;; Store customizations in a consistent location
+(setq custom-file "~/.emacs-custom.el")
+(load custom-file)
+
 ;; Language/environment-specific configs
 (load-library "tools")
 (load-library "programming")
