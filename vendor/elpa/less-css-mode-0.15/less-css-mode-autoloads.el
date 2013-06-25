@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads (flymake-less-css-init less-css-mode less-css-compile)
-;;;;;;  "less-css-mode" "less-css-mode.el" (20750 21755))
+;;;### (autoloads (less-css-mode less-css-compile) "less-css-mode"
+;;;;;;  "less-css-mode.el" (20936 55874))
 ;;; Generated autoloads from less-css-mode.el
 
 (autoload 'less-css-compile "less-css-mode" "\
@@ -21,14 +21,9 @@ Special commands:
 
 (add-to-list 'auto-mode-alist '("\\.less" . less-css-mode))
 
-(autoload 'flymake-less-css-init "less-css-mode" "\
-Flymake support for LESS files
-
-\(fn)" nil nil)
-
 ;;;***
 
-;;;### (autoloads nil nil ("less-css-mode-pkg.el") (20750 21755 564545))
+;;;### (autoloads nil nil ("less-css-mode-pkg.el") (20936 55874 968709))
 
 ;;;***
 
