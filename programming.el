@@ -127,7 +127,6 @@
                    "\\bGemfile$"
                    "\\bCapfile$"))
   (add-to-list 'auto-mode-alist `(,pattern . ruby-mode)))
-(add-hook 'ruby-mode-hook #'fci-mode)
 
 ;; ## SQL
 

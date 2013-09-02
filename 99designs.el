@@ -32,8 +32,6 @@
   (setq php-reference-cmd-opts '("--cache=~/.php-reference/cache"
                                  "--ascii"))
   (99-use-project-phpcs-config)
-  ;; TODO: auto-enable fci-mode for all modes
-  (fci-mode)
   (99-init-key-bindings)
   (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
   (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
