@@ -29,7 +29,8 @@
   (set (make-local-variable 'comment-style) 'indent)
   (c-set-style "99designs")
   (require 'php-reference)
-  (setq php-reference-cmd-opts '("--ascii"))
+  (setq php-reference-cmd-opts '("--cache=~/.php-reference/cache"
+                                 "--ascii"))
   (99-use-project-phpcs-config)
   ;; TODO: auto-enable fci-mode for all modes
   (fci-mode)
