@@ -16,9 +16,10 @@
 </body>
 </html>"))
 
-;; Jinja2 templates
+;; Simple templating languages
 
 (add-to-list 'auto-mode-alist '("\\.jinja2$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.twig$" . html-mode))
 
 ;; ## JavaScript
 
