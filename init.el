@@ -44,7 +44,9 @@
 ;; Enable everywhere
 (define-globalized-minor-mode global-fci-mode
     fci-mode turn-on-fci-mode)
-(global-fci-mode)
+;; Temporarily disabled, pending a fix for
+;; https://github.com/alpaker/Fill-Column-Indicator/issues/31
+;(global-fci-mode)
 
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
