@@ -9,7 +9,7 @@
 
 ;; TODO: insert newline before and after opening '{'
 
-;; php-mode automatically adds a bunch of overly general assocations to
+;; php-mode automatically adds a bunch of overly general associations to
 ;; auto-mode alist -- this overrides it
 (setq php-file-patterns nil)
 (add-to-list 'auto-mode-alist '("/[^./]+\\.php$" . php-mode))
