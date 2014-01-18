@@ -36,6 +36,7 @@
                                  "--ascii"))
   (99-use-project-phpcs-config)
   (99-init-key-bindings)
+  (subword-mode))
 
 (add-hook 'php-mode-hook #'php-mode-settings)
 
