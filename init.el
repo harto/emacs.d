@@ -113,6 +113,8 @@
 (autoload 'markdown-mode "markdown-mode.el")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+(autoload 'yaml-mode "yaml-mode")
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 ;; Git
 (require 'magit)
