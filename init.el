@@ -24,6 +24,7 @@
 ;; Language/environment-specific configs
 (load-library "tools")
 (load-library "programming")
+(load-library "search")
 
 ;; Appearance
 (require 'color-theme)
@@ -86,10 +87,6 @@
                 (lambda ()
                   (interactive)
                   (other-window -1)))
-
-;; Find things quickly
-(global-set-key (kbd "C-c f") 'ftf-find-file)
-(global-set-key (kbd "C-c s") 'rgrep)
 
 (ido-mode)
 ;; Layout ido results vertically, rather than horizontally
