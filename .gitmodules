@@ -10,3 +10,6 @@
 [submodule "vendor/99-elisp"]
 	path = vendor/99-elisp
 	url = git@github.com:99designs/99-elisp.git
+[submodule "vendor/find-things-fast"]
+	path = vendor/find-things-fast
+	url = git@github.com:harto/find-things-fast.git
