@@ -119,6 +119,9 @@
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
 (setq less-css-lessc-options '("--no-color"))
 
+;; SCSS
+
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
 ;; ## Ruby
 
