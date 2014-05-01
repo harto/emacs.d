@@ -6,7 +6,7 @@
 ;; Author: Nathan Weizenbaum
 ;; URL: http://github.com/nex3/haml/tree/master
 ;; Package-Requires: ((ruby-mode "1.0"))
-;; Version: 3.1.0
+;; Version: 3.1.5
 ;; Created: 2007-03-08
 ;; By: Nathan Weizenbaum
 ;; Keywords: markup, language, html
@@ -69,7 +69,7 @@ The function can also return a positive integer to indicate
 a specific level to which the current line could be indented.")
 
 (defconst haml-tag-beg-re
-  "^[ \t]*\\(?:[%\\.#][a-z0-9_:\\-]+\\)+\\(?:(.*)\\|{.*}\\|\\[.*\\]\\)*"
+  "^[ \t]*\\([%\\.#][a-z0-9_:\\-]+\\)+\\(?:(.*)\\|{.*}\\|\\[.*\\]\\)*"
   "A regexp matching the beginning of a Haml tag, through (), {}, and [].")
 
 (defvar haml-block-openers
@@ -225,7 +225,7 @@ END.")
           (code-start (1+ (match-beginning 3)))
           (code-end (match-end 3)))
       (save-match-data
-        (funcall (or (aget haml-fontify-filter-functions-alist filter-name)
+        (funcall (or (cdr (assoc filter-name haml-fontify-filter-functions-alist))
                      #'(lambda (beg end)
                          (put-text-property beg end
                                             'face
@@ -273,9 +273,9 @@ For example, this will highlight all of the following:
     (while (haml-move "\\([.#%]\\)[a-z0-9_:\\-]*")
       (put-text-property (match-beginning 0) (match-end 0) 'face
                          (case (char-after (match-beginning 1))
-                           (?% font-lock-function-name-face)
-                           (?# font-lock-keyword-face)
-                           (?. font-lock-type-face))))
+                           (?% font-lock-keyword-face)
+                           (?# font-lock-function-name-face)
+                           (?. font-lock-variable-name-face))))
 
     (block loop
       (while t
@@ -660,16 +660,36 @@ the first non-whitespace character of the next line."
 
 ;; Indentation and electric keys
 
-(defun* haml-indent-p ()
-  "Returns t if the current line can have lines nested beneath it."
+(defvar haml-empty-elements
+  '("area" "base" "br" "col" "command" "embed" "hr" "img" "input"
+    "keygen" "link" "meta" "param" "source" "track" "wbr")
+  "A list of html elements which may not contain content.
+
+See http://www.w3.org/TR/html-markup/syntax.html.")
+
+(defun haml-unnestable-tag-p ()
+  "Return t if the current line is an empty element tag, or one with content."
+  (when (looking-at haml-tag-beg-re)
+    (save-excursion
+      (goto-char (match-end 0))
+      (or (string-match-p (concat "%" (regexp-opt haml-empty-elements) "\\b")
+                          (match-string 1))
+          (progn
+            (when (looking-at "[{(]")
+              (ignore-errors (forward-sexp)))
+            (looking-at "\\(?:=\\|==\\| \\)[[:blank:]]*[^[:blank:]\r\n]+"))))))
+
+(defun haml-indent-p ()
+  "Return t if the current line can have lines nested beneath it."
   (let ((attr-props (haml-parse-multiline-attr-hash)))
     (when attr-props
       (return-from haml-indent-p
         (if (haml-unclosed-attr-hash-p) (cdr (assq 'hash-indent attr-props))
           (list (+ (cdr (assq 'indent attr-props)) haml-indent-offset) nil)))))
-  (loop for opener in haml-block-openers
-        if (looking-at opener) return t
-        finally return nil))
+  (unless (or (haml-unnestable-tag-p))
+    (loop for opener in haml-block-openers
+          if (looking-at opener) return t
+          finally return nil)))
 
 (defun* haml-parse-multiline-attr-hash ()
   "Parses a multiline attribute hash, and returns
@@ -724,7 +744,7 @@ and BEG and END delimit that text in the buffer."
       (haml-move "[ \t]*")
       (when (haml-move "=")
         (haml-move "[ \t]*")
-        (unless (looking-at "[\"'@a-z]") (return-from haml-parse-new-attr-hash))
+        (unless (looking-at "[\"'@a-z0-9]") (return-from haml-parse-new-attr-hash))
         (let ((beg (point)))
           (haml-limited-forward-sexp eol)
           (funcall fn 'value beg (point)))
