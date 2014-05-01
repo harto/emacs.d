@@ -3,19 +3,23 @@
 ;;; Code:
 
 
-;;;### (autoloads (sass-mode) "sass-mode" "sass-mode.el" (21018 52841))
+;;;### (autoloads (sass-mode) "sass-mode" "sass-mode.el" (21323 55832
+;;;;;;  0 0))
 ;;; Generated autoloads from sass-mode.el
 
 (autoload 'sass-mode "sass-mode" "\
 Major mode for editing Sass files.
 
+\\{sass-mode-map}
+
 \(fn)" t nil)
 
-(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+(add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
 
 ;;;***
 
-;;;### (autoloads nil nil ("sass-mode-pkg.el") (21018 52841 212413))
+;;;### (autoloads nil nil ("sass-mode-pkg.el") (21323 55832 368532
+;;;;;;  0))
 
 ;;;***
 
