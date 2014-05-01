@@ -52,6 +52,9 @@
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 
+;; Shuttupify the bell
+(setq ring-bell-function 'ignore)
+
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default require-final-newline t)
