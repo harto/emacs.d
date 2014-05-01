@@ -1,21 +1,5 @@
 ;; Support for various programming languages
 
-;; ## HTML
-
-(setq html-helper-new-buffer-template
-      '("<!DOCTYPE html>
-<html>
-<head>
-  <title>" p "</title>
-  <link rel=\"stylesheet\" href=\"" p "\">
-  <script src=\"\"></script>
-</head>
-
-<body>
-  " p "
-</body>
-</html>"))
-
 ;; Simple templating languages
 
 (add-to-list 'auto-mode-alist '("\\.jinja2$" . html-mode))
