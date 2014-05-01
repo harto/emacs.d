@@ -1,9 +1,7 @@
 ;; Support for various programming languages
 
-;; Simple templating languages
-
-(add-to-list 'auto-mode-alist '("\\.jinja2$" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.twig$" . html-mode))
+;; ## Web stuff
+(add-to-list 'auto-mode-alist '("\\.\\(html\\|twig\\)$" . web-mode))
 
 ;; ## JavaScript
 

@@ -17,8 +17,8 @@
 (setq php-file-patterns nil)
 (add-to-list 'auto-mode-alist '("/[^./]+\\.php$" . php-mode))
 
-;; use html-mode for PHP templates
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . html-mode))
+;; use web-mode for PHP templates
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 
 (defadvice c-electric-slash (before php-close-phpdoc-comment)
   (when (and (equal major-mode 'php-mode)
