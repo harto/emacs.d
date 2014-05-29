@@ -29,9 +29,8 @@
 ;; Appearance
 (require 'color-theme)
 (require 'color-theme-solarized)
-(unless (display-graphic-p)
-  (setq solarized-termcolors 256))
-(color-theme-solarized-dark)
+(if (display-graphic-p)
+    (color-theme-solarized-dark))
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode -1))
 (if (boundp 'tool-bar-mode)
