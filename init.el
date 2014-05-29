@@ -25,6 +25,8 @@
 (load-library "tools")
 (load-library "programming")
 (load-library "search")
+(if (eq system-type 'darwin)
+    (load-library "osx"))
 
 ;; Appearance
 (require 'color-theme)
