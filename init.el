@@ -70,7 +70,8 @@
   ;; Basic mouse support
   (require 'mouse)
   (xterm-mouse-mode t)
-  ;(defun track-mouse (e))
+  (defun track-mouse (e))
+  (setq mouse-sel-mode t)
   (global-set-key [mouse-4]
                   '(lambda ()
                      (interactive)
