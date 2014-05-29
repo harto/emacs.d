@@ -8,6 +8,13 @@
   (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
   (define-key php-mode-map (kbd "C-c d") 'php-reference))
 
+
+;; ## Misc web
+
+;; TODO: let this be configured by .editorconfig
+(add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 4)))
+
+
 ;; ## PHP
 
 ;; TODO: insert newline before and after opening '{'
