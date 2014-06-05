@@ -154,3 +154,7 @@
           (lambda ()
             (unless (equal (buffer-name) "*scratch*")
               (paredit-mode +1))))
+
+;; ## Shell
+
+(setq sh-basic-offset 2)
