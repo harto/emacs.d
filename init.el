@@ -31,8 +31,9 @@
 ;; Appearance
 (require 'color-theme)
 (require 'color-theme-solarized)
-(if (display-graphic-p)
-    (color-theme-solarized-dark))
+;; NB: This looks weird unless terminal
+;; is also configured to use Solarized.
+(color-theme-solarized-dark)
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode -1))
 (if (boundp 'tool-bar-mode)
