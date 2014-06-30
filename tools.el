@@ -45,3 +45,15 @@
                 nil t))))
 
 (add-hook 'hack-local-variables-hook #'project-apply-directory-hooks)
+
+;; ## Misc
+
+(defun open-line-preserving-indent (n)
+  "Like `open-line', but correctly indents both current and trailing line.
+Passes arg N to `open-line'."
+  (interactive "*p")
+  (open-line n)
+  (indent-for-tab-command)
+  (save-excursion
+    (next-line n)
+    (indent-for-tab-command)))

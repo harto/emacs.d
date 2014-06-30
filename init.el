@@ -94,6 +94,9 @@
                   (interactive)
                   (other-window -1)))
 
+;; Sane indentation with C-o
+(global-set-key (kbd "C-o") #'open-line-preserving-indent)
+
 (ido-mode)
 ;; Layout ido results vertically, rather than horizontally
 (setq ido-decorations (list "\n-> " ""
