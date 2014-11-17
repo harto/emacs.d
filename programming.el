@@ -134,9 +134,10 @@
 (add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
 (add-hook 'clojure-mode-hook
           (lambda ()
-            (paredit-mode +1)
-            (unless (cljs-buffer-p)
-              (define-key clojure-mode-map (kbd "C-c C-j") 'nrepl-jack-in))))
+            (paredit-mode +1)))
+
+;; Enable eldoc in Clojure buffers
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 ;; ClojureScript doesn't work with SLIME. When we evaluate cljs forms they
 ;; should be sent to the inferior-lisp REPL instead.
