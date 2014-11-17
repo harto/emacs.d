@@ -57,6 +57,9 @@
 ;; Shuttupify the bell
 (setq ring-bell-function 'ignore)
 
+;; Always ask for y/n keypress instead of "yes"/"no"
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default require-final-newline t)
