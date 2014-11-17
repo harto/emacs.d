@@ -115,6 +115,10 @@
                    "\\bCapfile$"))
   (add-to-list 'auto-mode-alist `(,pattern . ruby-mode)))
 
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (subword-mode +1)))
+
 ;; ## SQL
 
 (add-to-list 'auto-mode-alist '("\\.pl[sb]$" . sql-mode))
