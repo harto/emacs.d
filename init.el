@@ -4,7 +4,7 @@
 ;;; Third-party libs live in ~/.emacs.d/vendor
 ;;; ELPA packages live in ~/.emacs.d/vendor/elpa
 
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (let ((current-directory default-directory))
   (cd "~/.emacs.d/vendor")
