@@ -1,7 +1,7 @@
 ;; Find things quickly
 
-(load-library "ag")
-(load-library "find-things-fast")
+(autoload 'ftf-find-file "find-things-fast")
+(autoload 'ftf-grepsource "find-things-fast")
 
 (defun grep-project (search-type)
   "Greps project sources for a given pattern.

@@ -126,7 +126,6 @@
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 ;; Git
-(require 'magit)
 (global-set-key (kbd "C-c g") 'magit-status)
 ;; For command-line commit messages
 (add-to-list 'auto-mode-alist '("\\bCOMMIT_EDITMSG$" . diff-mode))
