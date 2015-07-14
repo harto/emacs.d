@@ -8,3 +8,5 @@ sqlnet.log
 /vendor/elpa/builtin-packages
 /tramp
 /url
+/eshell
+/ido.last
