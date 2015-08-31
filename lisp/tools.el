@@ -24,7 +24,7 @@
 ;; ### Project utilities
 
 (defun project-directory ()
-  (let ((root (ffip-project-root)))
+  (let ((root (ftf-project-directory)))
     (if root (directory-file-name root))))
 
 (defun project-make ()
