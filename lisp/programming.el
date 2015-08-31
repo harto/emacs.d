@@ -114,7 +114,8 @@
 (dolist (pattern '("\\bRakefile$"
                    "\\.rake$"
                    "\\bGemfile$"
-                   "\\bCapfile$"))
+                   "\\bCapfile$"
+                   "\\.builder$"))
   (add-to-list 'auto-mode-alist `(,pattern . ruby-mode)))
 
 (add-hook 'ruby-mode-hook
