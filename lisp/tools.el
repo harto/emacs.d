@@ -12,6 +12,7 @@
                   "" nil start end))
 
 (defun string-join (strings sep)
+  "Join a list of strings with a given separator."
   (mapconcat #'identity strings sep))
 
 (defun string-drop-prefix (s prefix)
