@@ -6,7 +6,6 @@
 (autoload 'php-reference "php-reference")
 
 (defun 99-init-key-bindings ()
-  (define-key php-mode-map (kbd "C-c t") '99-vm-run-test-file)
   (define-key php-mode-map (kbd "C-M-a") 'php-beginning-of-defun)
   (define-key php-mode-map (kbd "C-M-e") 'php-end-of-defun)
   (define-key php-mode-map (kbd "C-c d") 'php-reference))
@@ -20,7 +19,6 @@
 
 ;; ## PHP
 
-;; TODO: insert newline before and after opening '{'
 
 ;; php-mode automatically adds a bunch of overly general associations to
 ;; auto-mode alist -- this overrides it
