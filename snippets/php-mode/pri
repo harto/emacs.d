@@ -1,5 +1,5 @@
 # name: private function XXX(...) { ... }
-# key: pm
+# key: pri
 # --
 private function $1($2)
 {

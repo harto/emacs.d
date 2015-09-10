@@ -1,5 +1,5 @@
 # name: public function XXX(...) { ... }
-# key: m
+# key: pub
 # --
 public function $1($2)
 {

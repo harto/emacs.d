@@ -1,4 +1,4 @@
 # name: $this->XXX = $XXX;
-# key: $this->=
+# key: $<
 # --
 \$this->$1 = \$$1;$0
