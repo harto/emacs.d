@@ -23,6 +23,7 @@
 ;; ### Project utilities
 
 (defun project-directory ()
+  (require 'find-things-fast)
   (let ((root (ftf-project-directory)))
     (if root (directory-file-name root))))
 
