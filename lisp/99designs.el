@@ -19,6 +19,13 @@
 
 ;; ## PHP
 
+(defun php-file-namespace (&optional path)
+  (setq project-relative-path (project-relative (or path (buffer-file-name))))
+  (setq src-relative-path (string-drop-prefix "src/" project-relative-path))
+  (when src-relative-path
+    (replace-regexp-in-string "/"
+                              (regexp-quote "\\")
+                              (directory-file-name (file-name-directory src-relative-path)))))
 
 ;; php-mode automatically adds a bunch of overly general associations to
 ;; auto-mode alist -- this overrides it

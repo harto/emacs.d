@@ -1,0 +1,4 @@
+# name: namespace ...;
+# key: ns
+# --
+namespace `(php-file-namespace)`;$0
