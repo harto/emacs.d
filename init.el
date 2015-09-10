@@ -138,5 +138,8 @@
 (eval-after-load "flymake"
   '(require 'flymake-cursor))
 
+;; Snippet expansion
+(yas-global-mode +1)
+
 ;; Work
 (load-library "99designs")
