@@ -58,3 +58,8 @@ Passes arg N to `open-line'."
   (save-excursion
     (next-line n)
     (indent-for-tab-command)))
+
+(defun save-buffer-and-run-last-emamux-command ()
+  (interactive)
+  (save-buffer)
+  (emamux:run-last-command))
