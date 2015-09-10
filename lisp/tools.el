@@ -15,17 +15,22 @@
   "Join a list of strings with a given separator."
   (mapconcat #'identity strings sep))
 
-(defun string-drop-prefix (s prefix)
+(defun string-drop-prefix (prefix s)
   "Returns S without leading PREFIX."
   (if (string-prefix-p prefix s)
-      (substring s (length prefix))
-    s))
+      (substring s (length prefix))))
 
 ;; ### Project utilities
 
 (defun project-directory ()
   (let ((root (ftf-project-directory)))
     (if root (directory-file-name root))))
+
+(defun project-relative (path)
+  "Returns PATH relative to project root."
+  (interactive (list (buffer-file-name)))
+  (string-drop-prefix (file-truename (file-name-as-directory (project-directory)))
+                      (file-truename path)))
 
 (defun project-make ()
   (interactive)
