@@ -1,0 +1,7 @@
+# name: public function testXXX() { ... }
+# key: test
+# --
+public function test$1()
+{
+    $0\$this->fail('not implemented');
+}

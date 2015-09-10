@@ -1,0 +1,7 @@
+# name: private function XXX(...) { ... }
+# key: pm
+# --
+private function $1($2)
+{
+    $0
+}

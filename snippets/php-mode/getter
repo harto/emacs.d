@@ -1,0 +1,7 @@
+# name: public function getXXX() { ... }
+# key: get
+# --
+public function get${1:$(upcase-initials yas/text)}()
+{
+    return \$this->$1;
+}$0

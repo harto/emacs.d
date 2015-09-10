@@ -1,0 +1,7 @@
+# name: public function XXX(...) { ... }
+# key: m
+# --
+public function $1($2)
+{
+    $0
+}

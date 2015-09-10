@@ -1,0 +1,8 @@
+# name: public function setXXX(xxx) { ... }
+# key: set
+# --
+public function set${1:$(upcase-initials yas/text)}(\$$1)
+{
+    \$this->$1 = \$$1;
+    return \$this;$0
+}
