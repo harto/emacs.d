@@ -48,7 +48,7 @@
   (c-set-style "99designs")
   (setq php-reference-cmd-opts '("--cache=~/.php-reference/cache"
                                  "--ascii"))
-  (99-use-project-phpcs-config)
+  ;(99-use-project-phpcs-config)
   (99-init-key-bindings)
   (subword-mode))
 

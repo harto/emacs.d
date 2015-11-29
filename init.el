@@ -135,8 +135,8 @@
 
 ;; Flymake config
 ;; Show flymake messages in minibuffer
-(eval-after-load "flymake"
-  '(require 'flymake-cursor))
+;; (eval-after-load "flymake"
+;;   '(require 'flymake-cursor))
 
 ;; Snippet expansion
 (yas-global-mode +1)

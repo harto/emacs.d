@@ -91,8 +91,8 @@
                       nil t)
             (define-key js2-mode-map (kbd "C-c o") 'jslint-organise-imports)
             ;; inline linting
-            (require 'flymake-jshint)
-            (flymake-mode)
+            ;(require 'flymake-jshint)
+            ;(flymake-mode)
             ;; sane word navigation
             (subword-mode +1)))
 
