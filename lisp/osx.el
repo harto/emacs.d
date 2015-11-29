@@ -14,3 +14,11 @@
 
 (setq interprogram-paste-function 'osx-copy)
 (setq interprogram-cut-function 'osx-paste)
+
+(defun set-exec-path-from-shell-path ()
+  (let ((path (shell-command-to-string "$SHELL -lc 'echo $PATH'")))
+    (setenv "PATH" path)
+    (setq exec-path (split-string path path-separator))))
+
+(when (display-graphic-p)
+  (set-exec-path-from-shell-path))
