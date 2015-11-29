@@ -1,0 +1,4 @@
+# name: throw new \Exception('not implemented');
+# key: notimp
+# --
+throw new \Exception('not implemented');$0

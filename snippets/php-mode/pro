@@ -1,0 +1,7 @@
+# name: protected function XXX(...) { ... }
+# key: pro
+# --
+protected function $1($2)
+{
+    $0
+}
