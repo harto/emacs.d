@@ -96,10 +96,6 @@
             ;; sane word navigation
             (subword-mode +1)))
 
-;; ## CSS
-
-(setq css-indent-offset 2)
-
 ;; LESS
 
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
