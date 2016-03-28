@@ -140,6 +140,3 @@
 
 ;; Snippet expansion
 (yas-global-mode +1)
-
-;; Work
-(load-library "99designs")
