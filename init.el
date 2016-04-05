@@ -143,3 +143,7 @@
 
 ;; Whitespace cleanup
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+;; GUI instance acts as server (should only be one)
+(when (display-graphic-p)
+  (server-start))
