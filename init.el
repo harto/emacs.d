@@ -140,3 +140,6 @@
 
 ;; Snippet expansion
 (yas-global-mode +1)
+
+;; Whitespace cleanup
+(add-hook 'before-save-hook 'whitespace-cleanup)
