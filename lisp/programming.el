@@ -1,7 +1,7 @@
 ;; Support for various programming languages
 
 ;; ## Web stuff
-(setq web-mode-extensions '("html" "twig" "erb"))
+(setq web-mode-extensions '("html" "twig" "erb" "hbs"))
 (setq web-mode-pattern (format "\\.\\(%s\\)$" (mapconcat #'regexp-quote web-mode-extensions "\\|")))
 (add-to-list 'auto-mode-alist `(,web-mode-pattern . web-mode))
 
