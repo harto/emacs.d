@@ -4,9 +4,6 @@
 [submodule "vendor/color-theme-solarized"]
 	path = vendor/color-theme-solarized
 	url = http://github.com/sellout/emacs-color-theme-solarized
-[submodule "vendor/php-reference"]
-	path = vendor/php-reference
-	url = git@github.com:harto/php-reference.el.git
 [submodule "vendor/find-things-fast"]
 	path = vendor/find-things-fast
 	url = git@github.com:harto/find-things-fast.git
