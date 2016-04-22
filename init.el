@@ -147,3 +147,7 @@
 ;; GUI instance acts as server (should only be one)
 (when (display-graphic-p)
   (server-start))
+
+;; Work things
+(if (file-exists-p "~/spot/spot.el")
+    (load-library "~/spot/spot"))
