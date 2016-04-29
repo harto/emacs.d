@@ -125,6 +125,8 @@
 (autoload 'yaml-mode "yaml-mode")
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
+(autoload 'restclient-mode "restclient")
+
 ;; Git
 (global-set-key (kbd "C-c g") 'magit-status)
 
