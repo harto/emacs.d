@@ -136,24 +136,8 @@
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljx$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
-(add-hook 'clojure-mode-hook
-          (lambda ()
-            (paredit-mode +1)))
 
-;; Enable eldoc in Clojure buffers
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-
-;; ClojureScript doesn't work with SLIME. When we evaluate cljs forms they
-;; should be sent to the inferior-lisp REPL instead.
-;; FIXME: is this relevant anymore?
-(defadvice slime-mode (around cljs-disable-slime)
-  "Activates `slime-mode' iff the current buffer isn't a .cljs file."
-  (unless (cljs-buffer-p)
-    ad-do-it))
-
-;; nrepl customisations
-(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-(add-hook 'nrepl-mode-hook 'paredit-mode)
+(add-hook 'clojure-mode-hook #'paredit-mode)
 
 ;; Elisp
 
