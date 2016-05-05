@@ -145,11 +145,9 @@
 (yas-global-mode +1)
 
 ;; Whitespace cleanup
-(setq-default cleanup-whitespace-p t)
-(defun maybe-cleanup-whitespace ()
-  (if cleanup-whitespace-p
-      (whitespace-cleanup)))
-(add-hook 'before-save-hook 'maybe-cleanup-whitespace)
+(global-ws-trim-mode t)
+;; Only trim modified lines
+(set-default 'ws-trim-level 1)
 
 ;; GUI instance acts as server (should only be one)
 (when (display-graphic-p)
