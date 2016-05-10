@@ -100,7 +100,8 @@
 ;; Sane indentation with C-o
 (global-set-key (kbd "C-o") #'open-line-preserving-indent)
 
-(ido-mode)
+(ido-mode +1)
+(ido-everywhere +1)
 ;; Layout ido results vertically, rather than horizontally
 (setq ido-decorations (list "\n-> " ""
                             "\n   "
@@ -113,6 +114,9 @@
                             " [Confirm]"))
 ;; Effectively disable auto-merge
 (setq ido-auto-merge-delay-time 999)
+;; better fuzzy matching
+(require 'flx-ido)
+(flx-ido-mode +1)
 
 ;; Line numbering
 (line-number-mode 1)
