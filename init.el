@@ -135,10 +135,9 @@
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;; Tmux
-(global-set-key (kbd "C-c C-t r") 'emamux:run-command)
-(global-set-key (kbd "C-c C-t l") 'emamux:run-last-command)
-
-(global-set-key (kbd "<f5>") #'save-buffer-and-run-last-emamux-command)
+;; (global-set-key (kbd "C-c C-t r") 'emamux:run-command)
+;; (global-set-key (kbd "C-c C-t l") 'emamux:run-last-command)
+;; (global-set-key (kbd "<f5>") #'save-buffer-and-run-last-emamux-command)
 
 (require 'multiple-cursors)
 (multiple-cursors-mode +1)
