@@ -123,7 +123,7 @@
 (column-number-mode 1)
 
 ;; Other file/mode associations
-(autoload 'markdown-mode "markdown-mode.el")
+(autoload 'markdown-mode "markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 (autoload 'yaml-mode "yaml-mode")
@@ -139,6 +139,7 @@
 ;; (global-set-key (kbd "C-c C-t l") 'emamux:run-last-command)
 ;; (global-set-key (kbd "<f5>") #'save-buffer-and-run-last-emamux-command)
 
+;; Multiple cursors
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
