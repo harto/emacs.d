@@ -140,6 +140,12 @@
 
 (global-set-key (kbd "<f5>") #'save-buffer-and-run-last-emamux-command)
 
+(require 'multiple-cursors)
+(multiple-cursors-mode +1)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
 ;; Flymake config
 ;; Show flymake messages in minibuffer
 ;; (eval-after-load "flymake"
