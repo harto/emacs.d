@@ -51,6 +51,9 @@
   ;(global-fci-mode)
   )
 
+;; Highlight matching parens/brackets/etc
+(show-paren-mode +1)
+
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 
