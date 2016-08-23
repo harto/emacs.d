@@ -143,6 +143,7 @@
 ;; (global-set-key (kbd "<f5>") #'save-buffer-and-run-last-emamux-command)
 
 ;; Multiple cursors
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
