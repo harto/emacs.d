@@ -45,6 +45,11 @@
   (color-theme-solarized-light)
   (set-default-font "Monaco-14"))
 
+(defun lovis ()
+  (interactive)
+  (color-theme-solarized-dark)
+  (set-default-font "Monaco-12"))
+
 ;; Line limit indicator
 (setq-default fill-column 80)
 (when (display-graphic-p)
