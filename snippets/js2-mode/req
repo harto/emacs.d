@@ -1,0 +1,4 @@
+# name: const <foo> = require('<foo>');
+# key: req
+# --
+const $1 = require('$0$1');
