@@ -22,7 +22,9 @@
             ;(require 'flymake-jshint)
             ;(flymake-mode)
             ;; sane word navigation
-            (subword-mode +1)))
+            (subword-mode +1)
+            ;; balance parens etc.
+            (local-electric-pair-mode)))
 
 ;; LESS
 
