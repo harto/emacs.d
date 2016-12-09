@@ -13,8 +13,9 @@
 
 (setq js2-bounce-indent-p t)
 (setq js2-cleanup-whitespace t)
-(setq js2-consistent-level-indent-inner-bracket-p t)
-(setq js2-use-ast-for-indentation-p t)
+;; TODO: find out what these did and update them
+;; (setq js2-consistent-level-indent-inner-bracket-p t)
+;; (setq js2-use-ast-for-indentation-p t)
 
 (add-hook 'js2-mode-hook
           (lambda ()
@@ -57,10 +58,6 @@
 (autoload 'paredit-mode "paredit")
 
 ;; Clojure / ClojureScript
-
-(defun cljs-buffer-p ()
-  "Test if current buffer is a ClojureScript buffer."
-  (equal 'clojurescript-mode major-mode))
 
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljx$" . clojure-mode))
