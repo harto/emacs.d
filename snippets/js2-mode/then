@@ -1,0 +1,4 @@
+# name: then(<args> => <body>)
+# key: then
+# --
+then(($1) => $0)

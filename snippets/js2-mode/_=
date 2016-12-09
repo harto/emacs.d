@@ -1,0 +1,4 @@
+# name: const _ = require('lodash');
+# key: _=
+# --
+const _ = require('lodash');
