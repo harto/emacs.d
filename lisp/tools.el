@@ -69,7 +69,3 @@ Passes arg N to `open-line'."
   (interactive)
   (save-buffer)
   (emamux:run-last-command))
-
-(defun local-electric-pair-mode ()
-  (make-variable-buffer-local 'electric-pair-mode)
-  (electric-pair-mode +1))

@@ -25,7 +25,7 @@
             ;; sane word navigation
             (subword-mode +1)
             ;; balance parens etc.
-            (local-electric-pair-mode)))
+            (electric-pair-local-mode +1)))
 
 ;; LESS
 
