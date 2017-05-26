@@ -1,0 +1,4 @@
+# name: console.log(require('util').inspect(...))
+# key: dump
+# --
+console.log(require('util').inspect($0, null, 2))
