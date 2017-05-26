@@ -187,3 +187,6 @@
 (sql-set-product-feature 'postgres
                          :prompt-regexp
                          "^[[:alpha:]_]*=[#>] ")
+
+(global-set-key (kbd "C-c M-s") 'sort-lines)
+
