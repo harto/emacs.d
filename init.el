@@ -30,6 +30,7 @@
     (load-library "osx"))
 
 ;; Appearance
+;; TODO: Emacs >= 24 doesn't require color-theme package
 (require 'color-theme)
 (require 'color-theme-solarized)
 ;; NB: This looks weird unless terminal
