@@ -164,9 +164,6 @@
 ;; (eval-after-load "flymake"
 ;;   '(require 'flymake-cursor))
 
-;; Snippet expansion
-(yas-global-mode +1)
-
 ;; Whitespace cleanup
 (global-ws-trim-mode t)
 ;; Only trim modified lines
@@ -175,6 +172,9 @@
 ;; GUI instance acts as server (should only be one)
 (when (display-graphic-p)
   (server-start))
+
+;; Snippet expansion
+(yas-global-mode +1)
 
 ;; Work things
 (if (file-exists-p "~/spot/spot.el")
