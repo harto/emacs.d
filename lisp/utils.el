@@ -20,6 +20,9 @@
   (if (string-prefix-p prefix s)
       (substring s (length prefix))))
 
+;; (defun string-decamel (s &optional sep)
+;;   (replace-regexp-in-string "\\([A-Z]\\)" (concat "\\1" sep) s))
+
 ;; ### Project utilities
 
 (defun project-directory ()

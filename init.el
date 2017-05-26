@@ -23,7 +23,7 @@
 (load custom-file)
 
 ;; Language/environment-specific configs
-(load-library "tools")
+(load-library "utils")
 (load-library "programming")
 (load-library "search")
 (if (eq system-type 'darwin)
