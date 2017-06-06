@@ -25,14 +25,14 @@
 
 ;; Store customizations in a consistent location
 (setq custom-file "~/.emacs-custom.el")
-(load custom-file)
+(load custom-file nil t)
 
 ;; Language/environment-specific configs
-(load-library "utils")
-(load-library "programming")
-(load-library "search")
+(load "utils" nil t)
+(load "programming" nil t)
+(load "search" nil t)
 (if (eq system-type 'darwin)
-    (load-library "osx"))
+    (load "osx" nil t))
 
 ;; Appearance
 
@@ -70,7 +70,9 @@
 ;; Highlight matching parens/brackets/etc
 (show-paren-mode +1)
 
+;; Silent startup
 (setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
 
 ;; Shuttupify the bell
 (setq ring-bell-function 'ignore)
@@ -181,8 +183,7 @@
 (yas-global-mode +1)
 
 ;; Work things
-(if (file-exists-p "~/spot/spot.el")
-    (load-library "~/spot/spot"))
+(load "~/spot/spot.el" t t)
 
 ;; Workaround https://debbugs.gnu.org/cgi/bugreport.cgi?bug=22596
 ;; (fixed in Emacs 26.1)
