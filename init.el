@@ -30,12 +30,12 @@
     (load-library "osx"))
 
 ;; Appearance
-;; TODO: Emacs >= 24 doesn't require color-theme package
-(require 'color-theme)
-(require 'color-theme-solarized)
-;; NB: This looks weird unless terminal
-;; is also configured to use Solarized.
-(color-theme-solarized-dark)
+
+(setq solarized-use-variable-pitch nil)
+(setq solarized-scale-org-headlines nil)
+(setq x-underline-at-descent-line t)
+(load-theme 'solarized-dark)
+
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode -1))
 (if (boundp 'tool-bar-mode)
@@ -43,12 +43,12 @@
 
 (defun hivis ()
   (interactive)
-  (color-theme-solarized-light)
+  (load-theme 'solarized-light)
   (set-default-font "Monaco-14"))
 
 (defun lovis ()
   (interactive)
-  (color-theme-solarized-dark)
+  (load-theme 'solarized-dark)
   (set-default-font "Monaco-12"))
 
 ;; Line limit indicator
@@ -189,4 +189,3 @@
                          "^[[:alpha:]_]*=[#>] ")
 
 (global-set-key (kbd "C-c M-s") 'sort-lines)
-
