@@ -4,6 +4,11 @@
 ;;; Third-party libs live in ~/.emacs.d/vendor
 ;;; ELPA packages live in ~/.emacs.d/vendor/elpa
 
+(if (boundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+(if (boundp 'tool-bar-mode)
+    (tool-bar-mode -1))
+
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (let ((current-directory default-directory))
@@ -35,11 +40,6 @@
 (setq solarized-scale-org-headlines nil)
 ;(setq x-underline-at-descent-line t)
 (load-theme 'solarized-dark)
-
-(if (boundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
-(if (boundp 'tool-bar-mode)
-    (tool-bar-mode -1))
 
 (defun hivis ()
   (interactive)
