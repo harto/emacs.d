@@ -33,7 +33,7 @@
 
 (setq solarized-use-variable-pitch nil)
 (setq solarized-scale-org-headlines nil)
-(setq x-underline-at-descent-line t)
+;(setq x-underline-at-descent-line t)
 (load-theme 'solarized-dark)
 
 (if (boundp 'scroll-bar-mode)
