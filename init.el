@@ -71,7 +71,6 @@
 (show-paren-mode +1)
 
 (setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
 
 ;; Shuttupify the bell
 (setq ring-bell-function 'ignore)
