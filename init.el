@@ -154,11 +154,6 @@
 ;; Git
 (global-set-key (kbd "C-c g") 'magit-status)
 
-;; Tmux
-;; (global-set-key (kbd "C-c C-t r") 'emamux:run-command)
-;; (global-set-key (kbd "C-c C-t l") 'emamux:run-last-command)
-;; (global-set-key (kbd "<f5>") #'save-buffer-and-run-last-emamux-command)
-
 ;; Multiple cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
