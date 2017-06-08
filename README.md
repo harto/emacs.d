@@ -1,4 +1,4 @@
-## .emacs.d
+# .emacs.d
 
  1. Install to ~/.emacs.d
  2. ???
