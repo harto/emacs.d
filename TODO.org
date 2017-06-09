@@ -1,0 +1,28 @@
+* To-do
+
+** Improvements
+
+- [ ] remove all whitespace surrounding point _including newlines_
+- [ ] clean up modeline
+  - remove encoding cruft
+  - better git status
+  - old-school save indicator
+  - flycheck warnings/errors indicators
+- [ ] choose new theme
+- [X] fix open-line-preserving-indent impl for git commit messages
+- [ ] improve startup time (more lazy-loading, byte-compilation?)
+
+** Packages to investigate
+
+- [ ] org
+- [ ] helm
+- [ ] flycheck
+- [ ] projectile
+- [ ] swiper
+- [ ] shackle
+- [ ] quickrun
+
+** Concepts to learn
+
+- [ ] goal-column
+
