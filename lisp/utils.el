@@ -1,6 +1,5 @@
-;;; General-purpose Elisp functions
-
-;; ### String utils
+;; =====================================
+;;  Strings
 
 (defun string-trim (s)
   (replace-regexp-in-string "^[[:blank:]\n]+\\|[[:blank:]\n]+$" "" s))
@@ -23,7 +22,8 @@
 ;; (defun string-decamel (s &optional sep)
 ;;   (replace-regexp-in-string "\\([A-Z]\\)" (concat "\\1" sep) s))
 
-;; ### Project utilities
+;; =====================================
+;; Project-related helpers
 
 (defun project-directory ()
   (require 'find-things-fast)
@@ -44,6 +44,7 @@
       (message "No Makefile found"))))
 
 ;; Allow hooks to be defined in .dir-locals.el
+;; TODO: might be redundant with special `eval' local variable
 
 (defun project-apply-directory-hooks ()
   "Sets directory-local hooks using the value of `directory-hooks-alist', which
@@ -56,14 +57,18 @@
 
 (add-hook 'hack-local-variables-hook #'project-apply-directory-hooks)
 
-;; ## Misc
+;;=====================================
+;; Misc
 
 (defun open-line-preserving-indent (n)
-  "Like `open-line', but correctly indents both current and trailing line.
+  "Like `open-line', but makes a better attempt at indenting the new line.
 Passes arg N to `open-line'."
   (interactive "*p")
   (open-line n)
-  (indent-for-tab-command)
-  (save-excursion
-    (next-line n)
-    (indent-for-tab-command)))
+  (unless (zerop (current-indentation))
+    ;; TODO: make it work with `n' open lines
+    (save-excursion
+      (next-line)
+      (beginning-of-line)
+      (delete-horizontal-space)
+      (indent-for-tab-command))))
