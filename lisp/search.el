@@ -20,6 +20,8 @@ With prefix \\[universal-argument] \\[universal-argument], a case-insensitive se
 (defvar version-controlled-project-files-command
   "git ls-files"
   "Shell command producing a list of version-controlled project files")
+;; (defadvice grep (before kill-grep-before-grep)
+;;   (kill-grep))
 
 (defvar non-version-controlled-project-files-command
   (concat "git ls-files -o | "
@@ -41,10 +43,13 @@ By default, files under version control are included for autocompletion.
 
 With prefix \\[universal-argument], untracked files are included instead. (Note: this is likely to be quite slow.)"
   (interactive "p")
-  (flet ((ftf-get-git-find-command () (if (= search-type 4)
-                                          non-version-controlled-project-files-command
-                                        version-controlled-project-files-command)))
-    (command-execute 'ftf-find-file)))
+  (command-execute 'ftf-find-file)
+  ;; (cl-letf ((original-ftf-get-git-find-command #'ftf-get-git-find-command)
+  ;;           ((symbol-function 'ftf-get-git-find-command) (if (= search-type 4)
+  ;;                                                            non-version-controlled-project-files-command
+  ;;                                                          version-controlled-project-files-command)))
+  ;;   (command-execute 'ftf-find-file))
+  )
 
 (global-set-key (kbd "C-c f") 'find-project-file)
 (global-set-key (kbd "C-c s") 'grep-project)
