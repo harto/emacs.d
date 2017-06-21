@@ -5,24 +5,9 @@
 ;; (i.e. those not installed via ELPA)
 (autoload 'restclient-mode "restclient")
 
-(setq mode-filename-patterns '((clojure-mode . ("\\.clj$"
-                                                "\\.cljx$"))
+(setq mode-filename-patterns '((js2-mode . ("\\.js$"))
 
-                               (clojurescript-mode . ("\\.cljs$"))
-
-                               (js2-mode . ("\\.js$"
-                                            "\\.jsx$"))
-
-                               (less-css-mode . ("\\.less$"))
-
-                               (markdown-mode . ("\\.markdown$"
-                                                 "\\.md$"))
-
-                               (ruby-mode . ("\\.builder$"
-                                             "\\.rake$"
-                                            "\\bCapfile$"
-                                             "\\bGemfile$"
-                                             "\\bRakefile$"))
+                               (js2-jsx-mode . ("\\.jsx$"))
 
                                (sass-mode . ("\\.scss$"))
 
@@ -31,9 +16,7 @@
                                (web-mode . ("\\.erb$"
                                             "\\.hbs$"
                                             "\\.html$"
-                                            "\\.twig$"))
-
-                               (yaml-mode . ("\\.yaml$"))))
+                                            "\\.twig$"))))
 
 (dolist (pair mode-filename-patterns)
   (let ((mode (car pair))
