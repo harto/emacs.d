@@ -32,5 +32,3 @@
 (if (display-graphic-p)
     (load "gui" nil t)
   (load "console" nil t))
-
-(load "~/spot/spot.el" t t)
