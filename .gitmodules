@@ -1,6 +1,6 @@
 [submodule "vendor/find-things-fast"]
 	path = vendor/find-things-fast
-	url = git@github.com:harto/find-things-fast.git
+	url = https://github.com/harto/find-things-fast
 [submodule "vendor/restclient"]
 	path = vendor/restclient
 	url = https://github.com/pashky/restclient.el
