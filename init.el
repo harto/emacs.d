@@ -32,3 +32,5 @@
 (if (display-graphic-p)
     (load "gui" nil t)
   (load "console" nil t))
+
+(load "~/remix/remix.el" t t)
