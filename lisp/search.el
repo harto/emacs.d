@@ -1,7 +1,6 @@
 ;; Find things quickly
 
-(autoload 'ftf-find-file "find-things-fast")
-(autoload 'ftf-grepsource "find-things-fast")
+;; TODO: this can surely be cleaned up a bit
 
 (defun grep-project (search-type)
   "Greps project sources for a given pattern.
@@ -50,9 +49,3 @@ With prefix \\[universal-argument], untracked files are included instead. (Note:
   ;;                                                          version-controlled-project-files-command)))
   ;;   (command-execute 'ftf-find-file))
   )
-
-(global-set-key (kbd "C-c f") 'find-project-file)
-(global-set-key (kbd "C-c s") 'grep-project)
-
-(global-set-key (kbd "C-c j") 'ace-jump-mode)
-(global-set-key (kbd "C-c p") 'ace-jump-mode-pop-mark)

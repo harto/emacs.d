@@ -20,3 +20,9 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; Finding things
+(global-set-key (kbd "C-c f") 'find-project-file)
+(global-set-key (kbd "C-c s") 'grep-project)
+(global-set-key (kbd "C-c j") 'ace-jump-mode)
+(global-set-key (kbd "C-c p") 'ace-jump-mode-pop-mark)

@@ -13,19 +13,15 @@
 (setq solarized-height-plus-2 1.0)
 (setq solarized-height-plus-3 1.0)
 (setq solarized-height-plus-4 1.0)
-;(setq solarized-use-more-italic t)
 
 (load-theme 'solarized-dark)
-;(load-theme 'zenburn)
 
-(defun hivis ()
+(defun big-screen ()
   (interactive)
-  (load-theme 'solarized-light)
   (set-default-font "Monaco-14"))
 
-(defun lovis ()
+(defun small-screen ()
   (interactive)
-  (load-theme 'solarized-dark)
   (set-default-font "Monaco-12"))
 
 ;; Line limit indicator

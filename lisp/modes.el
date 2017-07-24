@@ -3,9 +3,11 @@
 
 ;; TODO: figure out how to handle autoloads from ad hoc packages
 ;; (i.e. those not installed via ELPA)
+(autoload 'ftf-find-file "find-things-fast")
+(autoload 'ftf-grepsource "find-things-fast")
 (autoload 'restclient-mode "restclient")
 
-(setq mode-filename-patterns '((js2-mode . ("\\.js$"))
+(dolist (pair '((js2-mode . ("\\.js$"))
 
                                (js2-jsx-mode . ("\\.jsx$"))
 
@@ -17,8 +19,6 @@
                                             "\\.hbs$"
                                             "\\.html$"
                                             "\\.twig$"))))
-
-(dolist (pair mode-filename-patterns)
   (let ((mode (car pair))
         (patterns (cdr pair)))
     (dolist (pattern patterns)
