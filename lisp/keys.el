@@ -24,5 +24,3 @@
 ;; Finding things
 (global-set-key (kbd "C-c f") 'find-project-file)
 (global-set-key (kbd "C-c s") 'grep-project)
-(global-set-key (kbd "C-c j") 'ace-jump-mode)
-(global-set-key (kbd "C-c p") 'ace-jump-mode-pop-mark)
