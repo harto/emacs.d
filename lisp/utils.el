@@ -43,20 +43,6 @@
         (shell-command (format "cd %s && make" root))
       (message "No Makefile found"))))
 
-;; Allow hooks to be defined in .dir-locals.el
-;; TODO: might be redundant with special `eval' local variable
-
-(defun project-apply-directory-hooks ()
-  "Sets directory-local hooks using the value of `directory-hooks-alist', which
-   is a list of (hook-name . hook-function) pairs."
-  (when (boundp 'directory-hooks-alist)
-    (dolist (hook-definition directory-hooks-alist)
-      (add-hook (car hook-definition)
-                (cdr hook-definition)
-                nil t))))
-
-(add-hook 'hack-local-variables-hook #'project-apply-directory-hooks)
-
 ;;=====================================
 ;; Misc
 
