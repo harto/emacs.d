@@ -25,6 +25,13 @@
 ;; =====================================
 ;; Project-related helpers
 
+(defmacro in-project-directory (&rest forms)
+  `(in-project-directory* (lambda () ,@forms)))
+
+(defun in-project-directory* (f)
+  (let ((default-directory (project-directory)))
+    (funcall f)))
+
 (defun project-directory ()
   (require 'find-things-fast)
   (let ((root (ftf-project-directory)))

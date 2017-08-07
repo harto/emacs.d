@@ -1,6 +1,18 @@
 ;; Find things quickly
 
-;; TODO: this can surely be cleaned up a bit
+;; TODO: this can surely be cleaned up a bit:
+;;  - a way to specify desired search tool
+;;    (perhaps derive it from installed utilities...?)
+;;  - monorepo subproject support
+
+;; =====================================
+;; Grep for a string in a directory tree
+
+;; (defun fastest-project-grep-func ()
+;;   "Returns a wrapper around the preferred grep-like tool."
+;;   (cond ((boundp 'rg-project) #'rg-project)
+;;         ((boundp 'git-grep #')))
+;;   )
 
 (defun grep-project (search-type)
   "Greps project sources for a given pattern.
@@ -11,10 +23,15 @@ With prefix \\[universal-argument], a case-insensitive git grep is performed.
 
 With prefix \\[universal-argument] \\[universal-argument], a case-insensitive search of all files within the project tree is performed using `ag-project'."
   (interactive "p")
-  (cond ((= search-type 16) (command-execute 'ag-project))
-        ((= search-type 4) (let ((ftf-git-grep-options "-i"))
-                             (command-execute 'ftf-grepsource)))
-        (t (command-execute 'ftf-grepsource))))
+  (cond ((and (= search-type 16) (boundp 'ag-project))
+         (command-execute 'ag-project))
+
+        ((= search-type 4)
+         (let ((ftf-git-grep-options "-i"))
+           (command-execute 'ftf-grepsource)))
+
+        (t
+         (command-execute 'ftf-grepsource))))
 
 (defvar version-controlled-project-files-command
   "git ls-files"
@@ -49,3 +66,6 @@ With prefix \\[universal-argument], untracked files are included instead. (Note:
   ;;                                                          version-controlled-project-files-command)))
   ;;   (command-execute 'ftf-find-file))
   )
+
+(eval-after-load 'find-things-fast
+  '(setq ftf-filetypes '("*")))
