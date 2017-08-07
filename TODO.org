@@ -1,6 +1,4 @@
-* To-do
-
-** Improvements
+* Improvements
 
 - [ ] remove all whitespace surrounding point _including newlines_
 - [ ] clean up modeline
@@ -10,9 +8,15 @@
   - flycheck warnings/errors indicators
 - [ ] choose new theme
 - [X] fix open-line-preserving-indent impl for git commit messages
+- [ ] fix electric-pair-open-newline-between-pairs indentation
 - [ ] improve startup time (more lazy-loading, byte-compilation?)
+- [ ] allow search for text in region
 
-** Packages to investigate
+* Mode ideas
+
+- something similar to php-reference.el for various JS libs (specifically lodash)
+
+* Packages to investigate
 
 - [ ] org
 - [ ] helm
@@ -22,7 +26,7 @@
 - [ ] shackle
 - [ ] quickrun
 
-** Concepts to learn
+* Concepts to learn
 
 - [ ] goal-column
 
