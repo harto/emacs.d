@@ -16,7 +16,11 @@
             ;; sane word navigation
             (subword-mode +1)
             ;; balance parens etc.
-            (electric-pair-local-mode +1)))
+            ;; fixme: disabled until I figure out correct behaviour for
+            ;; `electric-pair-open-newline-between-pairs'.
+            (setq electric-pair-open-newline-between-pairs nil)
+            (electric-pair-local-mode +1)
+            ))
 
 ;; LESS
 
