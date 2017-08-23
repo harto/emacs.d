@@ -7,20 +7,9 @@
 (autoload 'ftf-grepsource "find-things-fast")
 (autoload 'restclient-mode "restclient")
 
-(dolist (pair '((js2-mode . ("\\.js$"))
-
-                (js2-jsx-mode . ("\\.jsx$"))
-
-                (sass-mode . ("\\.scss$"))
-
-                (sql-mode . ("\\.pl[sb]$"))
-
-                (web-mode . ("\\.erb$"
-                             "\\.hbs$"
-                             "\\.html$"
-                             "\\.twig$"))))
-  (let ((mode (car pair))
-        (patterns (cdr pair)))
-    (dolist (pattern patterns)
-      (add-to-list 'auto-mode-alist (cons pattern mode)))))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+(add-to-list 'auto-mode-alist '("\\.pl[bs]$" . sql-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(erb\\|hbs\\|html\\|twig\\)$" . web-mode))
 
