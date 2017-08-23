@@ -17,6 +17,9 @@
 
 (setq org-startup-indented t)
 
+;; no prompt for following symlinks
+(setq vc-follow-symlinks nil)
+
 ;;; ====================================
 ;;; ido-mode
 
