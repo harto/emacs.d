@@ -3,4 +3,4 @@
 (eval-after-load 'sql
   '(sql-set-product-feature 'postgres
                             :prompt-regexp
-                            "^[[:alpha:]_]*=[#>] "))
+                            "^[[:alpha:]_-]*=[#>] "))
