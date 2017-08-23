@@ -9,16 +9,16 @@
 
 (dolist (pair '((js2-mode . ("\\.js$"))
 
-                               (js2-jsx-mode . ("\\.jsx$"))
+                (js2-jsx-mode . ("\\.jsx$"))
 
-                               (sass-mode . ("\\.scss$"))
+                (sass-mode . ("\\.scss$"))
 
-                               (sql-mode . ("\\.pl[sb]$"))
+                (sql-mode . ("\\.pl[sb]$"))
 
-                               (web-mode . ("\\.erb$"
-                                            "\\.hbs$"
-                                            "\\.html$"
-                                            "\\.twig$"))))
+                (web-mode . ("\\.erb$"
+                             "\\.hbs$"
+                             "\\.html$"
+                             "\\.twig$"))))
   (let ((mode (car pair))
         (patterns (cdr pair)))
     (dolist (pattern patterns)
