@@ -46,3 +46,12 @@
 ;; Shell
 
 (setq sh-basic-offset 2)
+
+;; Git
+
+(defun git-commit-maybe-unset-line-limits ()
+  "Unset line length limitations when writing pull request messages.
+This function could be referenced by `git-commit-setup-hook'."
+  (when (string-match (buffer-name) "PULLREQ_EDITMSG")
+    (setq-local git-commit-summary-max-length 100)
+    (setq-local fill-column nil)))
