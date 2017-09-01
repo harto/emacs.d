@@ -4,6 +4,8 @@
 ;; (this isn't perfect either; for some modes it indents the current line)
 (global-set-key (kbd "C-o") 'open-line-preserving-indent)
 
+(global-set-key (kbd "M-?") 'grep-project-for-identifier)
+
 ;; Backwards window navigation; opposite of `C-x o`.
 (global-set-key (kbd "C-x p")
                 (lambda ()

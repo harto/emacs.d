@@ -33,6 +33,22 @@ With prefix \\[universal-argument] \\[universal-argument], a case-insensitive se
         (t
          (command-execute 'ftf-grepsource))))
 
+;; TODO: remove dependency on find-things-fast
+;; TODO: find symbol according to current mode (check if this needs fixing)
+;; TODO: optionally expand search to all filetypes in project
+;; TODO: fallback to various kinds of grep (rg, find|xargs)
+(defun grep-project-for-identifier (&optional identifier)
+  (interactive (list (symbol-at-point)))
+  (let* ((identifier-regexp (format "\\b%s\\b" identifier))
+         (git-path (if (= (prefix-numeric-value current-prefix-arg) 4)
+                       "*"
+                     (format "*.%s" (file-name-extension (buffer-name)))))
+         (cmd (format "git --no-pager grep --color -n -e \"%s\" -- %s"
+                      identifier-regexp
+                      git-path))
+         (default-directory (ftf-project-directory)))
+    (grep cmd)))
+
 (defvar version-controlled-project-files-command
   "git ls-files"
   "Shell command producing a list of version-controlled project files")
