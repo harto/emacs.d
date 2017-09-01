@@ -1,18 +1,22 @@
 * Improvements
 
-- [ ] remove all whitespace surrounding point _including newlines_
 - [ ] clean up modeline
   - remove encoding cruft
   - better git status
   - old-school save indicator
   - flycheck warnings/errors indicators
   - include file path
-- [ ] choose new theme
+- [ ] remove all whitespace surrounding point _including newlines_
 - [X] fix open-line-preserving-indent impl for git commit messages
 - [ ] fix electric-pair-open-newline-between-pairs indentation
+- [ ] `C-9 g`: don't refresh magit status buffer by default
+
+* Lower-priority
+
 - [ ] improve startup time (more lazy-loading, byte-compilation?)
 - [ ] allow search for text in region
 - [ ] debug & fix xref-find-references problem in python-mode
+- [ ] choose new theme
 
 * Mode ideas
 
