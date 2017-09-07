@@ -22,7 +22,6 @@
                "prefs"
                "programming"
                "search"
-               "ui"
                "utils"))
   (load lib nil t))
 
