@@ -10,7 +10,11 @@
 (setq solarized-height-plus-3 1.0)
 (setq solarized-height-plus-4 1.0)
 
-;(load-theme 'solarized-dark)
+;; Tweak modeline border, per
+;; https://github.com/bbatsov/solarized-emacs#underline-position-setting-for-x
+(setq x-underline-at-descent-line t)
+
+(load-theme 'solarized-dark)
 
 (defun big-screen ()
   (interactive)
