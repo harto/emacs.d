@@ -49,9 +49,11 @@
 
 ;; Git
 
-(defun git-commit-maybe-unset-line-limits ()
-  "Unset line length limitations when writing pull request messages.
-This function could be referenced by `git-commit-setup-hook'."
-  (when (string-match (buffer-name) "PULLREQ_EDITMSG")
-    (setq-local git-commit-summary-max-length 100)
-    (setq-local fill-column nil)))
+(defun git-commit-set-line-limits ()
+  "Set line length limits when writing commit & pull request messages.
+This function is referenced by `git-commit-setup-hook'."
+  (if (equal (buffer-name) "PULLREQ_EDITMSG")
+      (progn
+        (setq-local git-commit-summary-max-length 100)
+        (setq-local fill-column nil))
+    (setq-local fill-column 72)))
