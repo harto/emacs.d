@@ -19,36 +19,13 @@
   (if (string-prefix-p prefix s)
       (substring s (length prefix))))
 
-;; (defun string-decamel (s &optional sep)
-;;   (replace-regexp-in-string "\\([A-Z]\\)" (concat "\\1" sep) s))
-
 ;; =====================================
 ;; Project-related helpers
-
-(defmacro in-project-directory (&rest forms)
-  `(in-project-directory* (lambda () ,@forms)))
-
-(defun in-project-directory* (f)
-  (let ((default-directory (project-directory)))
-    (funcall f)))
 
 (defun project-directory ()
   (require 'find-things-fast)
   (let ((root (ftf-project-directory)))
     (if root (directory-file-name root))))
-
-(defun project-relative (path)
-  "Returns PATH relative to project root."
-  (interactive (list (buffer-file-name)))
-  (string-drop-prefix (file-truename (file-name-as-directory (project-directory)))
-                      (file-truename path)))
-
-(defun project-make ()
-  (interactive)
-  (let ((root (locate-dominating-file (buffer-file-name) "Makefile")))
-    (if root
-        (shell-command (format "cd %s && make" root))
-      (message "No Makefile found"))))
 
 ;;=====================================
 ;; Misc

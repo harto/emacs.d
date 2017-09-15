@@ -21,9 +21,9 @@
 
 (define-prefix-command 'project)
 (global-set-key (kbd "C-9") 'project)
-(define-key project (kbd "f") 'find-project-file)
+(define-key project (kbd "f") 'ftf-find-file)
 (define-key project (kbd "g") 'magit-status)
-(define-key project (kbd "s") 'grep-project)
+(define-key project (kbd "s") 'ftf-grepsource)
 
 (define-prefix-command 'edit)
 (global-set-key (kbd "C-0") 'edit)
