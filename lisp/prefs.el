@@ -72,3 +72,9 @@
 (set-default 'ws-trim-level 1)  ; only trim modified lines
 
 (setq-default fill-column 80)
+
+;; =====================================
+;; Text encoding
+
+(set-language-environment "UTF-8")
+(setq-default buffer-file-coding-system 'utf-8-unix)
