@@ -35,6 +35,10 @@
 ;; Clojure / ClojureScript
 
 (add-hook 'clojure-mode-hook #'paredit-mode)
+(add-hook 'paredit-mode-hook
+          (lambda ()
+            ;; prevent paredit M-? shadowing default binding
+            (define-key paredit-mode-map (kbd "M-?") nil)))
 
 ;; Elisp
 
