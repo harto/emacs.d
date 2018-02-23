@@ -2,11 +2,9 @@
 
 ;; JavaScript
 
+(setq js2-basic-offset 2)
 (setq js2-bounce-indent-p t)
 (setq js2-cleanup-whitespace t)
-;; TODO: find out what these did and update them
-;; (setq js2-consistent-level-indent-inner-bracket-p t)
-;; (setq js2-use-ast-for-indentation-p t)
 
 (add-hook 'js2-mode-hook
           (lambda ()
