@@ -30,6 +30,8 @@
           (lambda ()
             (subword-mode +1)))
 
+(setq-default ruby-insert-encoding-magic-comment nil)
+
 ;; Clojure / ClojureScript
 
 (add-hook 'clojure-mode-hook #'paredit-mode)

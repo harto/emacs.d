@@ -1,5 +1,5 @@
-;;; ====================================
-;;; General preferences
+;; =====================================
+;; General preferences
 
 ;; silent startup
 (setq inhibit-startup-screen t)
@@ -20,8 +20,8 @@
 ;; no prompt for following symlinks
 (setq vc-follow-symlinks nil)
 
-;;; ====================================
-;;; ido-mode
+;; =====================================
+;; ido-mode
 
 (ido-mode +1)
 (ido-everywhere +1)
@@ -44,8 +44,17 @@
 (require 'flx-ido)
 (flx-ido-mode +1)
 
-;;; ====================================
-;;; Miscellany
+;; =====================================
+;; Encodings
+
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(set-locale-environment "en_AU.UTF-8")
+
+;; =====================================
+;; Miscellany
 
 ;; Snippet expansion
 (yas-global-mode +1)
@@ -61,8 +70,8 @@
 (line-number-mode +1)
 (column-number-mode +1)
 
-;;; ====================================
-;;; Whitespace
+;; =====================================
+;; Whitespace
 
 (setq-default indent-tabs-mode nil
               tab-width 4
