@@ -24,6 +24,16 @@
   (interactive)
   (set-default-font "Monaco-12" t t))
 
+(defun hi-vis ()
+  (interactive)
+  (big-screen)
+  (load-theme 'solarized-light))
+
+(defun lo-vis ()
+  (interactive)
+  (small-screen)
+  (load-theme 'solarized-dark))
+
 ;; (require 'fill-column-indicator)
 ;; (setq fci-rule-color "#073642")
 ;; (define-globalized-minor-mode global-fci-mode
