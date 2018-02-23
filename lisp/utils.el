@@ -64,3 +64,8 @@ Passes arg N to `open-line'."
              (eq buf-mode 'dired-mode)
              (not (buffer-modified-p buf)))
          (not (equal "TAGS" buf-name)))))
+
+(defun slurp-file (path)
+  (with-temp-buffer
+    (insert-file-contents path)
+    (buffer-string)))
