@@ -28,4 +28,12 @@
 (define-prefix-command 'edit)
 (global-set-key (kbd "C-0") 'edit)
 (define-key edit (kbd "a") 'align-regexp)
+(define-key edit (kbd "d") 'diff-buffer-with-file)
 (define-key edit (kbd "s") 'sort-lines)
+(define-key edit (kbd "S") 'sort-lines-case-insensitive)
+
+(defun sort-lines-case-insensitive ()
+  (interactive)
+  (let ((sort-fold-case t))
+    ;; TODO: handle prefix arg
+    (command-execute 'sort-lines)))
