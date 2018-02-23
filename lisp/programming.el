@@ -57,5 +57,7 @@ This function is referenced by `git-commit-setup-hook'."
   (if (equal (buffer-name) "PULLREQ_EDITMSG")
       (progn
         (setq-local git-commit-summary-max-length 100)
-        (setq-local fill-column nil))
+        ;; `most-positive-fixnum' rather than NIL so
+        ;; fill-paragraph & fill-region work
+        (setq-local fill-column most-positive-fixnum))
     (setq-local fill-column 72)))
