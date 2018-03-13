@@ -5,6 +5,7 @@
 ;; (i.e. those not installed via ELPA)
 (autoload 'ftf-find-file "find-things-fast")
 (autoload 'ftf-grepsource "find-things-fast")
+(autoload 'ftf-project-directory "find-things-fast")
 (autoload 'restclient-mode "restclient")
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))

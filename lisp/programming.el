@@ -1,10 +1,12 @@
 ;; Support for various programming languages
 
+(global-flycheck-mode +1)
+
 ;; JavaScript
 
-(setq js2-basic-offset 2)
-(setq js2-bounce-indent-p t)
-(setq js2-cleanup-whitespace t)
+(setq-default js2-basic-offset 2)
+(setq-default js2-bounce-indent-p t)
+(setq-default js2-cleanup-whitespace t)
 
 (add-hook 'js2-mode-hook
           (lambda ()
@@ -18,11 +20,9 @@
             ;; `electric-pair-open-newline-between-pairs'.
             (setq electric-pair-open-newline-between-pairs nil)
             (electric-pair-local-mode +1)
+            ;; Disable override of M-.
+            (local-unset-key (kbd "M-."))
             ))
-
-;; LESS
-
-(setq less-css-lessc-options '("--no-color"))
 
 ;; Ruby
 
@@ -49,7 +49,7 @@
 
 ;; Shell
 
-(setq sh-basic-offset 2)
+(setq-default sh-basic-offset 2)
 
 ;; Git
 

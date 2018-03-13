@@ -14,6 +14,7 @@
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 
 (setq org-startup-indented t)
 
@@ -52,12 +53,15 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (set-locale-environment "en_AU.UTF-8")
+(setq-default buffer-file-coding-system 'utf-8-unix)
 
 ;; =====================================
 ;; Miscellany
 
 ;; Snippet expansion
 (yas-global-mode +1)
+;; TODO: figure out a way to set require-final-newline -> nil for snippets
+;; (is there a yas-mode?)
 
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode -1))
@@ -70,20 +74,14 @@
 (line-number-mode +1)
 (column-number-mode +1)
 
-;; =====================================
-;; Whitespace
-
-(setq-default indent-tabs-mode nil
-              tab-width 4
-              require-final-newline t)
-
-(global-ws-trim-mode t)
-(set-default 'ws-trim-level 1)  ; only trim modified lines
-
 (setq-default fill-column 80)
 
 ;; =====================================
-;; Text encoding
+;; Whitespace
 
-(set-language-environment "UTF-8")
-(setq-default buffer-file-coding-system 'utf-8-unix)
+(setq-default indent-tabs-mode nil)
+(setq-default require-final-newline t)
+(setq-default tab-width 4)
+
+(global-ws-trim-mode t)
+(set-default 'ws-trim-level 1)  ; only trim modified lines

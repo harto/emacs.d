@@ -19,21 +19,30 @@
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n))))
 
+;; C-9: project helpers
 (define-prefix-command 'project)
 (global-set-key (kbd "C-9") 'project)
 (define-key project (kbd "f") 'ftf-find-file)
 (define-key project (kbd "g") 'magit-status)
 (define-key project (kbd "s") 'ftf-grepsource)
 
+;; C-0: current file/source helpers
 (define-prefix-command 'edit)
 (global-set-key (kbd "C-0") 'edit)
 (define-key edit (kbd "a") 'align-regexp)
-(define-key edit (kbd "d") 'diff-buffer-with-file)
+(define-key edit (kbd "d") 'diff-current-buffer-with-file)
 (define-key edit (kbd "s") 'sort-lines)
 (define-key edit (kbd "S") 'sort-lines-case-insensitive)
+
+(defun diff-current-buffer-with-file ()
+  (interactive)
+  (diff-buffer-with-file (current-buffer)))
 
 (defun sort-lines-case-insensitive ()
   (interactive)
   (let ((sort-fold-case t))
     ;; TODO: handle prefix arg
     (command-execute 'sort-lines)))
+
+;; Extend isearch-mode to allow yanking thing-at-point
+(define-key isearch-mode-map (kbd "M-.") 'isearch-yank-thing-at-point)

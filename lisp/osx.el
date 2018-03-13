@@ -15,6 +15,8 @@
 (setq interprogram-paste-function 'osx-copy)
 (setq interprogram-cut-function 'osx-paste)
 
+;; Work around OS X environment nonsense by parsing $PATH from shell profile
+
 (defun set-exec-path-from-shell-path ()
   (let ((path (shell-command-to-string "$SHELL -lc 'echo -n $PATH'")))
     (setenv "PATH" path)
