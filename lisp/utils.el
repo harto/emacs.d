@@ -9,9 +9,9 @@ For non-monorepos, this is the same as `project-root'."
 
 (defun project-root ()
   "Return the root of the project containing the current buffer's file."
-;  (require 'find-things-fast)
   (let ((root (ftf-project-directory)))
-    (if root (directory-file-name root))))
+    (when (and buffer-file-name root)
+      (directory-file-name root))))
 
 ;;=====================================
 ;; Misc
