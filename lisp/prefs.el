@@ -16,6 +16,8 @@
 (put 'scroll-left 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
+(setq completion-show-help nil)
+
 (setq org-startup-indented t)
 
 ;; no prompt for following symlinks
