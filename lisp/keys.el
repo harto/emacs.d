@@ -19,6 +19,16 @@
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n))))
 
+;; C-7: flycheck shortcuts
+(define-prefix-command 'flycheck-shortcuts)
+(global-set-key (kbd "C-7") 'flycheck-shortcuts)
+(define-key flycheck-shortcuts (kbd "l") 'flycheck-list-errors)
+(define-key flycheck-shortcuts (kbd "n") 'flycheck-next-error)
+(define-key flycheck-shortcuts (kbd "p") 'flycheck-previous-error)
+(define-key flycheck-shortcuts (kbd "v") 'flycheck-verify-setup)
+
+;; C-8: custom extensions for major mode
+
 ;; C-9: project helpers
 (define-prefix-command 'project)
 (global-set-key (kbd "C-9") 'project)
@@ -31,6 +41,8 @@
 (global-set-key (kbd "C-0") 'edit)
 (define-key edit (kbd "a") 'align-regexp)
 (define-key edit (kbd "d") 'diff-current-buffer-with-file)
+(define-key edit (kbd "g") 'magit-file-popup)
+(define-key edit (kbd "r") 'mc/mark-all-symbols-like-this-in-defun)
 (define-key edit (kbd "s") 'sort-lines)
 (define-key edit (kbd "S") 'sort-lines-case-insensitive)
 
