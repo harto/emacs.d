@@ -1,0 +1,11 @@
+# name: while getopts xxx; ...; done
+# key: getopts
+# --
+while getopts ":$1" opt; do
+  case $opt in
+    $2
+    h) usage; exit 0 ;;
+    *) usage; exit 1 ;;
+  esac
+done
+shift $(( OPTIND - 1 ))

@@ -1,0 +1,6 @@
+# name: private class method def self.xxx ... end
+# key: pcm
+# --
+private_class_method def self.${1:method}${2:(${3:args})}
+  $0
+end
