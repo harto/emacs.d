@@ -55,3 +55,14 @@ Passes arg N to `open-line'."
   (with-temp-buffer
     (insert-file-contents path)
     (buffer-string)))
+
+;; http://emacsredux.com/blog/2013/06/21/eval-and-replace/
+(defun eval-and-replace-preceding-sexp ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
