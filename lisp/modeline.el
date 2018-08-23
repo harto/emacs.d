@@ -2,17 +2,23 @@
 ;; Cribbed from https://github.com/hlissner/doom-emacs/tree/master/modules/ui/doom-modeline
 
 ;; TODO
-;; - byte-compilation?
-;; - no unsaved indicator for non-file buffers
+;; - ensure completions don't slip under modeline
+;; - fix right-alignment when flycheck etc. not enabled
+;; - unsaved indicator:
+;;   - don't show for non-file/"special" buffers
+;;   - only show the disk in red, not the whole filename
 ;; - different read-only indicator?
 ;; - flycheck-mode: don't change layout while checking
+;;   - maybe track last count and show e.g. "--"
 ;; - abbreviate "Emacs-Lisp" etc.
 ;; - show number of lines
-;; - anzu stuff
+;; - anzu etc.
 ;; - git indicators in gutter
 ;; - improve flycheck gutter indicators
+;; - fix colours (git branch, etc.)
 ;; - fix 1px-wide bar colour
-;; - ?
+;; - hover text for various modeline segments
+;; - byte-compilation?
 
 (defun adjust-mode-line-colours (theme)
   (when (or (eq theme 'solarized-dark) (eq theme 'solarized-light))
@@ -164,7 +170,7 @@ file-name => baz.py")
 
 (defun fml--buffer-file-name-bare ()
   (propertize
-   (file-name-nondirectory buffer-file-name)
+   "%b"
    'face
    (let ((face (cond ((buffer-modified-p) 'fml-buffer-modified)
                      ((fml--window-active-p) 'fml-buffer-file))))
@@ -309,10 +315,10 @@ file-name => baz.py")
                                   (format " %d" (or .error .warning))
                                   (if .error 'fml-error 'fml-warning)
                                   -0.25))
-                   (fml--icon "check" nil 'fml--info)))
+                   (fml--icon "check" nil 'fml-info)))
       ('running     (fml--icon "access_time" nil 'font-lock-doc-face -0.25))
       ('no-checker  (fml--icon "sim_card_alert" "-" 'font-lock-doc-face))
-      ('errored     (fml--icon "sim_card_alert" "Error" 'fml--urgent))
+      ('errored     (fml--icon "sim_card_alert" "Error" 'fml-error))
       ('interrupted (fml--icon "pause" "Interrupted" 'font-lock-doc-face)))))
 
 ;; Modeline definitions

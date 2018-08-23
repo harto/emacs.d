@@ -19,6 +19,7 @@
 (dolist (lib '("hacks"
                "keys"
                "modes"
+               "modeline"
                "prefs"
                "programming"
                "search"
