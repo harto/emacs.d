@@ -1,5 +1,7 @@
 ;; Custom key bindings
 
+(global-set-key (kbd "C-c e") 'eval-and-replace-preceding-sexp)
+
 ;; open-line doesn't indent second line
 ;; (this isn't perfect either; for some modes it indents the current line)
 (global-set-key (kbd "C-o") 'open-line-preserving-indent)
@@ -58,3 +60,17 @@
 
 ;; Extend isearch-mode to allow yanking thing-at-point
 (define-key isearch-mode-map (kbd "M-.") 'isearch-yank-thing-at-point)
+
+;; Override default M-. in js2-mode
+(defun js2-jump ()
+  "Look for thing at point in current file, falling back to project-wide search."
+  (interactive)
+  (condition-case ex
+      ;; TODO: figure out how to skip imports
+      (command-execute 'js2-jump-to-definition)
+    ('error
+     (command-execute 'xref-find-definitions))))
+
+(add-hook 'js2-mode
+          (lambda ()
+            (define-key js2-mode-map (kbd "M-.") 'js2-jump)))

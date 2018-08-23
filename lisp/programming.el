@@ -19,10 +19,7 @@
             ;; fixme: disabled until I figure out correct behaviour for
             ;; `electric-pair-open-newline-between-pairs'.
             (setq electric-pair-open-newline-between-pairs nil)
-            (electric-pair-local-mode +1)
-            ;; Disable override of M-.
-            (local-unset-key (kbd "M-."))
-            ))
+            (electric-pair-local-mode +1)))
 
 ;; Ruby
 
@@ -45,7 +42,9 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (unless (equal (buffer-name) "*scratch*")
-              (paredit-mode +1))))
+              (paredit-mode +1))
+            ;; Don't care about documentation
+            (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
 
 ;; Shell
 
