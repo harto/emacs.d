@@ -62,3 +62,9 @@ This function is referenced by `git-commit-setup-hook'."
         ;; fill-paragraph & fill-region work
         (setq-local fill-column most-positive-fixnum))
     (setq-local fill-column 72)))
+
+;; Java
+
+(add-hook 'java-mode-hook
+          (lambda ()
+            (setq-local c-basic-offset 2)))
