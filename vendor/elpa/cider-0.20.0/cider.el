@@ -11,7 +11,7 @@
 ;;         Steve Purcell <steve@sanityinc.com>
 ;; Maintainer: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: http://www.github.com/clojure-emacs/cider
-;; Version: 0.21.0-snapshot
+;; Version: 0.20.0
 ;; Package-Requires: ((emacs "25") (clojure-mode "5.9") (pkg-info "0.4") (queue "0.2") (spinner "1.7") (seq "2.16") (sesman "0.3.2"))
 ;; Keywords: languages, clojure, cider
 
@@ -86,12 +86,12 @@
 (require 'seq)
 (require 'sesman)
 
-(defconst cider-version "0.21.0-snapshot"
+(defconst cider-version "0.20.0"
   "Fallback version used when it cannot be extracted automatically.
 Normally it won't be used, unless `pkg-info' fails to extract the
 version from the CIDER package or library.")
 
-(defconst cider-codename "New York"
+(defconst cider-codename "Oslo"
   "Codename used to denote stable releases.")
 
 (defcustom cider-lein-command
@@ -224,11 +224,11 @@ project.clj for leiningen or build.boot for boot, could be found.
 As the Clojure CLI is bundled with Clojure itself, it's the default.
 In the absence of the Clojure CLI (e.g. on Windows), we fallback
 to Leiningen."
-  :type '(choice (const lein)
-                 (const boot)
-                 (const clojure-cli)
-                 (const shadow-cljs)
-                 (const gradle))
+  :type '(choice (const 'lein)
+                 (const 'boot)
+                 (const 'clojure-cli)
+                 (const 'shadow-cljs)
+                 (const 'gradle))
   :group 'cider
   :safe #'symbolp
   :package-version '(cider . "0.9.0"))
@@ -242,11 +242,11 @@ variable will suppress this behavior and will select whatever build system
 is indicated by the variable if present.  Note, this is only when CIDER
 cannot decide which of many build systems to use and will never override a
 command when there is no ambiguity."
-  :type '(choice (const lein)
-                 (const boot)
-                 (const clojure-cli)
-                 (const shadow-cljs)
-                 (const gradle)
+  :type '(choice (const 'lein)
+                 (const 'boot)
+                 (const 'clojure-cli)
+                 (const 'shadow-cljs)
+                 (const 'gradle)
                  (const :tag "Always ask" nil))
   :group 'cider
   :safe #'symbolp
@@ -258,10 +258,10 @@ When set to 'warn you'd prompted to confirm the command.
 When set to t `cider-jack-in' will quietly continue.
 When set to nil `cider-jack-in' will fail."
   :type '(choice (const :tag "always" t)
-                 (const warn)
+                 (const 'warn)
                  (const :tag "never" nil))
   :group 'cider
-  :safe #'symbolp
+  :safe #'stringp
   :package-version '(cider . "0.15.0"))
 
 (defcustom cider-known-endpoints nil
