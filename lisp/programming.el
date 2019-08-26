@@ -68,3 +68,9 @@ This function is referenced by `git-commit-setup-hook'."
 (add-hook 'java-mode-hook
           (lambda ()
             (setq-local c-basic-offset 2)))
+
+;; SQL
+
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
