@@ -12,9 +12,6 @@
 (setq interprogram-paste-function 'osx-copy)
 (setq interprogram-cut-function 'osx-paste)
 
-;; Note: copy-paste under tmux needs some additional configuration.
-;; See https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
-
 ;; Work around OS X environment nonsense by parsing $PATH from shell profile
 
 (defun set-exec-path-from-shell-path ()

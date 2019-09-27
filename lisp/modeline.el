@@ -1,5 +1,5 @@
 ;; Fancy Mode Line
-;; Cribbed from https://github.com/hlissner/doom-emacs/tree/master/modules/ui/doom-modeline
+;; Adapted from https://github.com/hlissner/doom-emacs/tree/master/modules/ui/doom-modeline
 
 ;; TODO
 ;; - ensure completions don't slip under modeline
