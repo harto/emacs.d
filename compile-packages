@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+emacs -Q --batch --eval '(byte-recompile-directory "vendor" 0 0)'
