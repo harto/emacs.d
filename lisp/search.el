@@ -1,6 +1,6 @@
-;;; Find things quickly
+;; Find things quickly
 
-;; TODO: monorepo subproject support
+;; TODO: monorepo subproject support?
 
 (setq-default grep-project-exclude-globs ())
 

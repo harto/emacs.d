@@ -61,8 +61,22 @@ Passes arg N to `open-line'."
   "Replace the preceding sexp with its value."
   (interactive)
   (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
+  ;; FIXME: doesn't work
+  (let ((sexpr (current-kill 0)))
+    (message "%s" sexpr)
+    (condition-case nil
+        (prin1 (eval (read sexpr))
+               (current-buffer))
+      (error (message "Invalid expression: %s" sexpr)
+             (insert (current-kill 0))))))
+
+(defun diff-current-buffer-with-file ()
+  (interactive)
+  (diff-buffer-with-file (current-buffer)))
+
+(defun sort-lines-case-insensitive ()
+  (interactive)
+  (let ((sort-fold-case t))
+    ;; TODO: handle prefix arg
+    (command-execute 'sort-lines)))
+
