@@ -31,6 +31,7 @@
       solarized-height-plus-4 1.0)
 
 (load-theme 'solarized-dark)
+(set-frame-font "Monaco-12" t t)
 
 (defun big-screen ()
   (interactive)
@@ -38,7 +39,7 @@
 
 (defun small-screen ()
   (interactive)
-  (set-default-font "Monaco-12" t t))
+  (set-frame-font "Monaco-12" t t))
 
 (defun hi-vis ()
   (interactive)
