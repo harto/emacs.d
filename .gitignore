@@ -7,6 +7,7 @@ sqlnet.log
 /vendor/elpa/archive-contents
 /vendor/elpa/builtin-packages
 /tramp
+/transient
 /url
 /eshell
 /ido.last
