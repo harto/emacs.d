@@ -1,3 +1,0 @@
-[submodule "vendor/restclient"]
-	path = vendor/restclient
-	url = https://github.com/pashky/restclient.el
