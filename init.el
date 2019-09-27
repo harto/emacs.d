@@ -1,12 +1,9 @@
-;; personal extensions
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
 ;; ad hoc 3rd-party extensions
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (let ((default-directory "~/.emacs.d/vendor"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; ELPA packages
+;; managed packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-unstable" . "https://melpa.org/packages/") t)
@@ -16,6 +13,9 @@
 ;; customizations
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file nil t)
+
+;; personal extensions
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (dolist (lib '("hacks"
                "keys"
