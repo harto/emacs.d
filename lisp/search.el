@@ -2,11 +2,13 @@
 
 ;; TODO: monorepo subproject support
 
+(setq-default grep-project-exclude-globs ())
+
 (defun grep-project-for-identifier (identifier glob)
   "Greps for references to IDENTIFIER in files matching GLOB.
 
 This is a simplified alternative to `xref-find-references', which tries to do
-various things (like reverse-tag lookups) that don't work very well.
+various things (like reverse-tag lookups) that don't always work reliably.
 
 The glob is a git-grep pattern relative to the root of the project.  It could be
 something like \"*\", \"subproject/\", \"*.js\", etc.
@@ -23,10 +25,18 @@ When called interactively, the glob is derived from prefix arg:
                      (cond ((= (prefix-numeric-value current-prefix-arg) 16) "*")
                            ((= (prefix-numeric-value current-prefix-arg) 4) (subproject-root))
                            (t (format "\"*.%s\"" (file-name-extension (buffer-file-name)))))))
-  (let ((default-directory (project-root)))
-    (grep (format "git --no-pager grep --color -n -e \"%s\" -- %s"
-                  (format "\\b%s\\b" identifier)
-                  glob))))
+  (let ((default-directory (project-root))
+        (grep-command (format "git --no-pager grep --color -n -e \"%s\" -- %s%s"
+                              (format "\\b%s\\b" identifier)
+                              glob
+                              (if grep-project-exclude-globs
+                                  (mapconcat (lambda (glob)
+                                               (format " ':!%s'" glob))
+                                             grep-project-exclude-globs
+                                             "")
+                                ""))))
+    (message grep-command)
+    (grep grep-command)))
 
 ;; (defadvice grep (before kill-grep-before-grep)
 ;;   (kill-grep))
