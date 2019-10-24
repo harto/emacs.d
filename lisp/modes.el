@@ -21,6 +21,18 @@
             (electric-pair-local-mode +1)))
 
 ;; =====================================
+;; Flow mode
+
+(define-derived-mode flow-mode typescript-mode "Flow"
+  "JavaScript with Flow type-checking")
+
+(add-hook 'flow-mode-hook #'configure-flow-mode)
+
+(defun configure-flow-mode ()
+  (electric-pair-local-mode +1)
+  (subword-mode +1))
+
+;; =====================================
 ;; Ruby
 
 (add-hook 'ruby-mode-hook
