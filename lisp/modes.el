@@ -93,6 +93,12 @@ This function is referenced by `git-commit-setup-hook'."
           (lambda ()
             (toggle-truncate-lines t)))
 
+;; Handle dashes in database names
+(eval-after-load 'sql
+  '(sql-set-product-feature 'postgres
+                            :prompt-regexp
+                            "^[[:alpha:]_-]*=[#>] "))
+
 ;; =====================================
 ;; Org
 
