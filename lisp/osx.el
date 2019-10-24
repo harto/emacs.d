@@ -12,12 +12,18 @@
 (setq interprogram-paste-function 'osx-copy)
 (setq interprogram-cut-function 'osx-paste)
 
-;; Work around OS X environment nonsense by parsing $PATH from shell profile
+;; Work around OS X environment nonsense by reading it from shell profile
 
-(defun set-exec-path-from-shell-path ()
-  (let ((path (shell-command-to-string "$SHELL -lc 'echo -n $PATH'")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator))))
+(defun load-env-from-shell ()
+  (dolist (line (split-string (shell-command-to-string "$SHELL -lc env") "\n" t))
+    (let* ((parts (split-string line "="))
+           (k (nth 0 parts))
+           (v (nth 1 parts)))
+      (setenv k v))))
+
+(defun reset-exec-path-from-env ()
+  (setq exec-path (split-string (getenv "PATH") path-separator)))
 
 (when (display-graphic-p)
-  (set-exec-path-from-shell-path))
+  (load-env-from-shell)
+  (reset-exec-path-from-env))
