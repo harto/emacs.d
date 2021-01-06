@@ -10,14 +10,6 @@
 ;; ask for y/n rather than yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; less visual noise
-(if (boundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
-(if (boundp 'tool-bar-mode)
-    (tool-bar-mode -1))
-(if (boundp 'menu-bar-mode)
-    (menu-bar-mode -1))
-
 ;; no warnings for rarely-used features
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
