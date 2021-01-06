@@ -6,7 +6,7 @@
 ;; (this isn't perfect either; for some modes it indents the current line)
 (global-set-key (kbd "C-o") 'open-line-preserving-indent)
 
-(global-set-key (kbd "M-?") 'grep-project-for-identifier)
+;(global-set-key (kbd "M-?") 'grep-project-for-identifier)
 
 ;; Backwards window navigation; opposite of `C-x o`.
 (global-set-key (kbd "C-x p")
@@ -29,8 +29,7 @@
 (define-key flycheck-shortcuts (kbd "p") 'flycheck-previous-error)
 (define-key flycheck-shortcuts (kbd "v") 'flycheck-verify-setup)
 
-;; C-8: custom extensions for major mode
-;; (???)
+;; C-8: reserved for mode-specific helpers
 
 ;; C-9: project helpers
 (define-prefix-command 'project)
@@ -38,6 +37,7 @@
 (define-key project (kbd "f") 'ftf-find-file)
 (define-key project (kbd "g") 'magit-status)
 (define-key project (kbd "s") 'ftf-grepsource)
+(define-key project (kbd "r") 'grep-project-for-identifier)
 
 ;; C-0: current file/source helpers
 (define-prefix-command 'edit)
