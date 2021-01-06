@@ -1,6 +1,9 @@
 ;; GUI instance acts as server (should only be one)
 (server-start)
 
+;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
+(cd "~")
+
 ;; Theme hooks, per http://www.greghendershott.com/2017/02/emacs-themes.html
 
 (defvar load-theme-hooks nil)
