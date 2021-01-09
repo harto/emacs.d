@@ -21,16 +21,14 @@
             (electric-pair-local-mode +1)))
 
 ;; =====================================
-;; Flow mode
+;; TypeScript
 
-(define-derived-mode flow-mode typescript-mode "Flow"
-  "JavaScript with Flow type-checking")
+(add-hook 'typescript-mode-hook #'configure-typescript-mode)
 
-(add-hook 'flow-mode-hook #'configure-flow-mode)
-
-(defun configure-flow-mode ()
+(defun configure-typescript-mode ()
   (electric-pair-local-mode +1)
-  (subword-mode +1))
+  (subword-mode +1)
+  (local-set-key (kbd "C-8 r") 'lsp-rename))
 
 ;; =====================================
 ;; Ruby
@@ -133,6 +131,7 @@ This function is referenced by `git-commit-setup-hook'."
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 (add-to-list 'auto-mode-alist '("\\.pl[bs]$" . sql-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(erb\\|hbs\\|html\\|twig\\)$" . web-mode))
