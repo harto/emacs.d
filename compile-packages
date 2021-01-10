@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-emacs -Q --batch --eval '(byte-recompile-directory "elpa" 0 0)'
