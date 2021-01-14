@@ -2,10 +2,24 @@
 
 ;; TODO: monorepo subproject support?
 
-(setq-default grep-project-exclude-globs ())
+(setq-default grep-project-exclude-paths ())
 
-(defun grep-project-for-identifier (identifier glob)
-  "Greps for references to IDENTIFIER in files matching GLOB.
+(defun buffer-mode-glob (buffer)
+  "Return globs that finds files matching mode of BUFFER.
+
+For a file \"a.foo\", this normally returns the list (\"*.foo\").
+For languages that have a variety of file extensions, this might
+produce a list of more than one glob. (e.g. for a buffer using
+TypeScript mode, the returned list might be (\"*.ts\" \"*.tsx\")."
+  (let* ((mode (with-current-buffer buffer
+                 major-mode)))
+    (if (or (equal mode 'js2-mode)
+            (equal mode 'typescript-mode))
+        '("\\*.ts" "\\*.tsx" "\\*.js")
+      (list (format "\"*.%s\"" (file-name-extension (buffer-file-name buffer)))))))
+
+(defun grep-project-for-identifier (identifier globs)
+  "Grep for references to IDENTIFIER in files matching GLOBS.
 
 This is a simplified alternative to `xref-find-references', which tries to do
 various things (like reverse-tag lookups) that don't always work reliably.
@@ -22,17 +36,17 @@ When called interactively, the glob is derived from prefix arg:
  - With prefix \\[universal-argument] \\[universal-argument], search all files
    in the project."
   (interactive (list (symbol-at-point)
-                     (cond ((= (prefix-numeric-value current-prefix-arg) 16) "*")
-                           ((= (prefix-numeric-value current-prefix-arg) 4) (subproject-root))
-                           (t (format "\"*.%s\"" (file-name-extension (buffer-file-name)))))))
+                     (cond ((= (prefix-numeric-value current-prefix-arg) 16) '("*"))
+                           ((= (prefix-numeric-value current-prefix-arg) 4) (list (subproject-root)))
+                           (t (buffer-mode-glob (current-buffer))))))
   (let ((default-directory (project-root))
-        (grep-command (format "git --no-pager grep --color -n -e \"%s\" -- %s%s"
-                              (format "\\b%s\\b" identifier)
-                              glob
-                              (if grep-project-exclude-globs
-                                  (mapconcat (lambda (glob)
-                                               (format " ':!%s'" glob))
-                                             grep-project-exclude-globs
+        (grep-command (format "git --no-pager grep --color -n -Fw -e \"%s\" -- %s%s"
+                              identifier
+                              (mapconcat #'identity globs " ")
+                              (if grep-project-exclude-paths
+                                  (mapconcat (lambda (path)
+                                               (format " ':!%s'" path))
+                                             grep-project-exclude-paths
                                              "")
                                 ""))))
     (message grep-command)
@@ -41,14 +55,21 @@ When called interactively, the glob is derived from prefix arg:
 ;; (defadvice grep (before kill-grep-before-grep)
 ;;   (kill-grep))
 
-;; find-things-fast only searches for extensions used in Chromium source
-;; by default. Make it search all filetypes.
+;; find-things-fast only searches for extensions used in Chromium source by default.
 (setq-default ftf-filetypes '("*"))
+
 ;; Ensure we only grep regular files.
 (advice-add 'ftf-get-find-command :around #'ftf-add-files-filter)
-
 (defun ftf-add-files-filter (oldfun &rest args)
   (concat (apply oldfun args) " -type f"))
+
+;; Don't grep irrelevant files.
+(advice-add 'ftf-grepsource :before #'ftf-set-filetypes)
+(defun ftf-set-filetypes (&rest args)
+  (when grep-project-exclude-paths
+    (setq-local ftf-filetypes (mapcar (lambda (path)
+                                        (format ":!%s" path))
+                                      grep-project-exclude-paths))))
 
 (defun isearch-yank-thing-at-point ()
   "Put thing at point into the current isearch string."
