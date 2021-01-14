@@ -35,7 +35,6 @@
 (define-prefix-command 'project)
 (global-set-key (kbd "C-9") 'project)
 (define-key project (kbd "f") 'ftf-find-file)
-(define-key project (kbd "g") 'magit-status)
 (define-key project (kbd "s") 'ftf-grepsource)
 (define-key project (kbd "r") 'grep-project-for-identifier)
 
