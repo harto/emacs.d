@@ -8,19 +8,18 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
-(dolist (lib '("keys"
-               "modes"
-               "modeline"
-               "prefs"
-               "search"
-               "utils"))
-  (load lib nil t))
+(load "keys")
+(load "modes")
+(load "modeline")
+(load "prefs")
+(load "search")
+(load "utils")
 
-(if (eq system-type 'darwin)
-    (load "osx" nil t))
+(when (eq system-type 'darwin)
+  (load "osx"))
 
-(if (display-graphic-p)
-    (load "gui" nil t)
-  (load "console" nil t))
+(load (if (display-graphic-p) "gui" "console"))
 
-(load "~/remix/remix.el" t t)
+(load "~/remix/remix.el" t)
+
+(message "")
