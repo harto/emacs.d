@@ -24,6 +24,7 @@
 ;; TypeScript
 
 (add-hook 'typescript-mode-hook #'configure-typescript-mode)
+(add-hook 'typescript-mode-hook 'lsp)
 
 (defun configure-typescript-mode ()
   (electric-pair-local-mode +1)
