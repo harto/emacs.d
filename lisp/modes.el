@@ -60,6 +60,11 @@
             (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
 
 ;; =====================================
+;; Lisp
+
+(add-hook 'lisp-mode-hook #'paredit-mode)
+
+;; =====================================
 ;; Shell
 
 (setq-default sh-basic-offset 2)
