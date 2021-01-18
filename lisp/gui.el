@@ -1,8 +1,22 @@
 ;; GUI instance acts as server (should only be one)
 (server-start)
 
-;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
-(cd "~")
+(defun load-env-from-shell ()
+  (dolist (line (split-string (shell-command-to-string "$SHELL -lc env") "\n" t))
+    (let* ((parts (split-string line "="))
+           (k (nth 0 parts))
+           (v (nth 1 parts)))
+      (setenv k v))))
+
+(defun reset-exec-path-from-env ()
+  (setq exec-path (split-string (getenv "PATH") path-separator)))
+
+(when (eq system-type 'darwin)
+  ;; Work around OS X environment nonsense by loading env and PATH via shell profile
+  (load-env-from-shell)
+  (reset-exec-path-from-env)
+  ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
+  (cd "~"))
 
 ;; Theme hooks, per http://www.greghendershott.com/2017/02/emacs-themes.html
 
@@ -53,9 +67,3 @@
   (interactive)
   (small-screen)
   (load-theme 'solarized-dark))
-
-;; (require 'fill-column-indicator)
-;; (setq fci-rule-color "#073642")
-;; (define-globalized-minor-mode global-fci-mode
-;;  fci-mode turn-on-fci-mode)
-;; (global-fci-mode)

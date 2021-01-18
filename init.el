@@ -15,9 +15,6 @@
 (load "search")
 (load "utils")
 
-(when (eq system-type 'darwin)
-  (load "osx"))
-
 (load (if (display-graphic-p) "gui" "console"))
 
 (load "~/remix/remix.el" t)
