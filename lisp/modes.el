@@ -7,18 +7,27 @@
 (setq-default js2-bounce-indent-p t)
 (setq-default js2-cleanup-whitespace t)
 
-(add-hook 'js2-mode-hook
-          (lambda ()
-            ;; inline linting
-            ;(require 'flymake-jshint)
-            ;(flymake-mode)
-            ;; sane word navigation
-            (subword-mode +1)
-            ;; balance parens etc.
-            ;; fixme: disabled until I figure out correct behaviour for
-            ;; `electric-pair-open-newline-between-pairs'.
-            (setq electric-pair-open-newline-between-pairs nil)
-            (electric-pair-local-mode +1)))
+(add-hook 'js2-mode-hook #'configure-js2-mode)
+
+(defun configure-js2-mode ()
+  ;; sane word navigation
+  (subword-mode +1)
+  ;; balance parens etc.
+  ;; fixme: disabled until I figure out correct behaviour for
+  ;; `electric-pair-open-newline-between-pairs'.
+  (setq electric-pair-open-newline-between-pairs nil)
+  (electric-pair-local-mode +1)
+  ;; override jump to definition in js2-mode
+  (define-key js2-mode-map (kbd "M-.") 'js2-jump))
+
+(defun js2-jump ()
+  "Look for thing at point in current file, falling back to project-wide search."
+  (interactive)
+  (condition-case ex
+      ;; TODO: figure out how to skip imports
+      (command-execute 'js2-jump-to-definition)
+    ('error
+     (command-execute 'xref-find-definitions))))
 
 ;; =====================================
 ;; TypeScript
@@ -160,7 +169,7 @@ This function is referenced by `git-commit-setup-hook'."
 ;; Global modes
 
 (show-paren-mode +1)
-(line-number-mode +1)
+(line-number-mode +1) ; TODO: understand why this doesn't stick
 (column-number-mode +1)
 (global-flycheck-mode +1)
 (yas-global-mode +1)
