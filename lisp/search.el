@@ -1,8 +1,6 @@
 ;; Find things quickly
-
+;; TODO: are these still needed?
 ;; TODO: monorepo subproject support?
-
-(setq-default grep-project-exclude-paths ())
 
 (defun buffer-mode-glob (buffer)
   "Return globs that finds files matching mode of BUFFER.
@@ -51,25 +49,6 @@ When called interactively, the glob is derived from prefix arg:
                                 ""))))
     (message grep-command)
     (grep grep-command)))
-
-;; (defadvice grep (before kill-grep-before-grep)
-;;   (kill-grep))
-
-;; find-things-fast only searches for extensions used in Chromium source by default.
-(setq-default ftf-filetypes '("*"))
-
-;; Ensure we only grep regular files.
-(advice-add 'ftf-get-find-command :around #'ftf-add-files-filter)
-(defun ftf-add-files-filter (oldfun &rest args)
-  (concat (apply oldfun args) " -type f"))
-
-;; Don't grep irrelevant files.
-(advice-add 'ftf-grepsource :before #'ftf-set-filetypes)
-(defun ftf-set-filetypes (&rest args)
-  (when grep-project-exclude-paths
-    (setq-local ftf-filetypes (mapcar (lambda (path)
-                                        (format ":!%s" path))
-                                      grep-project-exclude-paths))))
 
 (defun isearch-yank-thing-at-point ()
   "Put thing at point into the current isearch string."
