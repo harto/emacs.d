@@ -1,20 +1,14 @@
-;; Custom key bindings
+;; Global key bindings
 
-(global-set-key (kbd "C-c e") 'eval-and-replace-preceding-sexp)
-
-;; open-line doesn't indent second line
-;; (this isn't perfect either; for some modes it indents the current line)
-(global-set-key (kbd "C-o") 'open-line-preserving-indent)
-
+(global-set-key (kbd "C-c e") 'eval-and-replace-preceding-sexp) ; FIXME: doesn't work :(
+(global-set-key [remap open-line] 'open-line-preserving-indent)
 ;(global-set-key (kbd "M-?") 'grep-project-for-identifier)
 
 ;; Backwards window navigation; opposite of `C-x o`.
-(global-set-key (kbd "C-x p")
-                (lambda ()
-                  (interactive)
-                  (other-window -1)))
-
+(global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x 8 .") (lambda () (interactive) (insert "…")))
 
 ;; per http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
 ;; make C-0, C-1, ... C-9 available for use
@@ -22,31 +16,33 @@
   (global-unset-key (kbd (format "C-%d" n))))
 
 ;; C-7: flycheck shortcuts
-(define-prefix-command 'flycheck-shortcuts)
-(global-set-key (kbd "C-7") 'flycheck-shortcuts)
-(define-key flycheck-shortcuts (kbd "l") 'flycheck-list-errors)
-(define-key flycheck-shortcuts (kbd "n") 'flycheck-next-error)
-(define-key flycheck-shortcuts (kbd "p") 'flycheck-previous-error)
-(define-key flycheck-shortcuts (kbd "v") 'flycheck-verify-setup)
+;; (define-prefix-command 'flycheck-shortcuts)
+;; (global-set-key (kbd "C-7") 'flycheck-shortcuts)
+(global-set-key (kbd "C-7 l") 'flycheck-list-errors)
+(global-set-key (kbd "C-7 n") 'flycheck-next-error)
+(global-set-key (kbd "C-7 p") 'flycheck-previous-error)
+(global-set-key (kbd "C-7 v") 'flycheck-verify-setup)
 
 ;; C-8: reserved for mode-specific helpers
 
 ;; C-9: project helpers
-(define-prefix-command 'project)
-(global-set-key (kbd "C-9") 'project)
-(define-key project (kbd "f") 'ftf-find-file)
-(define-key project (kbd "s") 'ftf-grepsource)
-(define-key project (kbd "r") 'grep-project-for-identifier)
+;; (define-prefix-command 'project)
+;; (global-set-key (kbd "C-9") 'project)
+(global-set-key (kbd "C-9 f") 'ftf-find-file)
+(global-set-key (kbd "C-9 s") 'ftf-grepsource)
+(global-set-key (kbd "C-9 r") 'grep-project-for-identifier)
 
 ;; C-0: current file/source helpers
-(define-prefix-command 'edit)
-(global-set-key (kbd "C-0") 'edit)
-(define-key edit (kbd "a") 'align-regexp)
-(define-key edit (kbd "d") 'diff-current-buffer-with-file)
-(define-key edit (kbd "g") 'magit-file-popup)
-(define-key edit (kbd "r") 'mc/mark-all-symbols-like-this-in-defun)
-(define-key edit (kbd "s") 'sort-lines)
-(define-key edit (kbd "S") 'sort-lines-case-insensitive)
+;; (define-prefix-command 'edit)
+;; (global-set-key (kbd "C-0") 'edit)
+(global-set-key (kbd "C-0 a") 'align-regexp)
+(global-set-key (kbd "C-0 d") 'diff-current-buffer-with-file)
+(global-set-key (kbd "C-0 g") 'magit-file-popup)
+(global-set-key (kbd "C-0 r") 'mc/mark-all-symbols-like-this-in-defun)
+(global-set-key (kbd "C-0 s") 'sort-lines)
+(global-set-key (kbd "C-0 S") 'sort-lines-case-insensitive)
 
 ;; Extend isearch-mode to allow yanking thing-at-point
 (define-key isearch-mode-map (kbd "M-.") 'isearch-yank-thing-at-point)
+
+
