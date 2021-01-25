@@ -1,6 +1,11 @@
 ;; Mode configurations
 
 ;; =====================================
+;; Python
+
+(setq python-shell-setup-codes '("import pydoc; pydoc.pager = pydoc.plainpager; print('disabled pydoc pager')"))
+
+;; =====================================
 ;; JavaScript
 
 (setq-default js2-basic-offset 2)
