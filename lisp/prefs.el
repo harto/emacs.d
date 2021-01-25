@@ -36,3 +36,6 @@
 (setq-default ws-trim-level 1)  ; only trim modified lines
 (setq-default fill-column 80)
 
+;; where else to put this?
+;; Avoid dumb terminal warnings in subprocesses
+(setenv "PAGER" "cat")
