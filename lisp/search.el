@@ -22,7 +22,7 @@ TypeScript mode, the returned list might be (\"*.ts\" \"*.tsx\")."
 This is a simplified alternative to `xref-find-references', which tries to do
 various things (like reverse-tag lookups) that don't always work reliably.
 
-The glob is a git-grep pattern relative to the root of the project.  It could be
+Each glob is a git-grep pattern relative to the root of the project. It could be
 something like \"*\", \"subproject/\", \"*.js\", etc.
 
 When called interactively, the glob is derived from prefix arg:

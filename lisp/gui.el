@@ -11,10 +11,14 @@
 (defun reset-exec-path-from-env ()
   (setq exec-path (split-string (getenv "PATH") path-separator)))
 
-(when (eq system-type 'darwin)
-  ;; Work around OS X environment nonsense by loading env and PATH via shell profile
+(defun reset-mac-os-env ()
+  "Works around macOS environment problems by loading env (and
+subsequently $PATH) via shell profile."
   (load-env-from-shell)
-  (reset-exec-path-from-env)
+  (reset-exec-path-from-env))
+
+(when (eq system-type 'darwin)
+  (reset-mac-os-env)
   ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
   (cd "~"))
 
@@ -47,9 +51,6 @@
       solarized-height-plus-3 1.0
       solarized-height-plus-4 1.0)
 
-(load-theme 'solarized-dark)
-(set-frame-font "Monaco-12" t t)
-
 (defun big-screen ()
   (interactive)
   (set-frame-font "Monaco-14" t t))
@@ -67,3 +68,8 @@
   (interactive)
   (small-screen)
   (load-theme 'solarized-dark))
+
+;; line-number-mode is disabled when changing themes for some reason
+(add-hook 'load-theme-hooks (lambda (theme) (line-number-mode +1)))
+
+(lo-vis)

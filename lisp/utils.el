@@ -13,7 +13,7 @@ For non-monorepos, this is the same as `project-root'."
     (when (and buffer-file-name root)
       (directory-file-name root))))
 
-;;=====================================
+;; =====================================
 ;; Misc
 
 (defun open-line-preserving-indent (n)
