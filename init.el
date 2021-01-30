@@ -19,7 +19,11 @@
 
 (load "~/remix/remix.el" t)
 
-(message "")
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Ready in %.2f seconds (%d garbage collections)"
+                     (float-time (time-subtract after-init-time before-init-time))
+                     gcs-done)))
 
 ;; (from https://blog.d46.us/advanced-emacs-startup/)
 ;; Make gc pauses faster by decreasing the threshold.
