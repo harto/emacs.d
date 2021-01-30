@@ -122,6 +122,17 @@ This function is referenced by `git-commit-setup-hook'."
 
 (setq org-startup-indented t)
 
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (ruby . t)
+     (shell . t)
+     (sql . t)))
+  ;; Markdown export
+  (require 'ox-md))
+
 ;; =====================================
 ;; ido
 
