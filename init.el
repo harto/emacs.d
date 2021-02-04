@@ -3,8 +3,30 @@
 (add-to-list 'package-archives '("melpa-unstable" . "https://melpa.org/packages/") t)
 (setq package-user-dir (expand-file-name "~/.emacs.d/elpa"))
 
+;; https://github.com/jwiegley/use-package
+(eval-when-compile
+  (require 'use-package))
+
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file nil t)
+
+;; Put temp and config files in a consistent place.
+(use-package no-littering
+  :ensure t
+  :config
+  ;; Opt to store Emacs backup and auto-save files in a centralised
+  ;; (out-of-the-way) location. By default Emacs stores an auto-save files
+  ;; (etc.) in the same directory as the original file, which can interfere with
+  ;; tools that watch directories for changes (auto-recompilation processes,
+  ;; Dropbox, etc.)
+  (setq auto-save-file-name-transforms
+        `((".*" ,(let ((dir (no-littering-expand-var-file-name "auto-save/")))
+                   (make-directory dir t)
+                   dir) t)))
+  (setq backup-directory-alist
+        `((".*" . ,(let ((dir (no-littering-expand-var-file-name "backup/")))
+                     (make-directory dir t)
+                     dir)))))
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
