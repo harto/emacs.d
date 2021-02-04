@@ -46,10 +46,8 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'scroll-left 'disabled nil)        ; still need this?
 (put 'set-goal-column 'disabled nil)
-
 ;; hide usage instructions in *Completion* buffer
 (setq completion-show-help nil)
-
 ;; no prompt for following symlinks
 (setq vc-follow-symlinks nil)
 
@@ -70,6 +68,33 @@
 
 ;; Avoid warnings about dumb terminals in subprocesses
 (setenv "PAGER" "cat")
+
+;; # Navigation improvements
+
+;; ido improves the experience of finding files and switching buffers
+(use-package ido
+  :custom
+  ;; layout results vertically
+  (ido-decorations (list "\n-> " ""     ; "brackets" around prospect list
+                         "\n   "        ; separator between prospects
+                         "\n   ..."     ; end of truncated list of prospects
+                         "[" "]"        ; brackets around common match string
+                         " [No match]"
+                         " [Matched]"
+                         " [Not readable]"
+                         " [Too big]"
+                         " [Confirm]"))
+  ;; I prefer not to use ido's auto-merge behaviour, so I "disable" it by
+  ;; setting it to an extremly high value
+  (ido-auto-merge-delay-time 999)
+
+  :config
+  (ido-everywhere +1)
+  ;; flx-ido (https://github.com/lewang/flx) replaces the ido sorting algorithm
+  ;; for better fuzzy-matching.
+  (flx-ido-mode +1))
+
+(ido-mode +1)
 
 ;; # Personal helper functions and utilities
 

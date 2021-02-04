@@ -133,22 +133,6 @@ This function is referenced by `git-commit-setup-hook'."
   ;; Markdown export
   (require 'ox-md))
 
-;; =====================================
-;; ido
-
-;; layout results vertically
-(setq ido-decorations (list "\n-> " ""
-                            "\n   "
-                            "\n   ..."
-                            "[" "]"
-                            " [No match]"
-                            " [Matched]"
-                            " [Not readable]"
-                            " [Too big]"
-                            " [Confirm]"))
-
-;; effectively disable auto-merge
-(setq ido-auto-merge-delay-time 999)
 
 ;; =====================================
 ;; find-things-fast
@@ -190,7 +174,3 @@ This function is referenced by `git-commit-setup-hook'."
 (global-flycheck-mode +1)
 (yas-global-mode +1)
 (global-ws-trim-mode t)
-(ido-mode +1)
-(ido-everywhere +1)
-;; (require 'flx-ido)
-(flx-ido-mode +1)
