@@ -70,6 +70,9 @@
   (setq-default ws-trim-level 1))
 (global-ws-trim-mode t)
 
+(line-number-mode +1)
+(column-number-mode +1)
+
 ;; Avoid warnings about dumb terminals in subprocesses
 (setenv "PAGER" "cat")
 
