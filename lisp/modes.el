@@ -152,4 +152,3 @@ This function is referenced by `git-commit-setup-hook'."
 (column-number-mode +1)
 (global-flycheck-mode +1)
 (yas-global-mode +1)
-(global-ws-trim-mode t)

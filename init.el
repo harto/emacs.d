@@ -63,8 +63,12 @@
 (setq-default indent-tabs-mode nil)
 (setq-default require-final-newline t)
 (setq-default tab-width 4)
-(setq-default ws-trim-level 1)  ; only trim modified lines
 (setq-default fill-column 80)
+;; trim extraneous whitespace (from modified lines only) on save
+(use-package ws-trim
+  :config
+  (setq-default ws-trim-level 1))
+(global-ws-trim-mode t)
 
 ;; Avoid warnings about dumb terminals in subprocesses
 (setenv "PAGER" "cat")
