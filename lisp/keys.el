@@ -10,11 +10,6 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x 8 .") (lambda () (interactive) (insert "…")))
 
-;; per http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
-;; make C-0, C-1, ... C-9 available for use
-(dotimes (n 10)
-  (global-unset-key (kbd (format "C-%d" n))))
-
 ;; C-7: flycheck shortcuts
 ;; (define-prefix-command 'flycheck-shortcuts)
 ;; (global-set-key (kbd "C-7") 'flycheck-shortcuts)
@@ -28,8 +23,6 @@
 ;; C-9: project helpers
 ;; (define-prefix-command 'project)
 ;; (global-set-key (kbd "C-9") 'project)
-(global-set-key (kbd "C-9 f") 'ftf-find-file)
-(global-set-key (kbd "C-9 s") 'ftf-grepsource)
 (global-set-key (kbd "C-9 r") 'grep-project-for-identifier)
 
 ;; C-0: current file/source helpers

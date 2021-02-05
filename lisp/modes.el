@@ -135,27 +135,6 @@ This function is referenced by `git-commit-setup-hook'."
 
 
 ;; =====================================
-;; find-things-fast
-
-(setq-default grep-project-exclude-paths ())
-
-;; find-things-fast only searches for extensions used in Chromium source by default.
-(setq-default ftf-filetypes '("*"))
-
-;; Ensure we only grep regular files.
-(advice-add 'ftf-get-find-command :around #'ftf-add-files-filter)
-(defun ftf-add-files-filter (oldfun &rest args)
-  (concat (apply oldfun args) " -type f"))
-
-;; Don't grep irrelevant files.
-(advice-add 'ftf-grepsource :before #'ftf-set-filetypes)
-(defun ftf-set-filetypes (&rest args)
-  (when grep-project-exclude-paths
-    (setq-local ftf-filetypes (mapcar (lambda (path)
-                                        (format ":!%s" path))
-                                      grep-project-exclude-paths))))
-
-;; =====================================
 ;; Non-default file/mode associations
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))

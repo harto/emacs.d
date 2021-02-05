@@ -69,6 +69,11 @@
 ;; Avoid warnings about dumb terminals in subprocesses
 (setenv "PAGER" "cat")
 
+;; Make C-0, C-1, ... C-9 available for use as prefix bindings, per
+;; http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n))))
+
 ;; # Navigation improvements
 
 ;; ido improves the experience of finding files and switching buffers
@@ -95,6 +100,39 @@
   (flx-ido-mode +1))
 
 (ido-mode +1)
+
+;; find-things-fast helps with locating files in git repos (and other kinds of
+;; "projects")
+(use-package find-things-fast
+  :custom
+  ;; find-things-fast only searches for extensions used in Chromium source by default.
+  (ftf-filetypes '("*"))
+
+  :config
+  ;; When searching and grepping in a non-git context, i.e. using `find`, make
+  ;; sure to only include regular files (not directories, symlinks, etc.)
+  (advice-add 'ftf-get-find-command
+              :filter-return
+              (lambda (find-command)
+                (concat find-command " -type f")))
+
+  ;; Provide a way to exclude files from searches. find-things-fast already
+  ;; excludes git-ignored files, but we might also want to exclude certain
+  ;; versioned files (fixtures, package lockfiles, etc.).
+  (defvar sc/ftf-grepsource-exclusions ()
+    "List of paths to exclude from `ftf-grepsource'.")
+
+  (defun sc/add-ftf-grepsource-exclusions (func &rest args)
+    "Temporarily incorporates `sc/ftf-grepsource-exclusions' into `ftf-filetypes'."
+    (let* ((exclusions (mapcar (lambda (path) (format ":!%s" path)) sc/ftf-grepsource-exclusions))
+           (ftf-filetypes (append ftf-filetypes exclusions)))
+      (message "%s" ftf-filetypes)
+      (apply func args)))
+
+  (advice-add 'ftf-grepsource :around #'sc/add-ftf-grepsource-exclusions)
+
+  :bind (("C-9 f" . ftf-find-file)
+         ("C-9 s" . ftf-grepsource)))
 
 ;; # Personal helper functions and utilities
 
