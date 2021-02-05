@@ -153,6 +153,30 @@
 ;; TODO: maybe enable only in programming modes? (how?)
 (global-flycheck-mode +1)
 
+(use-package lsp-mode)
+
+;; Language support
+
+(use-package python-mode
+  :init
+  ;; Disable pydoc pager. Note that the print() statement is required, because
+  ;; `python-shell-setup-code' seemingly blocks until some kind of output is
+  ;; sent.
+  (setq python-shell-setup-codes `((string-join '("import pydoc"
+                                                  "pydoc.pager = pydoc.plainpager"
+                                                  "print('pydoc pager disabled')")
+                                                "; "))))
+
+(use-package ruby-mode
+  :hook subword-mode
+  :custom
+  (ruby-insert-encoding-magic-comment nil))
+
+(use-package typescript-mode
+  :mode "\\.tsx$"
+  :hook (lsp electric-pair-local-mode subword-mode)
+  :bind (("C-8 r" lsp-rename)))
+
 ;; # Personal helper functions and utilities
 
 (add-to-list 'load-path "~/.emacs.d/lisp")

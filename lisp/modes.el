@@ -1,11 +1,6 @@
 ;; Mode configurations
 
 ;; =====================================
-;; Python
-
-(setq python-shell-setup-codes '("import pydoc; pydoc.pager = pydoc.plainpager; print('disabled pydoc pager')"))
-
-;; =====================================
 ;; JavaScript
 
 (setq-default js2-basic-offset 2)
@@ -33,26 +28,6 @@
       (command-execute 'js2-jump-to-definition)
     ('error
      (command-execute 'xref-find-definitions))))
-
-;; =====================================
-;; TypeScript
-
-(add-hook 'typescript-mode-hook #'configure-typescript-mode)
-(add-hook 'typescript-mode-hook 'lsp)
-
-(defun configure-typescript-mode ()
-  (electric-pair-local-mode +1)
-  (subword-mode +1)
-  (local-set-key (kbd "C-8 r") 'lsp-rename))
-
-;; =====================================
-;; Ruby
-
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (subword-mode +1)))
-
-(setq-default ruby-insert-encoding-magic-comment nil)
 
 ;; =====================================
 ;; Clojure / ClojureScript
@@ -139,7 +114,6 @@ This function is referenced by `git-commit-setup-hook'."
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 (add-to-list 'auto-mode-alist '("\\.pl[bs]$" . sql-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(erb\\|hbs\\|html\\|twig\\)$" . web-mode))
