@@ -150,5 +150,4 @@ This function is referenced by `git-commit-setup-hook'."
 (show-paren-mode +1)
 (line-number-mode +1) ; TODO: understand why this doesn't stick
 (column-number-mode +1)
-(global-flycheck-mode +1)
 (yas-global-mode +1)

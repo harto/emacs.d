@@ -10,16 +10,6 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x 8 .") (lambda () (interactive) (insert "…")))
 
-;; C-7: flycheck shortcuts
-;; (define-prefix-command 'flycheck-shortcuts)
-;; (global-set-key (kbd "C-7") 'flycheck-shortcuts)
-(global-set-key (kbd "C-7 l") 'flycheck-list-errors)
-(global-set-key (kbd "C-7 n") 'flycheck-next-error)
-(global-set-key (kbd "C-7 p") 'flycheck-previous-error)
-(global-set-key (kbd "C-7 v") 'flycheck-verify-setup)
-
-;; C-8: reserved for mode-specific helpers
-
 ;; C-9: project helpers
 ;; (define-prefix-command 'project)
 ;; (global-set-key (kbd "C-9") 'project)

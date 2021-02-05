@@ -138,6 +138,18 @@
   :bind (("C-9 f" . ftf-find-file)
          ("C-9 s" . ftf-grepsource)))
 
+;; # Programming
+
+;; Error highlighting and linting framework.
+;; TODO: investigate flymake
+(use-package flycheck
+  :bind (("C-7 l" . flycheck-list-errors)
+         ("C-7 n" . flycheck-next-error)
+         ("C-7 p" . flycheck-previous-error)
+         ("C-7 v" . flycheck-verify-setup)))
+;; TODO: maybe enable only in programming modes? (how?)
+(global-flycheck-mode +1)
+
 ;; # Personal helper functions and utilities
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
