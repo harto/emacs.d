@@ -35,7 +35,7 @@
                                                            0.5))))
 
 ;; Disable mode-line border whenever we switch themes
-(add-hook 'load-theme-hooks #'adjust-mode-line-colours)
+(add-hook 'sc/load-theme-hooks #'adjust-mode-line-colours)
 
 (require 'memoize)
 (require 'all-the-icons)
