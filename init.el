@@ -191,9 +191,6 @@ subsequently $PATH) via shell profile."
 
 (add-hook 'sc/load-theme-hooks #'sc/disable-mode-line-borders)
 
-;; TODO: does `set-frame-font' need to be conditionally called? (i.e. should we
-;; omit the call from console?)
-
 (defun sc/big-screen ()
   (interactive)
   (set-frame-font "Monaco-14" t t)
@@ -214,7 +211,8 @@ subsequently $PATH) via shell profile."
   (sc/small-screen)
   (load-theme 'solarized-dark))
 
-(sc/lo-vis)
+(when (display-graphic-p)
+  (sc/lo-vis))
 
 
 ;; # Modeline
