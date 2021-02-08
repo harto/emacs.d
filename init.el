@@ -541,7 +541,9 @@ project-wide search."
 
   :custom
   (org-startup-indented t)
+  (org-ellipsis " …")
 
+  :config
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -554,7 +556,9 @@ project-wide search."
   (require 'ox-md)
 
   ;; Soft-wrap long lines
-  (add-hook 'org-mode-hook #'visual-line-mode))
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
+  (add-hook 'org-mode-hook 'visual-fill-column-mode))
 
 
 ;; # Miscellanous helper functions and utilities
