@@ -138,6 +138,7 @@ subsequently $PATH) via shell profile."
   ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
   (cd "~"))
 
+
 ;; # Theme configuration
 
 ;; TODO: should we do any of this stuff in early-init.el (i.e. before the frame is visible)?
@@ -158,7 +159,7 @@ subsequently $PATH) via shell profile."
       (dolist (hook sc/load-theme-hooks)
         (funcall hook theme-id)))))
 
-(advice-add 'load-theme :around #'sc/call-load-theme-with-hooks)
+(advice-add 'load-theme :around 'sc/call-load-theme-with-hooks)
 
 (use-package solarized
   :custom
@@ -186,7 +187,7 @@ subsequently $PATH) via shell profile."
                                                            (face-attribute 'mode-line :background)
                                                            0.5))))
 
-(add-hook 'sc/load-theme-hooks #'sc/disable-mode-line-borders)
+(add-hook 'sc/load-theme-hooks 'sc/disable-mode-line-borders)
 
 (defun sc/big-screen ()
   (interactive)
@@ -384,7 +385,7 @@ Passes arg N to `open-line'."
       (message "%s" ftf-filetypes)
       (apply func args)))
 
-  (advice-add 'ftf-grepsource :around #'sc/add-ftf-grepsource-exclusions))
+  (advice-add 'ftf-grepsource :around 'sc/add-ftf-grepsource-exclusions))
 
 ;; Backwards window navigation (opposite of `C-x o`).
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
@@ -440,7 +441,7 @@ Passes arg N to `open-line'."
     (local-set-key (kbd "C-7 n") 'flycheck-next-error)
     (local-set-key (kbd "C-7 p") 'flycheck-previous-error)
     (local-set-key (kbd "C-7 v") 'flycheck-verify-setup))
-  (add-hook 'prog-mode-hook #'sc/configure-flycheck))
+  (add-hook 'prog-mode-hook 'sc/configure-flycheck))
 
 (use-package lsp-mode
   :hook (typescript))
@@ -521,7 +522,7 @@ project-wide search."
   :mode "\\.pl[bs]\\'"
   :config
   ;; Query results look bad when wrapped, so extend them off-screen instead
-  (add-hook 'sql-interactive-mode-hook (lambda () (toggle-truncate-lines t)))
+  (add-hook 'sql-interactive-mode-hook 'toggle-truncate-lines t)
   ;; Handle dashed database names in psql prompt
   (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:]_-]*=[#>] "))
 
