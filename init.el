@@ -139,6 +139,37 @@ subsequently $PATH) via shell profile."
   (cd "~"))
 
 
+;; # Modeline
+
+(line-number-mode +1)
+(column-number-mode +1)
+
+;; TODO: investigate replacing this with a 3rd-party thing
+;(load "modeline")
+
+;; Things to fix:
+;; - more space between groups (and additional space at end of line)
+;; - show flycheck errors and warnings separately
+(use-package doom-modeline
+  :custom
+  (doom-modeline-height 28)
+  (doom-modeline-bar-width 2)
+  ;; The major mode is shown on the right-hand side, so I don't also need to see an icon.
+  (doom-modeline-major-mode-icon nil)
+
+  :custom-face
+  ;; By default the filename is shown like an error (bright red) when the buffer is unsaved. It's a
+  ;; bit distracting, so we render it like a warning instead.
+  (doom-modeline-buffer-modified ((t (:inherit (warning bold) :background nil))))
+  ;; By default the little vertical bar on the left-hand side of the modeline is highlighted for
+  ;; non-active windows. This seems backwards, so we reverse it.
+  (doom-modeline-bar ((t (:background ,(face-foreground 'mode-line-inactive)))))
+  (doom-modeline-bar-inactive ((t (:inherit highlight))))
+
+  :init
+  (doom-modeline-mode))
+
+
 ;; # Theme configuration
 
 ;; TODO: should we do any of this stuff in early-init.el (i.e. before the frame is visible)?
@@ -211,37 +242,6 @@ subsequently $PATH) via shell profile."
 
 (when (display-graphic-p)
   (sc/lo-vis))
-
-
-;; # Modeline
-
-(line-number-mode +1)
-(column-number-mode +1)
-
-;; TODO: investigate replacing this with a 3rd-party thing
-;(load "modeline")
-
-;; Things to fix:
-;; - more space between groups (and additional space at end of line)
-;; - show flycheck errors and warnings separately
-(use-package doom-modeline
-  :custom
-  (doom-modeline-height 28)
-  (doom-modeline-bar-width 2)
-  ;; The major mode is shown on the right-hand side, so I don't also need to see an icon.
-  (doom-modeline-major-mode-icon nil)
-
-  :custom-face
-  ;; By default the filename is shown like an error (bright red) when the buffer is unsaved. It's a
-  ;; bit distracting, so we render it like a warning instead.
-  (doom-modeline-buffer-modified ((t (:inherit (warning bold) :background nil))))
-  ;; By default the little vertical bar on the left-hand side of the modeline is highlighted for
-  ;; non-active windows. This seems backwards, so we reverse it.
-  (doom-modeline-bar ((t (:background ,(face-foreground 'mode-line-inactive)))))
-  (doom-modeline-bar-inactive ((t (:inherit highlight))))
-
-  :init
-  (doom-modeline-mode))
 
 
 ;; # Editing improvements
