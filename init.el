@@ -74,10 +74,6 @@
   (setq-default ws-trim-level 1)
   (global-ws-trim-mode t))
 
-;; Show line/column number in modeline
-(line-number-mode +1)
-(column-number-mode +1)
-
 ;; Highlight matching parentheses
 (show-paren-mode +1)
 
@@ -95,6 +91,163 @@
 ;; - C-0: text editing
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n))))
+
+
+;; # Console setup
+;;
+;; (Commented-out because I haven't used this in years, and it likely doesn't
+;; work anymore.)
+
+;; (unless (display-graphic-p)
+;;   ;; Rudimentary mouse support
+;;   (require 'mouse)
+;;   (xterm-mouse-mode t)
+;;   (defun track-mouse (e))
+;;   (setq mouse-sel-mode t)
+;;   (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 1)))
+;;   (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 1)))
+;;   ;; Hide vertical buffer separator
+;;   (set-face-background 'vertical-border "#000")
+;;   (set-face-foreground 'vertical-border "#000"))
+
+
+;; # Desktop/GUI setup
+
+;; TODO: delay slightly
+(use-package server
+  :if (display-graphic-p)
+  :init
+  (add-hook 'after-init-hook 'server-start t))
+
+;; TODO: replace with exec-path-from-shell package
+(defun sc/load-env-from-shell ()
+  (dolist (line (split-string (shell-command-to-string "$SHELL -lc env") "\n" t))
+    (let* ((parts (split-string line "="))
+           (k (nth 0 parts))
+           (v (nth 1 parts)))
+      (setenv k v))))
+
+(defun sc/reset-exec-path-from-env ()
+  (setq exec-path (split-string (getenv "PATH") path-separator)))
+
+(defun sc/reset-mac-os-env ()
+  "Works around macOS environment problems by loading env (and
+subsequently $PATH) via shell profile."
+  (sc/load-env-from-shell)
+  (sc/reset-exec-path-from-env))
+
+(when (and (display-graphic-p) (eq system-type 'darwin))
+  (sc/reset-mac-os-env)
+  ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
+  (cd "~"))
+
+;; # Theme configuration
+
+;; TODO: should we do any of this stuff in early-init.el (i.e. before the frame
+;; is visible)?
+
+;; Simple hook system for themes, per http://www.greghendershott.com/2017/02/emacs-themes.html
+
+(defvar sc/load-theme-hooks nil
+  "Hook run after loading a theme.")
+
+(defun sc/call-load-theme-with-hooks (f theme-id &optional no-confirm no-enable &rest args)
+  (unless no-enable
+    ;; Disable all themes before the new theme is enabled.
+    ;; TODO: should this be separate advice?
+    (mapc #'disable-theme custom-enabled-themes))
+  ;; TODO: should this be :after advice?
+  (prog1 (apply f theme-id no-confirm no-enable args)
+    (unless no-enable
+      (dolist (hook sc/load-theme-hooks)
+        (funcall hook theme-id)))))
+
+(advice-add 'load-theme :around #'sc/call-load-theme-with-hooks)
+
+(use-package solarized
+  :custom
+  (solarized-use-variable-pitch nil)
+  (solarized-height-minus-1 1.0)
+  (solarized-height-plus-1 1.0)
+  (solarized-height-plus-2 1.0)
+  (solarized-height-plus-3 1.0)
+  (solarized-height-plus-4 1.0)
+  ;; Tweak modeline border, per
+  ;; https://github.com/bbatsov/solarized-emacs#underline-position-setting-for-x
+  (x-underline-at-descent-line t))
+
+;; line-number-mode is disabled when changing themes for some reason, so make
+;; sure to reenable it when we do that.
+(add-hook 'sc/load-theme-hooks (lambda (_theme) (line-number-mode)))
+
+;; Disable solarized modeline borders to make our custom modeline look nice.
+(defun sc/disable-mode-line-borders (theme)
+  (when (or (eq theme 'solarized-dark) (eq theme 'solarized-light))
+    (set-face-attribute 'mode-line nil :underline nil :overline nil :box nil)
+    (set-face-attribute 'mode-line-inactive nil :underline nil :overline nil :box nil
+                        :background (solarized-color-blend (face-attribute 'default :background)
+                                                           (face-attribute 'mode-line :background)
+                                                           0.5))))
+
+(add-hook 'sc/load-theme-hooks #'sc/disable-mode-line-borders)
+
+;; TODO: does `set-frame-font' need to be conditionally called? (i.e. should we
+;; omit the call from console?)
+
+(defun sc/big-screen ()
+  (interactive)
+  (set-frame-font "Monaco-14" t t)
+  (doom-modeline-refresh-font-width-cache))
+
+(defun sc/small-screen ()
+  (interactive)
+  (set-frame-font "Monaco-12" t t)
+  (doom-modeline-refresh-font-width-cache))
+
+(defun sc/hi-vis ()
+  (interactive)
+  (sc/big-screen)
+  (load-theme 'solarized-light))
+
+(defun sc/lo-vis ()
+  (interactive)
+  (sc/small-screen)
+  (load-theme 'solarized-dark))
+
+(sc/lo-vis)
+
+
+;; # Modeline
+
+(line-number-mode +1)
+(column-number-mode +1)
+
+;; TODO: investigate replacing this with a 3rd-party thing
+;(load "modeline")
+
+;; Things to fix:
+;; - more space between groups (and additional space at end of line)
+;; - show flycheck errors and warnings separately
+(use-package doom-modeline
+  :custom
+  (doom-modeline-height 28)
+  (doom-modeline-bar-width 1)
+  ;; The major mode is shown on the right-hand side, so I don't also need to see
+  ;; an icon.
+  (doom-modeline-major-mode-icon nil)
+
+  :custom-face
+  ;; By default the filename is shown like an error (bright red) when the buffer
+  ;; is unsaved. I find that a bit distracting, so I show it like a warning
+  ;; instead.
+  (doom-modeline-buffer-modified ((t (:inherit (warning bold) :background nil))))
+  ;; By default the little vertical bar on the left-hand side of the modeline is
+  ;; highlighted for non-active windows. This seems backwards, so I reverse it.
+  (doom-modeline-bar ((t (:background ,(face-foreground 'mode-line-inactive)))))
+  (doom-modeline-bar-inactive ((t (:inherit highlight))))
+
+  :init
+  (doom-modeline-mode))
 
 
 ;; # Editing improvements
@@ -397,9 +550,6 @@ Passes arg N to `open-line'."
   :custom
   (org-startup-indented t)
 
-  :config
-  (message "I'm here; why")
-
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -415,129 +565,14 @@ Passes arg N to `open-line'."
   (add-hook 'org-mode-hook #'visual-line-mode))
 
 
-;; # Console setup
-;;
-;; (Commented-out because I haven't used this in years, and it likely doesn't
-;; work anymore.)
-
-;; (unless (display-graphic-p)
-;;   ;; Rudimentary mouse support
-;;   (require 'mouse)
-;;   (xterm-mouse-mode t)
-;;   (defun track-mouse (e))
-;;   (setq mouse-sel-mode t)
-;;   (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 1)))
-;;   (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 1)))
-;;   ;; Hide vertical buffer separator
-;;   (set-face-background 'vertical-border "#000")
-;;   (set-face-foreground 'vertical-border "#000"))
-
-
-;; # Desktop/GUI setup
-
-;; TODO: delay slightly
-(use-package server
-  :if (display-graphic-p)
-  :init
-  (add-hook 'after-init-hook 'server-start t))
-
-;; TODO: replace with exec-path-from-shell package
-(defun sc/load-env-from-shell ()
-  (dolist (line (split-string (shell-command-to-string "$SHELL -lc env") "\n" t))
-    (let* ((parts (split-string line "="))
-           (k (nth 0 parts))
-           (v (nth 1 parts)))
-      (setenv k v))))
-
-(defun sc/reset-exec-path-from-env ()
-  (setq exec-path (split-string (getenv "PATH") path-separator)))
-
-(defun sc/reset-mac-os-env ()
-  "Works around macOS environment problems by loading env (and
-subsequently $PATH) via shell profile."
-  (sc/load-env-from-shell)
-  (sc/reset-exec-path-from-env))
-
-(when (and (display-graphic-p) (eq system-type 'darwin))
-  (sc/reset-mac-os-env)
-  ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
-  (cd "~"))
-
-
 ;; # Miscellanous helper functions and utilities
-;;
-;; (Note: the hook system needs to be loaded before modeline.el.)
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
-;; TODO: investigate replacing this with a 3rd-party thing
-(load "modeline")
 ;; TODO: can we lazy-load these?
 (load "utils")
 ;; my library of work helper functions lives outside this repo, so i don't
 ;; accidentally reveal anything sensitive.
 (load "~/remix/remix.el" t)
-
-;; # Theme configuration
-
-;; TODO: should we do any of this stuff in early-init.el (i.e. before the frame
-;; is visible)?
-
-;; Simple hook system for themes, per http://www.greghendershott.com/2017/02/emacs-themes.html
-
-(defvar sc/load-theme-hooks nil
-  "Hook run after loading a theme.")
-
-(defun sc/call-load-theme-with-hooks (f theme-id &optional no-confirm no-enable &rest args)
-  (unless no-enable
-    ;; Disable all themes before the new theme is enabled.
-    ;; TODO: should this be separate advice?
-    (mapc #'disable-theme custom-enabled-themes))
-  ;; TODO: should this be :after advice?
-  (prog1 (apply f theme-id no-confirm no-enable args)
-    (unless no-enable
-      (dolist (hook sc/load-theme-hooks)
-        (funcall hook theme-id)))))
-
-(advice-add 'load-theme :around #'sc/call-load-theme-with-hooks)
-
-(use-package solarized
-  :custom
-  (solarized-use-variable-pitch nil)
-  (solarized-height-minus-1 1.0)
-  (solarized-height-plus-1 1.0)
-  (solarized-height-plus-2 1.0)
-  (solarized-height-plus-3 1.0)
-  (solarized-height-plus-4 1.0)
-  ;; Tweak modeline border, per
-  ;; https://github.com/bbatsov/solarized-emacs#underline-position-setting-for-x
-  (x-underline-at-descent-line t))
-
-;; line-number-mode is disabled when changing themes for some reason, so make
-;; sure to reenable it when we do that.
-(add-hook 'sc/load-theme-hooks (lambda (_theme) (line-number-mode)))
-
-;; TODO: does `set-frame-font' need to be conditionally called? (i.e. should we
-;; omit the call from console?)
-
-(defun sc/big-screen ()
-  (interactive)
-  (set-frame-font "Monaco-14" t t))
-
-(defun sc/small-screen ()
-  (interactive)
-  (set-frame-font "Monaco-12" t t))
-
-(defun sc/hi-vis ()
-  (interactive)
-  (sc/big-screen)
-  (load-theme 'solarized-light))
-
-(defun sc/lo-vis ()
-  (interactive)
-  (sc/small-screen)
-  (load-theme 'solarized-dark))
-
-(sc/lo-vis)
 
 
 ;; # Finalise configuration

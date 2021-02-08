@@ -20,22 +20,7 @@
 ;; - hover text for various modeline segments
 ;; - byte-compilation?
 
-(defun adjust-mode-line-colours (theme)
-  (when (or (eq theme 'solarized-dark) (eq theme 'solarized-light))
-    (set-face-attribute 'mode-line nil
-                        :underline nil
-                        :overline nil
-                        :box nil)
-    (set-face-attribute 'mode-line-inactive nil
-                        :overline nil
-                        :underline nil
-                        :box nil
-                        :background (solarized-color-blend (face-attribute 'default :background)
-                                                           (face-attribute 'mode-line :background)
-                                                           0.5))))
 
-;; Disable mode-line border whenever we switch themes
-(add-hook 'sc/load-theme-hooks #'adjust-mode-line-colours)
 
 (require 'memoize)
 (require 'all-the-icons)
