@@ -457,7 +457,7 @@ Passes arg N to `open-line'."
   :hook ((clojure-mode emacs-lisp-mode lisp-mode) . paredit-mode)
   :bind (:map paredit-mode-map
          ("M-?" . nil)  ; don't shadow xref-find-references
-         ("C-M <backspace>" . backward-kill-sexp)))
+         ("C-M-<backspace>" . backward-kill-sexp)))
 
 ;; Specific language configurations
 
