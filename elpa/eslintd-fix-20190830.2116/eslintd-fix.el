@@ -274,7 +274,7 @@ Return the CONNECTION if, after waiting it is open, otherwise nil."
 
 Return t if the connection closes successfully."
   (catch 'done
-    (dotimes (_ 200)
+    (dotimes (_ 300)
       (if (eq (process-status connection) 'open)
           (accept-process-output connection 0.01 nil t)
         (throw 'done (eq (process-status connection) 'closed))))
