@@ -150,9 +150,6 @@ subsequently $PATH) via shell profile."
 (line-number-mode +1)
 (column-number-mode +1)
 
-;; TODO: investigate replacing this with a 3rd-party thing
-;(load "modeline")
-
 ;; Things to fix:
 ;; - more space between groups (and additional space at end of line)
 ;; - show flycheck errors and warnings separately
