@@ -552,7 +552,14 @@ Passes arg N to `open-line'."
   ;; (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local fill-column 100)))
   ;; Sometimes I type non-Lisp stuff into the *scratch* buffer and I don't want
   ;; strict parenthesis matching.
-  (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode -1))))
+  (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode -1)))
+
+  (defun sc/visit-scratch-buffer-other-window ()
+    (interactive)
+    (switch-to-buffer-other-window "*scratch*"))
+
+  :bind (:map emacs-lisp-mode-map
+         ("C-c C-z" . sc/visit-scratch-buffer-other-window)))
 
 (use-package js2-mode
   :mode ("\\.jsx?\\'")
