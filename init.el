@@ -200,6 +200,8 @@ subsequently $PATH) via shell profile."
 
 (use-package solarized
   :custom
+  ;; Opt out of variable-width fonts in a bunch of places. We selectively
+  ;; enable something like this in Org mode, but don't want it everywhere.
   (solarized-use-variable-pitch nil)
   (solarized-height-minus-1 1.0)
   (solarized-height-plus-1 1.0)
@@ -654,9 +656,32 @@ project-wide search."
 
   :custom
   (org-startup-indented t)
-  (org-ellipsis " …")
+  (org-hide-emphasis-markers t)
+  (org-ellipsis "…")
+
+  :custom-face
+  ;; Show headlines in bigger (variable-width) fonts
+  ;; https://fonts.google.com/specimen/Work+Sans
+  ;; (TODO: figure out how to do this more dynamically)
+  (org-document-title ((t (:font "Work Sans" :height 1.4 :weight semibold))))
+  (org-level-1 ((t (:font "Work Sans" :height 1.3 :weight semibold))))
+  (org-level-2 ((t (:font "Work Sans" :height 1.2 :weight semibold))))
+  (org-level-3 ((t (:font "Work Sans" :height 1.1 :weight semibold))))
+  (org-level-4 ((t (:font "Work Sans" :height 1.0 :weight semibold))))
+  (org-level-5 ((t (:font "Work Sans"))))
+  (org-level-6 ((t (:font "Work Sans"))))
+  (org-level-7 ((t (:font "Work Sans"))))
+  (org-level-8 ((t (:font "Work Sans"))))
 
   :config
+  ;; Darken source block background for emphasis
+  (require 'color)
+  (set-face-attribute 'org-block nil
+                      :background (color-darken-name
+                                   (face-attribute 'default :background) 2)
+                      :extend t)
+
+  ;; Permit evaluation of various languages in src blocks
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -670,8 +695,36 @@ project-wide search."
 
   ;; Soft-wrap long lines
   (add-hook 'org-mode-hook 'visual-line-mode)
-  (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
-  (add-hook 'org-mode-hook 'visual-fill-column-mode))
+  ;; TODO: does this work well with variable-width fonts?
+  ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
+  ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
+
+  ;; Replace dashes with bullets in lists.
+  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1)
+                                                          (match-end 1)
+                                                          "·" ; • is also decent
+                                                          ))))))
+
+  ;; We use a variable-width font for headings (see :custom-face section
+  ;; above). This mostly looks nice, but results in a minor visual annoyance
+  ;; whereby headings don't align precisely with their subsequent body text,
+  ;; because the headline bullet (and following space) are rendered in a
+  ;; variable-width font. To ensure everything lines up nicely, we render the
+  ;; bullet and space in the default body font.
+  (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
+                                                             (list :inherit (intern (format "org-level-%s" level))
+                                                                   :family (face-attribute 'default :family)
+                                                                   :height (face-attribute 'default :height)))))))
+
+;; Show unicode bullets instead of asterisks for headings
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  ;; Use the same bullet at all levels
+  (org-bullets-bullet-list '("•")))
 
 
 ;; # Miscellanous helper functions and utilities
