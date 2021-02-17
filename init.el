@@ -214,17 +214,18 @@ subsequently $PATH) via shell profile."
 ;; sure to reenable it when we do that.
 (add-hook 'sc/load-theme-hooks (lambda (_theme) (line-number-mode)))
 
-;; Solarized adds top & bottom borders the modeline, but we use a custom
-;; modeline and the borders look bad there.
-(defun sc/disable-mode-line-borders (theme)
+(defun sc/adjust-solarized-mode-line-appearance (theme)
   (when (or (eq theme 'solarized-dark) (eq theme 'solarized-light))
+    ;; Solarized adds top & bottom borders to the modeline, but those look bad
+    ;; with our custom modeline.
     (set-face-attribute 'mode-line nil :underline nil :overline nil :box nil)
     (set-face-attribute 'mode-line-inactive nil :underline nil :overline nil :box nil
+                        ;; Tweak background color for deemphasised modelines
                         :background (solarized-color-blend (face-attribute 'default :background)
                                                            (face-attribute 'mode-line :background)
                                                            0.5))))
 
-(add-hook 'sc/load-theme-hooks 'sc/disable-mode-line-borders)
+(add-hook 'sc/load-theme-hooks 'sc/adjust-solarized-mode-line-appearance)
 
 (defun sc/big-screen ()
   (interactive)
