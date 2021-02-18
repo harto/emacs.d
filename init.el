@@ -153,6 +153,9 @@ subsequently $PATH) via shell profile."
 ;; Things to fix:
 ;; - more space between groups (and additional space at end of line)
 ;; - show flycheck errors and warnings separately
+;;
+;; Note: `all-the-icons-install-fonts' must be run the first time this config is
+;; loaded onto a new machine.
 (use-package doom-modeline
   :custom
   (doom-modeline-height 28)
@@ -703,7 +706,6 @@ project-wide search."
 
   ;; Soft-wrap long lines
   (add-hook 'org-mode-hook 'visual-line-mode)
-  ;; TODO: does this work well with variable-width fonts?
   ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
   ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
 
