@@ -426,6 +426,14 @@ Passes arg N to `open-line'."
 ;; Backwards window navigation (opposite of `C-x o`).
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 
+(use-package xref
+  :defer t
+  :custom
+  (xref-prompt-for-identifier '(not xref-find-definitions
+                                    xref-find-definitions-other-window
+                                    xref-find-definitions-other-frame
+                                    xref-find-references)))
+
 
 ;; # Git
 
