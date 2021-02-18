@@ -1,0 +1,19 @@
+* To read
+- https://github.com/mpereira/.emacs.d/
+- https://github.com/daviwil/dotfiles
+- https://xiangji.me/2015/07/13/a-few-of-my-org-mode-customizations/
+- https://blog.lambda.cx/posts/org-agenda-eink/
+- https://orgmode.org/manual/
+- https://orgmode.org/worg/org-contrib/babel/intro.html
+- https://leanpub.com/lit-config/read#leanpub-auto-configuring-emacs-and--org-mode-for-literate-programming
+- https://www.emacswiki.org/emacs/MarkCommands
+- http://www.brool.com/post/using-org-mode-with-gtd/
+- http://members.optusnet.com.au/~charles57/GTD/orgmode.html
+- https://www.reddit.com/r/emacs/comments/9wukv8/hide_all_stars_in_org_mode/
+- https://blog.d46.us/advanced-emacs-startup/
+- https://magit.vc/manual/ghub/Github-Configuration-Variables.html#Github-Configuration-Variables
+
+* Investigate / try out
+- https://github.com/joostkremers/visual-fill-column
+- project.el
+- dumb-jump mode
