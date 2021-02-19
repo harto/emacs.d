@@ -426,12 +426,19 @@ Passes arg N to `open-line'."
 
   (advice-add 'ftf-grepsource :around 'sc/add-ftf-grepsource-exclusions))
 
+(use-package grep
+  :defer t
+  :custom
+  ;; Don't prompt to save buffers when grepping for things.
+  (grep-save-buffers nil))
+
 ;; Backwards window navigation (opposite of `C-x o`).
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 
 (use-package xref
   :defer t
   :custom
+  ;; Default to using thing at point instead of prompting for identifier.
   (xref-prompt-for-identifier '(not xref-find-definitions
                                     xref-find-definitions-other-window
                                     xref-find-definitions-other-frame
