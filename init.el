@@ -122,7 +122,6 @@
 
 ;; # Desktop/GUI setup
 
-;; TODO: delay slightly?
 (use-package server
   :if (display-graphic-p)
   :init
@@ -363,7 +362,6 @@ Passes arg N to `open-line'."
 
 (define-key isearch-mode-map (kbd "M-.") 'sc/isearch-yank-symbol-at-point)
 
-;; TODO: can we defer this at startup?
 ;; TODO: do I even use this anymore?
 ;; (use-package yasnippet
 ;;   :config
@@ -391,10 +389,14 @@ Passes arg N to `open-line'."
 
   :config
   (ido-mode +1)
-  (ido-everywhere +1)
-  ;; flx-ido (https://github.com/lewang/flx) replaces the ido sorting algorithm
-  ;; for better fuzzy-matching.
-  (flx-ido-mode +1))
+  (ido-everywhere +1))
+
+;; flx-ido (https://github.com/lewang/flx) replaces the ido sorting algorithm
+;; for better fuzzy-matching.
+(use-package flx-ido
+  :after ido
+  :config
+  (flx-ido-mode))
 
 ;; find-things-fast helps with locating files in git repos (and other kinds of
 ;; "projects").
@@ -404,7 +406,7 @@ Passes arg N to `open-line'."
 
   :custom
   ;; find-things-fast only searches for extensions used in chromium source by
-  ;; default.
+  ;; default - make it search for all file types.
   (ftf-filetypes '("*"))
 
   :config
@@ -461,6 +463,7 @@ Passes arg N to `open-line'."
 ;; git-commit (a dependency of magit) is used when editing commit messages and
 ;; PR descriptions. I configure this because I want to unset the max line length
 ;; for PR descriptions. (There might be an easier way to do this.)
+;; TODO: figure out if this is still needed with forge integration (see below)
 (use-package git-commit
   :defer t
 
@@ -515,6 +518,8 @@ Passes arg N to `open-line'."
   :custom
   (auth-sources '("~/.netrc" macos-keychain-internet)))
 
+;; TODO: figure out if we can use just the PR-creation flow without having to
+;; download all the extra stuff like comments, issues, etc.
 (use-package forge
   :after magit)
 
@@ -549,7 +554,8 @@ Passes arg N to `open-line'."
 (use-package lsp-mode
   :hook (typescript-mode . lsp))
 
-;; Autocompletion framework
+;; Autocompletion framework. (This seems to be automatically required by
+;; lsp-mode, but we list it here as documentation.)
 (use-package company :defer t)
 
 ;; Paredit is for rapidly navigating and modifying lisp S-expressions.
