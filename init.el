@@ -642,7 +642,8 @@ project-wide search."
                                             "; "))))
 
 ;; Invoke pytest directly from Python files
-(use-package pytest :defer t)
+(use-package pytest
+  :defer t)
 
 ;; Switch between Python virtual environments.
 ;; TODO: start using this
@@ -652,6 +653,10 @@ project-wide search."
   :defer t
   :custom
   (ruby-insert-encoding-magic-comment nil))
+
+;; Switch between Ruby versions.
+(use-package chruby
+  :defer t)
 
 (use-package sass-mode
   :mode "\\.scss\\'")
