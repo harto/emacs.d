@@ -553,13 +553,14 @@ Passes arg N to `open-line'."
 
 (use-package lsp-mode
   :hook (typescript-mode . lsp)
-  ;; We configure typescript-language-server to use a custom tsserver entrypoint:
-  ;; https://github.com/harto/profile/blob/96547dbb4444e70f62838f63c483ec6ded407a92/bin/tsserver-wrapper
-  ;; See also: https://github.com/theia-ide/typescript-language-server/issues/122
   :config
-  ;; FIXME: this seems to be happening too soon and getting clobbered
-  (eval-after-load 'lsp-clients
-    (lsp-dependency 'typescript `(:system "tsserver-wrapper"))))
+  (with-eval-after-load 'lsp-clients
+    ;; We configure typescript-language-server to use a custom tsserver
+    ;; entrypoint. (See commentary in bin/tsserver.) See also:
+    ;; https://github.com/theia-ide/typescript-language-server/issues/122
+    (lsp-dependency
+     'typescript
+     `(:system ,(expand-file-name "bin/tsserver" user-emacs-directory)))))
 
 ;; Autocompletion framework. (This seems to be automatically required by
 ;; lsp-mode, but we list it here as documentation.)
