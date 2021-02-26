@@ -46,10 +46,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Disable warnings for rarely-used features
-(put 'downcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-(put 'scroll-left 'disabled nil)        ; still need this?
-(put 'set-goal-column 'disabled nil)
+(dolist (sym '(downcase-region
+               narrow-to-region
+               scroll-left              ; still need this?
+               set-goal-column
+               upcase-region))
+  (put sym 'disabled nil))
 ;; Hide usage instructions in *Completion* buffer
 (setq completion-show-help nil)
 ;; Disable prompt when following symlinks to version-controlled files
