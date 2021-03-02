@@ -558,11 +558,11 @@ Passes arg N to `open-line'."
   :config
   (with-eval-after-load 'lsp-clients
     ;; We configure typescript-language-server to use a custom tsserver
-    ;; entrypoint. (See commentary in bin/tsserver.) See also:
+    ;; entrypoint. (See commentary in helpers/tsserver.) See also:
     ;; https://github.com/theia-ide/typescript-language-server/issues/122
     (lsp-dependency
      'typescript
-     `(:system ,(expand-file-name "bin/tsserver" user-emacs-directory)))))
+     `(:system ,(expand-file-name "helpers/tsserver" user-emacs-directory)))))
 
 ;; Autocompletion framework. (This seems to be automatically required by
 ;; lsp-mode, but we list it here as documentation.)
