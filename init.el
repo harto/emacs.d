@@ -743,13 +743,13 @@ project-wide search."
   ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
   ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
 
-  ;; Replace dashes with bullets in lists.
-  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html
+  ;; Replace dashes with bullets in lists (per
+  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html)
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1)
                                                           (match-end 1)
-                                                          "·" ; • is also decent
+                                                          "•" ; or "·"
                                                           ))))))
 
   ;; We use a variable-width font for headings (see :custom-face section
