@@ -404,6 +404,7 @@ Passes arg N to `open-line'."
 ;; "projects").
 (use-package find-things-fast
   :bind (("C-9 f" . ftf-find-file)
+         ("C-9 4 f" . sc/ftf-find-file-other-window)
          ("C-9 s" . ftf-grepsource))
 
   :custom
@@ -412,6 +413,11 @@ Passes arg N to `open-line'."
   (ftf-filetypes '("*"))
 
   :config
+  (defun sc/ftf-find-file-other-window ()
+    (interactive)
+    (cl-letf (((symbol-function 'find-file) #'find-file-other-window))
+      (command-execute 'ftf-find-file)))
+
   ;; When searching and grepping in a non-git context, i.e. using `find`, make
   ;; sure to only include regular files (not directories, symlinks, etc.)
   (advice-add 'ftf-get-find-command
