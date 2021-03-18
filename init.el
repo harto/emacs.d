@@ -1,6 +1,6 @@
 ;; Note: configuration also exists in early-init.el
 
- ;; # Initialization
+;; # Initialization
 
 ;; use-package provides a nice way to lazy-load and configure packages.
 (eval-when-compile
@@ -241,12 +241,12 @@ subsequently $PATH) via shell profile."
 
 (defun sc/big-screen ()
   (interactive)
-  (set-frame-font "Monaco-14" t t)
+  (set-face-attribute 'default nil :height sc/font-height-bigger)
   (doom-modeline-refresh-font-width-cache))
 
 (defun sc/small-screen ()
   (interactive)
-  (set-frame-font "Monaco-12" t t)
+  (set-face-attribute 'default nil :height sc/font-height-regular)
   (doom-modeline-refresh-font-width-cache))
 
 (defun sc/hi-vis ()
@@ -704,21 +704,21 @@ project-wide search."
   (org-hide-emphasis-markers t)
   (org-ellipsis "…")
 
-  :custom-face
+  :config
   ;; Show headlines in bigger (variable-width) fonts
   ;; https://fonts.google.com/specimen/Work+Sans
-  ;; (TODO: figure out how to do this more dynamically)
-  (org-document-title ((t (:font "Work Sans" :height 1.4 :weight semibold))))
-  (org-level-1 ((t (:font "Work Sans" :height 1.3 :weight semibold))))
-  (org-level-2 ((t (:font "Work Sans" :height 1.2 :weight semibold))))
-  (org-level-3 ((t (:font "Work Sans" :height 1.1 :weight semibold))))
-  (org-level-4 ((t (:font "Work Sans" :height 1.0 :weight semibold))))
-  (org-level-5 ((t (:font "Work Sans"))))
-  (org-level-6 ((t (:font "Work Sans"))))
-  (org-level-7 ((t (:font "Work Sans"))))
-  (org-level-8 ((t (:font "Work Sans"))))
+  (let* ((heading `(:font "Work Sans")))
+    (custom-theme-set-faces 'user
+                            `(org-document-title ((t (,@heading :height 1.4 :weight semibold))))
+                            `(org-level-1 ((t (,@heading :height 1.3 :weight semibold))))
+                            `(org-level-2 ((t (,@heading :height 1.2 :weight semibold))))
+                            `(org-level-3 ((t (,@heading :height 1.1 :weight semibold))))
+                            `(org-level-4 ((t (,@heading :height 1.0 :weight semibold))))
+                            `(org-level-5 ((t (,@heading))))
+                            `(org-level-6 ((t (,@heading))))
+                            `(org-level-7 ((t (,@heading))))
+                            `(org-level-8 ((t (,@heading))))))
 
-  :config
   ;; Darken source block background for emphasis
   (require 'color)
   (set-face-attribute 'org-block nil

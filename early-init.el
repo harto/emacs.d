@@ -6,10 +6,16 @@
 ;; Disable unwanted chrome before it has the chance to appear.
 (if (boundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (boundp 'tool-bar-mode) (tool-bar-mode -1))
+;; TODO: I think we could ignore this in GUI mode
 (if (boundp 'menu-bar-mode) (menu-bar-mode -1))
 
-;; Configure default face before the first window becomes visible.
-(custom-set-faces `(default ((t (:family "Monaco" :height 120)))))
+;; Configure fonts before the first window becomes visible.
+;; https://fonts.google.com/specimen/Roboto+Mono
+(defvar sc/font-height-regular 130)
+(defvar sc/font-height-bigger 150)
+(set-face-attribute 'default nil
+                    :family "Roboto Mono"
+                    :height sc/font-height-regular)
 
 ;; Code that should run before `package-initialize' is meant to go in this file,
 ;; according to the help documentation for that function.
