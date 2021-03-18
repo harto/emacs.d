@@ -4,7 +4,8 @@
 
 ;; Author: Aaron Jensen <aaronjensen@gmail.com>
 ;; URL: https://github.com/aaronjensen/eslintd-fix
-;; Package-Version: 20190830.2116
+;; Package-Version: 20210114.1448
+;; Package-Commit: 5f9daecd4a02418515070b8084cb06e2251e2119
 ;; Version: 1.1.0
 ;; Package-Requires: ((dash "2.12.0") (emacs "24.3"))
 
@@ -66,6 +67,11 @@
 This is useful for integrating `prettier', for example. It is ignored if nil."
   :group 'eslintd-fix
   :type 'string)
+
+(defcustom eslintd-fix-timeout-seconds 2
+  "The time to wait for eslint_d to respond to a request."
+  :group 'eslintd-fix
+  :type 'integer)
 
 (defvar-local eslintd-fix--verified nil
   "Set to t if eslintd has been verified as working for this buffer.")
@@ -165,7 +171,9 @@ size by applying the changes as a diff patch."
   (and (file-executable-p executable)
        (string-match-p
         "--fix-to-stdout"
-        (or (shell-command-to-string (concat executable " --help")) ""))))
+        (condition-case nil
+            (with-output-to-string (call-process executable nil standard-output nil "--help"))
+          (error "")))))
 
 (defun eslintd-fix--eslint-config-foundp (executable)
   "Return t if there is an eslint config for the current file.
@@ -274,7 +282,7 @@ Return the CONNECTION if, after waiting it is open, otherwise nil."
 
 Return t if the connection closes successfully."
   (catch 'done
-    (dotimes (_ 300)
+    (dotimes (_ (truncate (/ eslintd-fix-timeout-seconds 0.01)))
       (if (eq (process-status connection) 'open)
           (accept-process-output connection 0.01 nil t)
         (throw 'done (eq (process-status connection) 'closed))))

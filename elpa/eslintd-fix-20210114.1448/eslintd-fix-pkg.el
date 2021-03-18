@@ -1,0 +1,2 @@
+;;; Generated package description from /Users/stuart/.emacs.d/elpa/eslintd-fix-20210114.1448/eslintd-fix.el  -*- no-byte-compile: t -*-
+(define-package "eslintd-fix" "20210114.1448" "use eslint_d to automatically fix js files" '((dash "2.12.0") (emacs "24.3")) :commit "5f9daecd4a02418515070b8084cb06e2251e2119" :authors '(("Aaron Jensen" . "aaronjensen@gmail.com")) :maintainer '("Aaron Jensen" . "aaronjensen@gmail.com") :url "https://github.com/aaronjensen/eslintd-fix")
