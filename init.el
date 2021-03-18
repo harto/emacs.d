@@ -141,12 +141,12 @@
   (setq exec-path (split-string (getenv "PATH") path-separator)))
 
 (defun sc/reset-mac-os-env ()
-  "Works around macOS environment problems by loading env (and
-subsequently $PATH) via shell profile."
+  "Works around macOS environment problems by loading env (in
+particular, $PATH) via shell profile."
   (sc/load-env-from-shell)
   (sc/reset-exec-path-from-env))
 
-(when (and (display-graphic-p) (eq system-type 'darwin))
+(when (eq window-system 'ns)
   (sc/reset-mac-os-env)
   ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
   (cd "~"))
