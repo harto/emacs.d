@@ -484,9 +484,7 @@ Passes arg N to `open-line'."
 ;; # Git
 
 (use-package magit
-  :bind (("C-x g" . magit-status)
-         ;; TODO: i don't think i use this
-         ("C-0 g" . magit-file-popup)))
+  :bind (("C-x g" . magit-status))
 
 ;; git-commit (a dependency of magit) is used when editing commit messages and
 ;; PR descriptions. I configure this because I want to unset the max line length
