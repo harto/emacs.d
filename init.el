@@ -475,6 +475,11 @@ Passes arg N to `open-line'."
                                     xref-find-definitions-other-frame
                                     xref-find-references)))
 
+;; For projects where we can't use LSP (or something equivalent), fall back to a
+;; simpler regex-based xref backend.
+(use-package dumb-jump
+  :defer t)
+
 
 ;; # Git
 
@@ -669,7 +674,9 @@ project-wide search."
 (use-package ruby-mode
   :defer t
   :custom
-  (ruby-insert-encoding-magic-comment nil))
+  (ruby-insert-encoding-magic-comment nil)
+  :config
+  (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
 
 ;; Switch between Ruby versions.
 (use-package chruby
