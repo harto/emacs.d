@@ -282,6 +282,8 @@ particular, $PATH) via shell profile."
 (global-set-key (kbd "C-1 h") 'sc/hi-vis)
 (global-set-key (kbd "C-1 l") 'sc/lo-vis)
 (global-set-key (kbd "C-1 i") 'sc/invert-theme)
+(global-set-key (kbd "C-1 m") 'toggle-frame-maximized)
+(global-set-key (kbd "C-1 f") 'toggle-frame-fullscreen)
 
 (when (display-graphic-p)
   (load-theme 'solarized-dark))
