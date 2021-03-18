@@ -471,14 +471,10 @@ Passes arg N to `open-line'."
 
   :custom
   (git-commit-summary-max-length 50)
-  (git-commit-setup-hook '(git-commit-propertize-diff
-                           git-commit-save-message
-                           git-commit-setup-changelog-support
-                           git-commit-turn-on-auto-fill
-                           with-editor-usage-message
-                           sc/set-git-commit-line-limits))
 
   :config
+  (add-hook 'git-commit-setup-hook 'sc/set-git-commit-line-limits)
+
   (defun sc/set-git-commit-line-limits ()
     "Set line length limits when writing commit & pull request messages."
     (if (equal (buffer-name) "PULLREQ_EDITMSG")
