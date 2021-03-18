@@ -151,6 +151,19 @@ particular, $PATH) via shell profile."
   ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
   (cd "~"))
 
+(use-package dired
+  :defer t
+
+  :config
+  ;; from https://jblevins.org/log/dired-open
+  (defun sc/dired-open-file-in-default-application ()
+    "Opens file at point using the macOS `open` command."
+    (interactive)
+    (start-process "default-app" nil "open" (dired-get-file-for-visit)))
+
+  :bind (:map dired-mode-map
+         ("C-u C-o" . sc/dired-open-file-in-default-application)))
+
 
 ;; # Modeline
 
