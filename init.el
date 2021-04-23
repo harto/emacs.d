@@ -493,6 +493,15 @@ Passes arg N to `open-line'."
 (use-package magit
   :bind (("C-x g" . magit-status))
 
+  :config
+  (defun sc/hub-pull-request ()
+    "Creates a GitHub pull request via the `hub` CLI."
+    ;; TODO: provide options:
+    ;; - draft PR
+    ;; - base branch
+    (interactive)
+    (async-shell-command "hub pull-request --browse")))
+
 ;; git-commit (a dependency of magit) is used when editing commit messages and
 ;; PR descriptions. I configure this because I want to unset the max line length
 ;; for PR descriptions. (There might be an easier way to do this.)
@@ -515,42 +524,6 @@ Passes arg N to `open-line'."
           ;; fill-paragraph & fill-region work
           (setq-local fill-column most-positive-fixnum))
       (setq-local fill-column 72))))
-
-;; # GitHub integration
-;;
-;; Magit integrates with GitHub via the Forge package. It requires some
-;; configuration of credentials (described here).
-;;
-;; My GitHub username must be set as a global Git configuration option:
-;;   $ git config --global github.user harto
-;;
-;; A token can be created at https://github.com/settings/tokens. The token
-;; requires the following scopes:
-;;   - repo
-;;   - user
-;;   - read:org
-;;
-;; Once created, the token can be stored in a location accessible by the
-;; auth-source package. To put the token into the macOS Keychain:
-;;   $ security add-internet-password -s 'api.github.com' -a 'harto^forge' -w …
-;;
-;; Finally, auth-source must be configured to read from the macOS keychain,
-;; which is done below.
-;;
-;; References:
-;; - https://magit.vc/manual/forge.html#Token-Creation
-;; - https://www.aria.ai/blog/posts/storing-secrets-with-keychain
-;; - https://github.com/magit/ghub/issues/101
-
-(use-package auth-source
-  :defer t
-  :custom
-  (auth-sources '("~/.netrc" macos-keychain-internet)))
-
-;; TODO: figure out if we can use just the PR-creation flow without having to
-;; download all the extra stuff like comments, issues, etc.
-(use-package forge
-  :after magit)
 
 
 ;; # Programming
