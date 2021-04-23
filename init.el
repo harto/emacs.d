@@ -705,10 +705,30 @@ project-wide search."
 (use-package org
   :defer t
 
+  :bind
+  (("C-c a" . 'org-agenda)
+   ("C-c t" . 'org-capture))
+
   :custom
   (org-startup-indented t)
   (org-hide-emphasis-markers t)
   (org-ellipsis "…")
+  (org-confirm-babel-evaluate nil)
+
+  (org-agenda-files '("~/org/todo.org" "~/org/dates.org"))
+  (org-refile-targets '(("~/org/todo.org" . (:level . 1))
+                        ("~/org/archive.org" . (:level . 1))))
+
+  (org-capture-templates
+   '(("t" "Task" entry (file+olp "~/org/todo.org" "Tasks")
+      "* TODO %?\n%u")
+
+     ("n" "Note")
+     ("nc" "Cleanup" entry (file+olp "~/org/inbox.org" "Inbox")
+      "* %? (=%F=)\n%u\n")
+     ("ni" "Idea" entry (file+olp "~/org/inbox.org" "Inbox")
+      "* %?")))
+
 
   :config
   ;; Show headlines in bigger (variable-width) fonts
