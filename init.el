@@ -493,6 +493,10 @@ Passes arg N to `open-line'."
 (use-package magit
   :bind (("C-x g" . magit-status))
 
+  :custom
+  ;; Automatically save repo files when doing various magit operations
+  (magit-save-repository-buffers 'dontask)
+
   :config
   (defun sc/hub-pull-request ()
     "Creates a GitHub pull request via the `hub` CLI."
