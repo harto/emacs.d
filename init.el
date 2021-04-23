@@ -760,10 +760,10 @@ project-wide search."
 
   ;; We use a variable-width font for headings (see :custom-face section
   ;; above). This mostly looks nice, but results in a minor visual annoyance
-  ;; whereby headings don't align precisely with their subsequent body text,
+  ;; where headings don't align precisely with their subsequent body text,
   ;; because the headline bullet (and following space) are rendered in a
   ;; variable-width font. To ensure everything lines up nicely, we render the
-  ;; bullet and space in the default body font.
+  ;; bullet and space in the default (fixed-width) body font.
   (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
                                                              (list :inherit (intern (format "org-level-%s" level))
                                                                    :family (face-attribute 'default :family)
