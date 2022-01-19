@@ -669,7 +669,9 @@ project-wide search."
   (python-shell-setup-codes `(,(string-join '("import pydoc"
                                               "pydoc.pager = pydoc.plainpager"
                                               "print('pydoc pager disabled')")
-                                            "; "))))
+                                            "; ")))
+  :config
+  (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
 
 ;; Invoke pytest directly from Python files
 (use-package pytest
