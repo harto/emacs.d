@@ -744,92 +744,145 @@ project-wide search."
 
 ;; # Org
 
+;; TODO: consider some visual changes:
+;; - variable-pitch font
+;; - totally hide heading bullets
+;; - no indentation
+;; - margins above headings
+
 (use-package org
   :defer t
 
   :bind
   (("C-c a" . 'org-agenda)
-   ("C-c t" . 'org-capture))
+   ("C-c n" . 'org-capture))
 
   :custom
   (org-startup-indented t)
   (org-hide-emphasis-markers t)
   (org-ellipsis "…")
   (org-confirm-babel-evaluate nil)
+  ;; once we've scheduled something, omit it from TODO lists (and show it only
+  ;; in the agenda)
+  (org-agenda-todo-ignore-scheduled 'future)
 
-  (org-agenda-files '("~/org/todo.org" "~/org/dates.org"))
+  (org-agenda-files '("~/org/todo.org"
+                      "~/org/dates.org"
+                      ))
   (org-refile-targets '(("~/org/todo.org" . (:level . 1))
-                        ("~/org/archive.org" . (:level . 1))))
+                        ("~/org/ideas.org" . (:level . 1))))
+  (org-archive-location "~/org/archive.org::* Archive")
+  ;; (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+  ;; TODO: can we :kill-buffer by default?
   (org-capture-templates
-   '(("t" "Task" entry (file+olp "~/org/todo.org" "Tasks")
-      "* TODO %?\n%u")
+   (let ((todo-target '(file+headline "~/org/todo.org" "Tasks")))
+     `(("t" "To-do (misc)"         entry ,todo-target "* TODO %?\n%u"             :kill-buffer t)
+       ("w" "To-do (work)"         entry ,todo-target "* TODO %? :@work:\n%u"     :kill-buffer t)
+       ("h" "To-do (home)"         entry ,todo-target "* TODO %? :@home:\n%u"     :kill-buffer t)
+       ("c" "To-do (computer)"     entry ,todo-target "* TODO %? :@computer:\n%u" :kill-buffer t)
+       ("e" "Errand"               entry ,todo-target "* TODO %? :@errand:\n%u"   :kill-buffer t)
+       ("l" "To discuss with Lucy" entry ,todo-target "* TODO %? :@lucy:\n%u"     :kill-buffer t)
+       ("s" "Shopping"             entry ,todo-target "* TODO %? :@shopping:\n%u" :kill-buffer t)
 
-     ("n" "Note")
-     ("nc" "Cleanup" entry (file+olp "~/org/inbox.org" "Inbox")
-      "* %? (=%F=)\n%u\n")
-     ("ni" "Idea" entry (file+olp "~/org/inbox.org" "Inbox")
-      "* %?")))
+       ("n" "Note" entry (file+headline "~/org/inbox.org" "Inbox") "* %?" :kill-buffer t))))
 
+   ;; https://orgmode.org/manual/Agenda-Views.html#Agenda-Views
+   (org-agenda-custom-commands
+    ;; TODO:
+    ;; - sort by date
+    ;; - low-effort task view
+    ;; - combined agenda + tasks for work view
+    '(("c" "Computer tasks" tags-todo "@computer")
+      ("h" "Home tasks"
+       ((tags-todo "@home" ((org-agenda-overriding-header "Next actions")
+                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+        (tags-todo "@home" ((org-agenda-overriding-header "Scheduled")
+                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
+      ("w" "Work tasks"
+       ((tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Next actions")
+                                          (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+        (tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Scheduled")
+                                          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
+      ("d" "Workday"
+       ((agenda "")
+        (tags-todo "@work+TODO=\"STARTED\""
+                   ((org-agenda-overriding-header "Currently doing")))
+        (tags-todo "@work+TODO=\"TODO\""
+                   ((org-agenda-overriding-header "Unscheduled")
+                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
+      ("l" "Lucy" tags-todo "@lucy")
+      ("r" "Weekly review"
+       ;; TODO: should scheduled/unscheduled include tasks w/ deadlines?
+       ((tags-todo "TODO=\"TODO\"|TODO=\"STARTED\""
+                   ((org-agenda-overriding-header "Unscheduled")
+                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+        (tags-todo "TODO=\"TODO\""
+                   ((org-agenda-overriding-header "Scheduled")
+                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))
+        (todo "WAIT" ((org-agenda-overriding-header "Waiting")))
+        (todo "DONE" ((org-agenda-overriding-header "Done")))))
+      ("i" "Ideas")))
 
-  :config
-  ;; Show headlines in bigger (variable-width) fonts
-  ;; https://fonts.google.com/specimen/Work+Sans
-  (let* ((heading `(:font "Work Sans")))
-    (custom-theme-set-faces 'user
-                            `(org-document-title ((t (,@heading :height 1.4 :weight semibold))))
-                            `(org-level-1 ((t (,@heading :height 1.3 :weight semibold))))
-                            `(org-level-2 ((t (,@heading :height 1.2 :weight semibold))))
-                            `(org-level-3 ((t (,@heading :height 1.1 :weight semibold))))
-                            `(org-level-4 ((t (,@heading :height 1.0 :weight semibold))))
-                            `(org-level-5 ((t (,@heading))))
-                            `(org-level-6 ((t (,@heading))))
-                            `(org-level-7 ((t (,@heading))))
-                            `(org-level-8 ((t (,@heading))))))
+   :config
+   ;; Show headlines in bigger (variable-width) fonts
+   ;; https://fonts.google.com/specimen/Work+Sans
+   (let* ((heading `(:font "Work Sans")))
+     (custom-theme-set-faces 'user
+                             `(org-document-title ((t (,@heading :height 1.4 :weight semibold))))
+                             `(org-level-1 ((t (,@heading :height 1.3 :weight semibold))))
+                             `(org-level-2 ((t (,@heading :height 1.2 :weight semibold))))
+                             `(org-level-3 ((t (,@heading :height 1.1 :weight semibold))))
+                             `(org-level-4 ((t (,@heading :height 1.0 :weight semibold))))
+                             `(org-level-5 ((t (,@heading))))
+                             `(org-level-6 ((t (,@heading))))
+                             `(org-level-7 ((t (,@heading))))
+                             `(org-level-8 ((t (,@heading))))))
 
-  ;; Darken source block background for emphasis
-  (require 'color)
-  (set-face-attribute 'org-block nil
-                      :background (color-darken-name
-                                   (face-attribute 'default :background) 2)
-                      :extend t)
+   ;; Darken source block background for emphasis
+   (require 'color)
+   (set-face-attribute 'org-block nil
+                       :background (color-darken-name
+                                    (face-attribute 'default :background) 2)
+                       :extend t)
 
-  ;; Permit evaluation of various languages in src blocks
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     (ruby . t)
-     (shell . t)
-     (sql . t)))
+   ;; Permit evaluation of various languages in src blocks
+   (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((dot . t)
+      (emacs-lisp . t)
+      (python . t)
+      (ruby . t)
+      (shell . t)
+      (sql . t)))
 
-  ;; Markdown export
-  (require 'ox-md)
+   ;; Markdown export
+   (require 'ox-md)
 
-  ;; Soft-wrap long lines
-  (add-hook 'org-mode-hook 'visual-line-mode)
-  ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
-  ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
+   ;; Soft-wrap long lines
+   (add-hook 'org-mode-hook 'visual-line-mode)
+   ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
+   ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
 
-  ;; Replace dashes with bullets in lists (per
-  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html)
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1)
-                                                          (match-end 1)
-                                                          "•" ; or "·"
-                                                          ))))))
+   ;; Replace dashes with bullets in lists (per
+   ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html)
+   (font-lock-add-keywords 'org-mode
+                           '(("^ *\\([-]\\) "
+                              (0 (prog1 () (compose-region (match-beginning 1)
+                                                           (match-end 1)
+                                                           "•" ; or "·"
+                                                           ))))))
 
-  ;; We use a variable-width font for headings (see :custom-face section
-  ;; above). This mostly looks nice, but results in a minor visual annoyance
-  ;; where headings don't align precisely with their subsequent body text,
-  ;; because the headline bullet (and following space) are rendered in a
-  ;; variable-width font. To ensure everything lines up nicely, we render the
-  ;; bullet and space in the default (fixed-width) body font.
-  (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
-                                                             (list :inherit (intern (format "org-level-%s" level))
-                                                                   :family (face-attribute 'default :family)
-                                                                   :height (face-attribute 'default :height)))))))
+   ;; We use a variable-width font for headings (see :custom-face section
+   ;; above). This mostly looks nice, but results in a minor visual annoyance
+   ;; where headings don't align precisely with their subsequent body text,
+   ;; because the headline bullet (and following space) are rendered in a
+   ;; variable-width font. To ensure everything lines up nicely, we render the
+   ;; bullet and space in the default (fixed-width) body font.
+   (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
+                                                              (list :inherit (intern (format "org-level-%s" level))
+                                                                    :family (face-attribute 'default :family)
+                                                                    :height (face-attribute 'default :height)))))))
 
 ;; Show unicode bullets instead of asterisks for headings
 (use-package org-bullets
