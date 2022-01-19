@@ -891,6 +891,12 @@ project-wide search."
   ;; Use the same bullet at all levels
   (org-bullets-bullet-list '("•")))
 
+(defun sc/weekly-review ()
+  (interactive)
+  (switch-to-buffer (format "review-%s" (format-time-string "%Y-%m-%d")))
+  (org-mode)
+  (insert-file-contents "~/org/weekly-review.org"))
+
 
 ;; # Miscellanous helper functions and utilities
 
