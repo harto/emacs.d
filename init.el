@@ -129,7 +129,8 @@
   :init
   (add-hook 'after-init-hook 'server-start t))
 
-;; TODO: replace with exec-path-from-shell package
+;; TODO: replace with exec-path-from-shell package? (Note: that package doesn't
+;; automatically load all env vars - is that a problem?)
 (defun sc/load-env-from-shell ()
   (dolist (line (split-string (shell-command-to-string "$SHELL -lc env") "\n" t))
     (let* ((parts (split-string line "="))
