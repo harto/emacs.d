@@ -521,7 +521,16 @@ Passes arg N to `open-line'."
     ;; - provide options (e.g. draft, base branch)
     ;; - close *Async shell command* buffer after success
     (interactive)
-    (async-shell-command "hub pull-request --browse")))
+    (async-shell-command "hub pull-request --browse"))
+
+  (defun sc/browse-gh-rev (rev remote)
+    (interactive (list magit-buffer-revision (magit-primary-remote))) ; FIXME: figure out the right things to put here
+    (let* ((remote-url (magit-get "remote" remote "url"))
+           (rev-url (if (string-match "^.+@github.com:\\(.+\\)/\\(.+\\)\.git$" remote-url)
+                        (format "https://github.com/%s/%s/commit/%s" (match-string 1 remote-url) (match-string 2 remote-url) rev)
+                      (error "Unparseable remote URL: %s" remote-url))))
+      (message remote-url)
+      (browse-url rev-url))))
 
 ;; git-commit (a dependency of magit) is used when editing commit messages and
 ;; PR descriptions. I configure this because I want to unset the max line length
