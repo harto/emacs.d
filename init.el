@@ -491,7 +491,11 @@ Passes arg N to `open-line'."
 ;; # Git
 
 (use-package magit
-  :bind (("C-x g" . magit-status))
+  :bind (("C-x g" . magit-status)
+         ;; TODO: jump to rev at point in browser
+         ;; :map magit-revision-mode-map
+         :map magit-status-mode-map
+         ("C-c p" . sc/hub-pull-request))
 
   :custom
   ;; Automatically save repo files when doing various magit operations
@@ -500,9 +504,9 @@ Passes arg N to `open-line'."
   :config
   (defun sc/hub-pull-request ()
     "Creates a GitHub pull request via the `hub` CLI."
-    ;; TODO: provide options:
-    ;; - draft PR
-    ;; - base branch
+    ;; TODO:
+    ;; - provide options (e.g. draft, base branch)
+    ;; - close *Async shell command* buffer after success
     (interactive)
     (async-shell-command "hub pull-request --browse")))
 
