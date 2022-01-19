@@ -490,7 +490,15 @@ Passes arg N to `open-line'."
 ;; For projects where we can't use LSP (or something equivalent), fall back to a
 ;; simpler regex-based xref backend.
 (use-package dumb-jump
-  :defer t)
+  :defer t
+  ;; :config
+  ;; ;; dumb-jump only implements jumping to definitions (via e.g. `C-.`). Here we
+  ;; ;; provide a simple way to list references to a symbol so that `C-?` also does
+  ;; ;; something useful.
+  ;; (cl-defmethod xref-backend-references ((_backend (eql dump-jump)) identifier)
+  ;;   ;; TODO
+  ;;   )
+  )
 
 
 ;; # Git
