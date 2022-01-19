@@ -715,8 +715,8 @@ project-wide search."
   :config
   ;; Query results look bad when wrapped, so extend them off-screen instead
   (add-hook 'sql-interactive-mode-hook 'toggle-truncate-lines t)
-  ;; Handle dashed database names in psql prompt
-  (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:]_-]*=[#>] "))
+  ;; Recognise dashes and numbers as valid parts of DB names
+  (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:][:digit:]_-]*=[#>] "))
 
 (use-package typescript-mode
   :mode "\\.tsx\\'"
