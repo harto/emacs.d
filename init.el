@@ -231,6 +231,9 @@ particular, $PATH) via shell profile."
 
 (use-package solarized
   :custom
+  (solarized-use-more-italic nil)
+  (solarized-distinct-doc-face t)
+
   ;; Opt out of variable-width fonts in a bunch of places. We selectively
   ;; enable something like this in Org mode, but don't want it everywhere.
   (solarized-use-variable-pitch nil)
