@@ -154,7 +154,7 @@ particular, $PATH) via shell profile."
 
 (defun sc/jump-to-emacs-config ()
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file-other-window "~/.emacs.d/init.el"))
 
 ;; s-, jumps to Customize by default, but I don't want to use that.
 (global-set-key (kbd "s-,") 'sc/jump-to-emacs-config)
