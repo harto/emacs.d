@@ -384,6 +384,7 @@ Passes arg N to `open-line'."
 ;; (global-set-key (kbd "C-c e") 'sc/eval-and-replace-preceding-sexp)
 
 (global-set-key (kbd "C-0 a") 'align-regexp)
+(global-set-key (kbd "C-0 b") 'browse-url-at-point)
 (global-set-key (kbd "C-0 d") 'sc/diff-current-buffer-with-file)
 (global-set-key (kbd "C-0 s") 'sort-lines)
 (global-set-key (kbd "C-0 s") 'sc/sort-lines-case-insensitive)
