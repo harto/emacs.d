@@ -688,6 +688,16 @@ project-wide search."
   :config
   (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
 
+(use-package inf-ruby
+  :defer t
+  ;; :custom
+  ;; (inf-ruby-default-implementation "pry")
+  :config
+  (add-to-list 'inf-ruby-implementations '("rails" . "rails console"))
+  ;; ;; TODO: figure out if we should switch to some non-OS-default Ruby
+  ;; (chruby-use-corresponding)
+  )
+
 ;; Switch between Ruby versions.
 (use-package chruby
   :defer t)
