@@ -585,14 +585,20 @@ Passes arg N to `open-line'."
 
 (use-package lsp-mode
   :hook (typescript-mode . lsp)
+
+  :custom
+  ;; Hard-code npm location - without this, tsserver looks for it in the same
+  ;; directory as node, e.g. $HOMEBREW_PREFIX/Cellar/node@14/14.18.3/bin. See:
+  ;; https://github.com/microsoft/TypeScript/issues/23924
+  (lsp-clients-typescript-javascript-server-args '("--npmLocation $HOMEBREW_PREFIX/bin/npm"))
+
   :config
   (with-eval-after-load 'lsp-clients
-    ;; We configure typescript-language-server to use a custom tsserver
-    ;; entrypoint. (See commentary in helpers/tsserver.) See also:
-    ;; https://github.com/theia-ide/typescript-language-server/issues/122
+    ;; TODO: investigate automatically adding node_modules/.bin to PATH
+    ;; e.g. https://github.com/codesuki/add-node-modules-path
     (lsp-dependency
      'typescript
-     `(:system ,(expand-file-name "helpers/tsserver" user-emacs-directory)))))
+     `(:system "/Users/stuart/src/remix/client/node_modules/.bin/tsserver"))))
 
 ;; Autocompletion framework. (This seems to be automatically required by
 ;; lsp-mode, but we list it here as documentation.)
