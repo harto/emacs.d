@@ -162,6 +162,10 @@ particular, $PATH) via shell profile."
 (use-package dired
   :defer t
 
+  :custom
+  ;; Suppress "ls does not support --dired" warning
+  (dired-use-ls-dired nil)
+
   :config
   ;; from https://jblevins.org/log/dired-open
   (defun sc/dired-open-file-in-default-application ()
