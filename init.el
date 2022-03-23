@@ -791,6 +791,7 @@ project-wide search."
        ("w" "To-do (work)"         entry ,todo-target "* TODO %? :@work:\n%u"     :kill-buffer t)
        ("h" "To-do (home)"         entry ,todo-target "* TODO %? :@home:\n%u"     :kill-buffer t)
        ("c" "To-do (computer)"     entry ,todo-target "* TODO %? :@computer:\n%u" :kill-buffer t)
+       ("p" "To-do (phone)"        entry ,todo-target "* TODO %? :@phone:\n%u"    :kill-buffer t)
        ("e" "Errand"               entry ,todo-target "* TODO %? :@errand:\n%u"   :kill-buffer t)
        ("l" "To discuss with Lucy" entry ,todo-target "* TODO %? :@lucy:\n%u"     :kill-buffer t)
        ("s" "Shopping"             entry ,todo-target "* TODO %? :@shopping:\n%u" :kill-buffer t)
