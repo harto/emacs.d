@@ -816,7 +816,7 @@ project-wide search."
                                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
       ("d" "Workday"
        ((agenda "")
-        (tags-todo "@work+TODO=\"STARTED\""
+        (tags-todo "TODO=\"STARTED\""
                    ((org-agenda-overriding-header "Currently doing")))
         (tags-todo "@work+TODO=\"TODO\""
                    ((org-agenda-overriding-header "Unscheduled")
