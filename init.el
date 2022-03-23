@@ -736,14 +736,14 @@ project-wide search."
 (use-package ts-comint
   :defer t
   :custom
-  (ts-comint-program-command "ts-node")
+  (ts-comint-program-command "npx")
   ;; If ts-node is invoked in the context of a tsconfig.json that specifies
   ;; isolatedModules: true, then statements entered at the REPL cannot be
   ;; compiled. (The reason seems to be that ts-node writes each statement to a
   ;; file and compiles it, but tsc will reject the module as invalid unless it
   ;; imports or exports something.) Therefore we unconditionally override that
   ;; setting.
-  (ts-comint-program-arguments '("-O" "{\"isolatedModules\": false}")))
+  (ts-comint-program-arguments '("ts-node" "-O" "{\"isolatedModules\": false}")))
 
 (use-package web-mode
   :mode "\\.\\(erb\\|hbs\\|html\\|twig\\)\\'"
