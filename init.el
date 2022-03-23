@@ -589,9 +589,24 @@ Passes arg N to `open-line'."
 
 (use-package compile
   :defer t
+
   :custom
   ;; TODO: determine if this is needed
-  (compilation-message-face 'default))
+  (compilation-message-face 'default)
+
+  :config
+  ;; TODO: maybe replace with something like
+  ;; https://superuser.com/questions/416567/combine-compilation-mode-and-ansi-term-mode-in-emacs
+  (defun sc/maybe-reset-compilation-buffer ()
+    (save-excursion
+      (when (search-backward "c" nil t)
+        (let ((inhibit-read-only t))
+          (delete-region (point-min) (+ 2 (point))))
+        (setq-local compilation-num-errors-found 0
+                    compilation-num-warnings-found 0
+                    compilation-num-infos-found 0))))
+
+  (add-hook 'compilation-filter-hook 'sc/maybe-reset-compilation-buffer))
 
 (use-package lsp-mode
   :hook (typescript-mode . lsp)
