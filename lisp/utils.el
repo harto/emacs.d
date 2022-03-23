@@ -30,3 +30,11 @@
 ;;   (with-temp-buffer
 ;;     (insert-file-contents path)
 ;;     (buffer-string)))
+
+;; Adapted from: https://emacs.stackexchange.com/a/19076
+(defun sc/plist-merge (&rest plists)
+  "Merge one or more property lists."
+  (let ((ret (pop plists)))
+    (dolist (plist plists ret)
+      (dolist (entry (seq-partition plist 2))
+        (plist-put ret (car entry) (cadr entry))))))

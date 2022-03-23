@@ -933,8 +933,9 @@ project-wide search."
 ;; # Miscellanous helper functions and utilities
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
-;; TODO: can we lazy-load (or delete) this?
+;; TODO: should we lazy-load these?
 (load "utils")
+(load "heroku")
 ;; My library of work helper functions lives outside this repo, so I don't
 ;; accidentally reveal anything sensitive.
 (load "~/remix/remix.el" t)
