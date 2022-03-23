@@ -47,6 +47,7 @@
 
 ;; Disable warnings for rarely-used features
 (dolist (sym '(downcase-region
+               erase-buffer
                narrow-to-region
                scroll-left              ; still need this?
                set-goal-column
