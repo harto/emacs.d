@@ -174,7 +174,7 @@ particular, $PATH) via shell profile."
     (start-process "default-app" nil "open" (dired-get-file-for-visit)))
 
   :bind (:map dired-mode-map
-         ("C-u C-o" . sc/dired-open-file-in-default-application)))
+              ("C-u C-o" . sc/dired-open-file-in-default-application)))
 
 
 ;; # Modeline
