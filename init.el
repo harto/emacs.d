@@ -506,7 +506,7 @@ Passes arg N to `open-line'."
   ;; ;; provide a simple way to list references to a symbol so that `C-?` also does
   ;; ;; something useful.
   ;; (cl-defmethod xref-backend-references ((_backend (eql dump-jump)) identifier)
-  ;;   ;; TODO
+  ;;   ;; TODO: maybe reuse bits of https://github.com/harto/emacs.d/blob/1b1a9b11d1a2ed92badcbc83eb6546b029314157/lisp/search.el
   ;;   )
   )
 
@@ -795,6 +795,7 @@ project-wide search."
   (org-confirm-babel-evaluate nil)
   ;; once we've scheduled something, omit it from TODO lists (and show it only
   ;; in the agenda)
+  ;; TODO: maybe we'd still like to see stuff scheduled this week... ?
   (org-agenda-todo-ignore-scheduled 'future)
 
   (org-agenda-files '("~/org/todo.org"
