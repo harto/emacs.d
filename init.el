@@ -837,7 +837,15 @@ project-wide search."
                                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
         (tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Scheduled")
                                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
-      ("d" "Workday"
+      ;; TODO: consolidate copypasta
+      ("d" "Work agenda (today)"
+       ((agenda "" ((org-agenda-span 'day)))
+        (tags-todo "TODO=\"STARTED\""
+                   ((org-agenda-overriding-header "Currently doing")))
+        (tags-todo "@work+TODO=\"TODO\""
+                   ((org-agenda-overriding-header "Unscheduled")
+                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
+      ("k" "Work agenda (week)"
        ((agenda "")
         (tags-todo "TODO=\"STARTED\""
                    ((org-agenda-overriding-header "Currently doing")))
