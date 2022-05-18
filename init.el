@@ -133,7 +133,7 @@
 ;; TODO: replace with exec-path-from-shell package? (Note: that package doesn't
 ;; automatically load all env vars - is that a problem?)
 (defun sc/load-env-from-shell ()
-  (dolist (line (split-string (shell-command-to-string "$SHELL -lc env") "\n" t))
+  (dolist (line (split-string (shell-command-to-string "$SHELL -ic env") "\n" t))
     (let* ((parts (split-string line "="))
            (k (nth 0 parts))
            (v (nth 1 parts)))
