@@ -853,6 +853,8 @@ project-wide search."
                    ((org-agenda-overriding-header "Unscheduled")
                     (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
       ("l" "Lucy" tags-todo "@lucy")
+      ("p" "Phone" tags-todo "@phone")
+      ("e" "Errand" tags-todo "@errand")
       ("r" "Weekly review"
        ;; TODO: should scheduled/unscheduled include tasks w/ deadlines?
        ((tags-todo "TODO=\"TODO\"|TODO=\"STARTED\""
