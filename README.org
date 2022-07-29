@@ -1,0 +1,17 @@
+#+TITLE: .emacs.d
+
+1. Install to =~/.emacs.d=
+2. ???
+3. Profit
+
+* First-time setup
+- Install https://fonts.google.com/specimen/Roboto+Mono (fixed-width font)
+- Install https://fonts.google.com/specimen/Work+Sans (variable-width font)
+- =brew install libvterm= (for =vterm=)
+- =M-x all-the-icons-install-fonts= (for =doom-modeline=)
+
+* Overview
+- Core configuration is in =early-init.el= and =init.el=.
+- 3rd-party packages are in =elpa= and version controlled, including =.elc= files (since these are portable).
+- Persistent package data is in =etc=, and transient/temporary data is in =var= (per the =no-littering= package).
+- Elisp miscellany is in =lisp=.
