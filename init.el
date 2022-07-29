@@ -545,7 +545,6 @@ Passes arg N to `open-line'."
 ;; git-commit (a dependency of magit) is used when editing commit messages and
 ;; PR descriptions. I configure this because I want to unset the max line length
 ;; for PR descriptions. (There might be an easier way to do this.)
-;; TODO: figure out if this is still needed with forge integration (see below)
 (use-package git-commit
   :defer t
 
@@ -560,8 +559,8 @@ Passes arg N to `open-line'."
     (if (equal (buffer-name) "PULLREQ_EDITMSG")
         (progn
           (setq-local git-commit-summary-max-length 100)
-          ;; `most-positive-fixnum' rather than nil so
-          ;; fill-paragraph & fill-region work
+          ;; `most-positive-fixnum' rather than nil, so
+          ;; that fill-paragraph & fill-region work
           (setq-local fill-column most-positive-fixnum))
       (setq-local fill-column 72))))
 
