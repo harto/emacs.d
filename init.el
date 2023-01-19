@@ -933,7 +933,7 @@ project-wide search."
   (interactive)
   (switch-to-buffer (format "review-%s" (format-time-string "%Y-%m-%d")))
   (org-mode)
-  (insert-file-contents "~/org/weekly-review.org"))
+  (insert-file-contents "~/src/org-todo/weekly-review.org"))
 
 
 ;; # Miscellanous helper functions and utilities
@@ -944,7 +944,7 @@ project-wide search."
 (load "heroku")
 ;; My library of work helper functions lives outside this repo, so I don't
 ;; accidentally reveal anything sensitive.
-(load "~/remix/remix.el" t)
+(load "~/src/remix-utils/remix.el" t)
 
 
 ;; # Finalise configuration
