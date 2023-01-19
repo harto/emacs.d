@@ -88,10 +88,6 @@
   :custom
   (fci-rule-color "#073642"))
 
-;; Avoid warnings about dumb terminals in subprocesses
-;; TODO: should this go with other OS / environment stuff?
-(setenv "PAGER" "cat")
-
 ;; Make C-0, C-1, ... C-9 available for use as prefix bindings, per
 ;; http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
 ;;
