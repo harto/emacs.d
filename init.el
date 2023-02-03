@@ -920,7 +920,16 @@ project-wide search."
    (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
                                                               (list :inherit (intern (format "org-level-%s" level))
                                                                     :family (face-attribute 'default :family)
-                                                                    :height (face-attribute 'default :height)))))))
+                                                                    :height (face-attribute 'default :height))))))
+
+   ;; Export select org-files to JSON on save
+   (defun sc/export-org-data-hook ()
+     (when (equal major-mode 'org-mode)
+       ;; TODO: set up autoloading or something?
+       (load "org-sync" nil t)
+       (sc/maybe-export-org-data)))
+
+   (add-hook 'after-save-hook 'sc/export-org-data-hook))
 
 ;; Show unicode bullets instead of asterisks for headings
 (use-package org-bullets
