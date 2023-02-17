@@ -510,7 +510,8 @@ Passes arg N to `open-line'."
 ;; # Git
 
 (use-package magit
-  :bind (("C-x g" . magit-status)
+  :bind (("C-x g" . magit-status) ;; TODO: remove
+         ("C-9 g" . magit-status)
          ;; TODO: jump to rev at point in browser
          ;; :map magit-revision-mode-map
          :map magit-status-mode-map
