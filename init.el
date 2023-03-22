@@ -523,7 +523,8 @@ Passes arg N to `open-line'."
          ;; TODO: jump to rev at point in browser
          ;; :map magit-revision-mode-map
          :map magit-status-mode-map
-         ("C-c p" . sc/hub-pull-request))
+         ("C-c p" . sc/hub-pull-request)
+         ("C-c F" . sc/fetch-and-reset))
 
   :custom
   ;; Automatically save repo files when doing various magit operations
@@ -537,6 +538,14 @@ Passes arg N to `open-line'."
     ;; - close *Async shell command* buffer after success
     (interactive)
     (async-shell-command "hub pull-request --browse"))
+
+  (defun sc/fetch-and-reset ()
+    (interactive)
+    (let ((remote (magit-get-push-remote))
+          (branch (magit-main-branch)))
+      (magit-checkout branch)
+      (magit-run-git "fetch" "--prune" remote)
+      (magit-reset-hard (format "%s/%s" remote branch))))
 
   (defun sc/browse-gh-rev (rev remote)
     (interactive (list magit-buffer-revision (magit-primary-remote))) ; FIXME: figure out the right things to put here
