@@ -507,6 +507,14 @@ Passes arg N to `open-line'."
   )
 
 
+;; # vterm
+(use-package vterm
+  :custom
+  ;; See https://github.com/akermu/emacs-libvterm/#vterm-buffer-name-string,
+  ;; and shell extensions in vterm.zsh (in this repo)
+  (vterm-buffer-name-string "*vterm*:%s"))
+
+
 ;; # Git
 
 (use-package magit
