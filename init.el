@@ -959,7 +959,6 @@ project-wide search."
 (add-to-list 'load-path "~/.emacs.d/lisp")
 ;; TODO: should we lazy-load these?
 (load "utils")
-(load "heroku")
 ;; My library of work helper functions lives outside this repo, so I don't
 ;; accidentally reveal anything sensitive.
 (load "~/src/remix-utils/remix.el" t)
