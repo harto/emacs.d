@@ -528,7 +528,8 @@ Passes arg N to `open-line'."
   :custom
   ;; See https://github.com/akermu/emacs-libvterm/#vterm-buffer-name-string,
   ;; and shell extensions in vterm.zsh (in this repo)
-  (vterm-buffer-name-string "*vterm*:%s"))
+  (vterm-buffer-name-string "*vterm*:%s")
+  (vterm-max-scrollback 5000))
 
 
 ;; # Git
