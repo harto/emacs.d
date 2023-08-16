@@ -126,6 +126,24 @@
   :init
   (add-hook 'after-init-hook 'server-start t))
 
+;; When starting Emacs.app from the macOS GUI, the process environment doesn't
+;; have a PATH (and other env vars) that we would find useful. To work around
+;; this, we start a login shell, print its environment, and copy those variables
+;; into the Emacs process (then reset `exec-path'). This simulates the behaviour
+;; of launching Emacs from a shell.
+
+;; NOTE: this has a slightly annoying side-effect in vterm - we end up extending
+;; PATH twice, because we've already run .zshenv before starting the shell. We
+;; could:
+;; - skip non-idempotent shell initialisation steps if $INSIDE_EMACS (this might
+;;   be annoying if we were iterating on shell config, since changes might not
+;;   be reflected until we restarted Emacs)
+;; - somehow figure out how to set $PATH and other stuff persistently on login
+;;   (or whenever) and remove this hack
+;; - only set environment from within Emacs and assume we won't need to run a
+;;   shell any other way (this wouldn't work with cron tasks, etc.)
+;; - something else?
+
 ;; TODO: replace with exec-path-from-shell package? (Note: that package doesn't
 ;; automatically load all env vars - is that a problem?)
 (defun sc/load-env-from-shell ()
