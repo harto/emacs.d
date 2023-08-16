@@ -646,6 +646,8 @@ Passes arg N to `open-line'."
   ;; directory as node, e.g. $HOMEBREW_PREFIX/Cellar/node@14/14.18.3/bin. See:
   ;; https://github.com/microsoft/TypeScript/issues/23924
   (lsp-clients-typescript-javascript-server-args '("--npmLocation $HOMEBREW_PREFIX/bin/npm"))
+  ;; Do not want header line
+  (lsp-headerline-breadcrumb-enable nil)
 
   :config
   (with-eval-after-load 'lsp-clients
