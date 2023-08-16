@@ -145,9 +145,7 @@ particular, $PATH) via shell profile."
   (sc/reset-exec-path-from-env))
 
 (when (eq window-system 'ns)
-  (sc/reset-mac-os-env)
-  ;; Set default directory to ~ (this was the behaviour prior to Emacs 27)
-  (cd "~"))
+  (sc/reset-mac-os-env))
 
 (defun sc/jump-to-emacs-config ()
   (interactive)
