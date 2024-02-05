@@ -123,8 +123,13 @@
 
 (use-package server
   :if (display-graphic-p)
+
   :init
-  (add-hook 'after-init-hook 'server-start t))
+  (add-hook 'after-init-hook 'server-start t)
+
+  :config
+  ;; See note in bin/emacsclient
+  (setq server-socket-dir (no-littering-expand-var-file-name "server-socket/")))
 
 ;; When starting Emacs.app from the macOS GUI, the process environment doesn't
 ;; have a PATH (and other env vars) that we would find useful. To work around
