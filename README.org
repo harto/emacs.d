@@ -8,7 +8,7 @@
 - Install https://fonts.google.com/specimen/Roboto+Mono (fixed-width font)
 - Install https://fonts.google.com/specimen/Work+Sans (variable-width font)
 - =brew install libvterm= (for =vterm=)
-- =M-x all-the-icons-install-fonts= (for =doom-modeline=)
+- =M-x nerd-icons-install-fonts= (for =doom-modeline=)
 
 * Overview
 - Core configuration is in =early-init.el= and =init.el=.
