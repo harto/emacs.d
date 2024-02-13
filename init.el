@@ -218,15 +218,7 @@ particular, $PATH) via shell profile."
   ;; The major mode is shown on the right-hand side, so I don't also need to see
   ;; an icon.
   (doom-modeline-major-mode-icon nil)
-
-  :custom-face
-  ;; By default the filename is shown like an error (bright red) when the buffer
-  ;; is unsaved. It's a bit distracting, so we render it like a warning instead.
-  (doom-modeline-buffer-modified ((t (:inherit (warning bold) :background nil))))
-  ;; By default the little vertical bar on the left-hand side of the modeline is
-  ;; highlighted for non-active windows. This seems backwards, so we reverse it.
-  (doom-modeline-bar ((t (:background ,(face-foreground 'mode-line-inactive)))))
-  (doom-modeline-bar-inactive ((t (:inherit highlight))))
+  (doom-modeline-buffer-file-name-style 'relative-to-project)
 
   :init
   (doom-modeline-mode))
