@@ -292,13 +292,11 @@ particular, $PATH) via shell profile."
 
 (defun sc/big-screen ()
   (interactive)
-  (set-face-attribute 'default nil :height sc/font-height-bigger)
-  (doom-modeline-refresh-font-width-cache))
+  (set-face-attribute 'default nil :height sc/font-height-bigger))
 
 (defun sc/small-screen ()
   (interactive)
-  (set-face-attribute 'default nil :height sc/font-height-regular)
-  (doom-modeline-refresh-font-width-cache))
+  (set-face-attribute 'default nil :height sc/font-height-regular))
 
 (defun sc/hi-vis ()
   (interactive)
