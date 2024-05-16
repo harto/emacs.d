@@ -587,7 +587,7 @@ Passes arg N to `open-line'."
           (setq-local git-commit-summary-max-length 100)
           ;; `most-positive-fixnum' rather than nil, so
           ;; that fill-paragraph & fill-region work
-          (setq-local fill-column most-positive-fixnum))
+          (setq fill-column most-positive-fixnum))
       (setq-local fill-column 72))))
 
 
