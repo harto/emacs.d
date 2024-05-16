@@ -1,5 +1,6 @@
 #
 # vterm (https://github.com/akermu/emacs-libvterm) integration
+# TODO: replace this with elpa/vterm-.../etc/emacs-vterm-zsh.sh
 #
 
 # https://github.com/akermu/emacs-libvterm#shell-side-configuration
