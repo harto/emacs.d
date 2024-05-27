@@ -323,12 +323,12 @@ particular, $PATH) via shell profile."
 ;; cursor forwards & backwards by word. i.e. with point like "|FooBar", pressing
 ;; `M-f` moves to "Foo|Bar", not "FooBar|".
 (use-package subword
-  :hook ((js2-mode python-mode ruby-mode typescript-mode) . subword-mode))
+  :hook ((js2-mode python-mode ruby-mode typescript-ts-mode) . subword-mode))
 
 ;; Automatically insert closing parentheses, brackets, etc. in certain
 ;; (non-Lisp) modes. (In Lisp code we use paredit instead.)
 (use-package elec-pair
-  :hook ((js2-mode typescript-mode) . electric-pair-local-mode))
+  :hook ((js2-mode typescript-ts-mode) . electric-pair-local-mode))
 
 ;; Disable a built-in minor mode that triggers automatic reindentation when
 ;; newlines are inserted. (TODO: figure out if we actually need to do this)
@@ -634,7 +634,7 @@ Passes arg N to `open-line'."
   (add-hook 'compilation-filter-hook 'sc/maybe-reset-compilation-buffer))
 
 (use-package lsp-mode
-  :hook (typescript-mode . lsp)
+  :hook ((typescript-ts-mode tsx-ts-mode) . lsp)
 
   :custom
   ;; Hard-code npm location - without this, tsserver looks for it in the same
@@ -662,6 +662,21 @@ Passes arg N to `open-line'."
   :bind (:map paredit-mode-map
          ("M-?" . nil)  ; don't shadow xref-find-references
          ("C-M-<backspace>" . backward-kill-sexp)))
+
+;; Tree-sitter language grammars
+;; Note: after adding entries here, run `treesit-install-language-grammar'
+(setq treesit-language-source-alist
+      '(;; (bash "https://github.com/tree-sitter/tree-sitter-bash")
+        ;; (css "https://github.com/tree-sitter/tree-sitter-css")
+        ;; (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (json "https://github.com/tree-sitter/tree-sitter-json")
+        ;; (make "https://github.com/alemuller/tree-sitter-make")
+        ;; (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+        ;; (python "https://github.com/tree-sitter/tree-sitter-python")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "tsx/src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "typescript/src")
+        ;; (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+        ))
 
 ;; Specific language configurations
 
@@ -776,10 +791,13 @@ project-wide search."
   ;; Recognise dashes and numbers as valid parts of DB names
   (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:][:digit:]_-]*=[#>] "))
 
-(use-package typescript-mode
-  :mode "\\.tsx\\'"
-  :bind (:map typescript-mode-map
-         ("C-8 r" . lsp-rename)))
+(use-package typescript-ts-mode
+  :mode "\\.tsx?\\'"
+  :bind (:map typescript-ts-mode-map
+         ("C-8 r" . lsp-rename)
+         ;; https://github.com/emacs-typescript/typescript.el/issues/150#issuecomment-982642630
+         ;; ("M-j" . c-indent-new-comment-line)
+         ))
 
 (use-package ts-comint
   :defer t
