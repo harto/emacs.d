@@ -9,6 +9,8 @@
 - Install https://fonts.google.com/specimen/Work+Sans (variable-width font)
 - =brew install libvterm= (for =vterm=)
 - =M-x nerd-icons-install-fonts= (for =doom-modeline=)
+- =brew install jansson= (for fast JSON serialization)
+- =brew install tree-sitter= (for tree-sitter integration)
 
 * Overview
 - Core configuration is in =early-init.el= and =init.el=.

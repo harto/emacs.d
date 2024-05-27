@@ -15,6 +15,7 @@
 - https://www.youtube.com/watch?v=43Dg5zYPHTU
 
 * Investigate / try out
+- native elisp compilation: https://www.masteringemacs.org/article/speed-up-emacs-libjansson-native-elisp-compilation
 - https://github.com/joostkremers/visual-fill-column
 - project.el
 - dumb-jump mode
