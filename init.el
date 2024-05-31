@@ -81,13 +81,6 @@
 ;; Highlight matching parentheses
 (show-paren-mode +1)
 
-;; Minor mode to visually indicate where the fill column is.
-;; TODO: decide if I want to keep this or not
-(use-package fill-column-indicator
-  :defer t
-  :custom
-  (fci-rule-color "#073642"))
-
 ;; Make C-0, C-1, ... C-9 available for use as prefix bindings, per
 ;; http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
 ;;
@@ -348,19 +341,6 @@ particular, $PATH) via shell profile."
          ("C-0 m" . mc/mark-all-symbols-like-this-in-defun)))
 
 ;; Custom editing functions
-
-(defun sc/open-line-preserving-indent (n)
-  "Like `open-line', but makes a better attempt at indenting the new line.
-Passes arg N to `open-line'."
-  (interactive "*p")
-  (open-line n)
-  (unless (zerop (current-indentation))
-    ;; TODO: make it work with `n' open lines
-    (save-excursion
-      (forward-line)
-      (beginning-of-line)
-      (delete-horizontal-space)
-      (indent-for-tab-command))))
 
 (defun sc/diff-current-buffer-with-file ()
   (interactive)
