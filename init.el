@@ -849,121 +849,121 @@ project-wide search."
 
        ("n" "Note" entry (file+headline "~/org/inbox.org" "Inbox") "* %?" :kill-buffer t))))
 
-   ;; https://orgmode.org/manual/Agenda-Views.html#Agenda-Views
-   (org-agenda-custom-commands
-    ;; TODO:
-    ;; - sort by date
-    ;; - low-effort task view
-    ;; - combined agenda + tasks for work view
-    '(("c" "Computer tasks" tags-todo "@computer")
-      ("h" "Home tasks"
-       ((tags-todo "@home" ((org-agenda-overriding-header "Next actions")
-                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-        (tags-todo "@home" ((org-agenda-overriding-header "Scheduled")
-                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
-      ("w" "Work tasks"
-       ((tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Next actions")
-                                          (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-        (tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Scheduled")
-                                          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
-      ;; TODO: consolidate copypasta
-      ("d" "Work agenda (today)"
-       ((agenda "" ((org-agenda-span 'day)))
-        (tags-todo "TODO=\"STARTED\""
-                   ((org-agenda-overriding-header "Currently doing")))
-        (tags-todo "@work+TODO=\"TODO\""
-                   ((org-agenda-overriding-header "Unscheduled")
-                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
-      ("k" "Work agenda (week)"
-       ((agenda "")
-        (tags-todo "TODO=\"STARTED\""
-                   ((org-agenda-overriding-header "Currently doing")))
-        (tags-todo "@work+TODO=\"TODO\""
-                   ((org-agenda-overriding-header "Unscheduled")
-                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
-      ("l" "Lucy" tags-todo "@lucy")
-      ("p" "Phone" tags-todo "@phone")
-      ("e" "Errand" tags-todo "@errand")
-      ("r" "Weekly review"
-       ;; TODO: should scheduled/unscheduled include tasks w/ deadlines?
-       ((tags-todo "TODO=\"TODO\"|TODO=\"STARTED\""
-                   ((org-agenda-overriding-header "Unscheduled")
-                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-        (tags-todo "TODO=\"TODO\""
-                   ((org-agenda-overriding-header "Scheduled")
-                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))
-        (todo "WAIT" ((org-agenda-overriding-header "Waiting")))
-        (todo "DONE" ((org-agenda-overriding-header "Done")))))
-      ("i" "Ideas")))
+  ;; https://orgmode.org/manual/Agenda-Views.html#Agenda-Views
+  (org-agenda-custom-commands
+   ;; TODO:
+   ;; - sort by date
+   ;; - low-effort task view
+   ;; - combined agenda + tasks for work view
+   '(("c" "Computer tasks" tags-todo "@computer")
+     ("h" "Home tasks"
+      ((tags-todo "@home" ((org-agenda-overriding-header "Next actions")
+                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+       (tags-todo "@home" ((org-agenda-overriding-header "Scheduled")
+                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
+     ("w" "Work tasks"
+      ((tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Next actions")
+                                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+       (tags-todo "@work+TODO=\"TODO\"" ((org-agenda-overriding-header "Scheduled")
+                                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))))
+     ;; TODO: consolidate copypasta
+     ("d" "Work agenda (today)"
+      ((agenda "" ((org-agenda-span 'day)))
+       (tags-todo "TODO=\"STARTED\""
+                  ((org-agenda-overriding-header "Currently doing")))
+       (tags-todo "@work+TODO=\"TODO\""
+                  ((org-agenda-overriding-header "Unscheduled")
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
+     ("k" "Work agenda (week)"
+      ((agenda "")
+       (tags-todo "TODO=\"STARTED\""
+                  ((org-agenda-overriding-header "Currently doing")))
+       (tags-todo "@work+TODO=\"TODO\""
+                  ((org-agenda-overriding-header "Unscheduled")
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
+     ("l" "Lucy" tags-todo "@lucy")
+     ("p" "Phone" tags-todo "@phone")
+     ("e" "Errand" tags-todo "@errand")
+     ("r" "Weekly review"
+      ;; TODO: should scheduled/unscheduled include tasks w/ deadlines?
+      ((tags-todo "TODO=\"TODO\"|TODO=\"STARTED\""
+                  ((org-agenda-overriding-header "Unscheduled")
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+       (tags-todo "TODO=\"TODO\""
+                  ((org-agenda-overriding-header "Scheduled")
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))))
+       (todo "WAIT" ((org-agenda-overriding-header "Waiting")))
+       (todo "DONE" ((org-agenda-overriding-header "Done")))))
+     ("i" "Ideas")))
 
-   :config
-   ;; Show headlines in bigger (variable-width) fonts
-   ;; https://fonts.google.com/specimen/Work+Sans
-   (let* ((heading `(:font "Work Sans")))
-     (custom-theme-set-faces 'user
-                             `(org-document-title ((t (,@heading :height 1.4 :weight semibold))))
-                             `(org-level-1 ((t (,@heading :height 1.3 :weight semibold))))
-                             `(org-level-2 ((t (,@heading :height 1.2 :weight semibold))))
-                             `(org-level-3 ((t (,@heading :height 1.1 :weight semibold))))
-                             `(org-level-4 ((t (,@heading :height 1.0 :weight semibold))))
-                             `(org-level-5 ((t (,@heading))))
-                             `(org-level-6 ((t (,@heading))))
-                             `(org-level-7 ((t (,@heading))))
-                             `(org-level-8 ((t (,@heading))))))
+  :config
+  ;; Show headlines in bigger (variable-width) fonts
+  ;; https://fonts.google.com/specimen/Work+Sans
+  (let* ((heading `(:font "Work Sans")))
+    (custom-theme-set-faces 'user
+                            `(org-document-title ((t (,@heading :height 1.4 :weight semibold))))
+                            `(org-level-1 ((t (,@heading :height 1.3 :weight semibold))))
+                            `(org-level-2 ((t (,@heading :height 1.2 :weight semibold))))
+                            `(org-level-3 ((t (,@heading :height 1.1 :weight semibold))))
+                            `(org-level-4 ((t (,@heading :height 1.0 :weight semibold))))
+                            `(org-level-5 ((t (,@heading))))
+                            `(org-level-6 ((t (,@heading))))
+                            `(org-level-7 ((t (,@heading))))
+                            `(org-level-8 ((t (,@heading))))))
 
-   ;; Darken source block background for emphasis
-   (require 'color)
-   (set-face-attribute 'org-block nil
-                       :background (color-darken-name
-                                    (face-attribute 'default :background) 2)
-                       :extend t)
+  ;; Darken source block background for emphasis
+  (require 'color)
+  (set-face-attribute 'org-block nil
+                      :background (color-darken-name
+                                   (face-attribute 'default :background) 2)
+                      :extend t)
 
-   ;; Permit evaluation of various languages in src blocks
-   (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((dot . t)
-      (emacs-lisp . t)
-      (python . t)
-      (ruby . t)
-      (shell . t)
-      (sql . t)))
+  ;; Permit evaluation of various languages in src blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)
+     (emacs-lisp . t)
+     (python . t)
+     (ruby . t)
+     (shell . t)
+     (sql . t)))
 
-   ;; Markdown export
-   (require 'ox-md)
+  ;; Markdown export
+  (require 'ox-md)
 
-   ;; Soft-wrap long lines
-   (add-hook 'org-mode-hook 'visual-line-mode)
-   ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
-   ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
+  ;; Soft-wrap long lines
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  ;; (add-hook 'org-mode-hook (lambda () (setq fill-column 100)))
+  ;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
 
-   ;; Replace dashes with bullets in lists (per
-   ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html)
-   (font-lock-add-keywords 'org-mode
-                           '(("^ *\\([-]\\) "
-                              (0 (prog1 () (compose-region (match-beginning 1)
-                                                           (match-end 1)
-                                                           "•" ; or "·"
-                                                           ))))))
+  ;; Replace dashes with bullets in lists (per
+  ;; http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html)
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1)
+                                                          (match-end 1)
+                                                          "•" ; or "·"
+                                                          ))))))
 
-   ;; We use a variable-width font for headings (see :custom-face section
-   ;; above). This mostly looks nice, but results in a minor visual annoyance
-   ;; where headings don't align precisely with their subsequent body text,
-   ;; because the headline bullet (and following space) are rendered in a
-   ;; variable-width font. To ensure everything lines up nicely, we render the
-   ;; bullet and space in the default (fixed-width) body font.
-   (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
-                                                              (list :inherit (intern (format "org-level-%s" level))
-                                                                    :family (face-attribute 'default :family)
-                                                                    :height (face-attribute 'default :height))))))
+  ;; We use a variable-width font for headings (see :custom-face section
+  ;; above). This mostly looks nice, but results in a minor visual annoyance
+  ;; where headings don't align precisely with their subsequent body text,
+  ;; because the headline bullet (and following space) are rendered in a
+  ;; variable-width font. To ensure everything lines up nicely, we render the
+  ;; bullet and space in the default (fixed-width) body font.
+  (font-lock-add-keywords 'org-mode '(("^\\**\\(\\* \\)" 1 (let* ((level (- (match-end 0) (match-beginning 0) 1)))
+                                                             (list :inherit (intern (format "org-level-%s" level))
+                                                                   :family (face-attribute 'default :family)
+                                                                   :height (face-attribute 'default :height))))))
 
-   ;; Export select org-files to JSON on save
-   (defun sc/export-org-data-hook ()
-     (when (equal major-mode 'org-mode)
-       ;; TODO: set up autoloading or something?
-       (load "org-sync" nil t)
-       (sc/maybe-export-org-data)))
+  ;; Export select org-files to JSON on save
+  (defun sc/export-org-data-hook ()
+    (when (equal major-mode 'org-mode)
+      ;; TODO: set up autoloading or something?
+      (load "org-sync" nil t)
+      (sc/maybe-export-org-data)))
 
-   (add-hook 'after-save-hook 'sc/export-org-data-hook))
+  (add-hook 'after-save-hook 'sc/export-org-data-hook))
 
 ;; Show unicode bullets instead of asterisks for headings
 (use-package org-bullets
