@@ -163,9 +163,13 @@ particular, $PATH) via shell profile."
 (when (eq window-system 'ns)
   (sc/reset-mac-os-env))
 
-(defun sc/jump-to-emacs-config ()
-  (interactive)
-  (find-file-other-window "~/.emacs.d/init.el"))
+(defun sc/jump-to-emacs-config (&optional remix-config)
+  (interactive "P")
+  (let ((config-path (expand-file-name (if remix-config
+                                           "~/src/remix-utils/remix.el"
+                                         "~/.emacs.d/init.el"))))
+    (unless (equal buffer-file-name config-path)
+      (find-file-other-window config-path))))
 
 ;; s-, jumps to Customize by default, but I don't want to use that.
 (global-set-key (kbd "s-,") 'sc/jump-to-emacs-config)
