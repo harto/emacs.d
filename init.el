@@ -659,7 +659,7 @@ particular, $PATH) via shell profile."
         ;; (python "https://github.com/tree-sitter/tree-sitter-python")
         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "tsx/src")
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "typescript/src")
-        ;; (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+        (yaml "https://github.com/ikatyang/tree-sitter-yaml")
         ))
 
 ;; Specific language configurations
@@ -800,6 +800,9 @@ project-wide search."
 
   :custom
   (web-mode-markup-indent-offset 2))
+
+(use-package yaml-ts-mode
+  :mode "\\.ya?ml\\'")
 
 
 ;; # Org
