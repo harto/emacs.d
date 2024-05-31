@@ -5,11 +5,13 @@
 ;; use-package provides a nice way to lazy-load and configure packages.
 (eval-when-compile
   (require 'use-package))
+(setq use-package-always-defer t)
 ;; (setq use-package-compute-statistics t)
 
 ;; Put temp and config files in a consistent place. This package should be
 ;; configured early (before packages start putting their files everywhere).
 (use-package no-littering
+  :demand t
   :custom
   ;; Put Emacs backup and auto-save files in a centralised (out-of-the-way)
   ;; location. By default Emacs stores auto-save files (etc.) alongside the
@@ -74,6 +76,7 @@
 
 ;; Trim extraneous whitespace (from modified lines only) on save
 (use-package ws-trim
+  :demand t
   :config
   (setq-default ws-trim-level 1)
   (global-ws-trim-mode t))
@@ -117,8 +120,7 @@
 (use-package server
   :if (display-graphic-p)
 
-  :init
-  (add-hook 'after-init-hook 'server-start t)
+  :hook (after-init . server-start)
 
   :config
   ;; See note in bin/emacsclient
@@ -180,8 +182,6 @@ particular, $PATH) via shell profile."
 (global-set-key (kbd "s-t") nil)
 
 (use-package dired
-  :defer t
-
   :custom
   ;; Suppress "ls does not support --dired" warning
   (dired-use-ls-dired nil)
@@ -208,7 +208,11 @@ particular, $PATH) via shell profile."
 ;;
 ;; Note: `all-the-icons-install-fonts' must be run the first time this config is
 ;; loaded onto a new machine.
+;;
+;; TODO: is all-the-icons still the correct package? Do we use nerd-icons now?
 (use-package doom-modeline
+  :demand t
+
   :custom
   (doom-modeline-height 28)
   (doom-modeline-bar-width 2)
@@ -246,6 +250,8 @@ particular, $PATH) via shell profile."
 (advice-add 'load-theme :around 'sc/call-load-theme-with-hooks)
 
 (use-package solarized
+  :demand t
+
   :custom
   (solarized-use-more-italic nil)
   (solarized-distinct-doc-face t)
@@ -327,10 +333,9 @@ particular, $PATH) via shell profile."
 (use-package elec-pair
   :hook ((js2-mode typescript-ts-mode) . electric-pair-local-mode))
 
-;; Disable a built-in minor mode that triggers automatic reindentation when
-;; newlines are inserted. (TODO: figure out if we actually need to do this)
+;; Disable a built-in minor mode that does weird reindentation when newlines are
+;; inserted. (NOTE: I don't know what enables this mode.)
 (use-package electric
-  :defer t
   :custom
   (electric-indent-mode nil))
 
@@ -402,6 +407,8 @@ particular, $PATH) via shell profile."
 
 ;; ido-mode improves the experience of finding files and switching buffers.
 (use-package ido
+  :demand t
+
   :custom
   ;; Layout results vertically
   (ido-decorations (list "\n-> " ""     ; "brackets" around prospect list
@@ -424,9 +431,15 @@ particular, $PATH) via shell profile."
 ;; flx-ido (https://github.com/lewang/flx) replaces the ido sorting algorithm
 ;; for better fuzzy-matching.
 (use-package flx-ido
+  ;; TODO: is there an ido hook we could use instead?
+  :demand t
   :after ido
   :config
-  (flx-ido-mode))
+  ;; Per https://github.com/lewang/flx?tab=readme-ov-file#ido-support
+  (flx-ido-mode +1)
+  ;; (setq ido-enable-flex-matching t)
+  ;; (setq ido-use-faces nil)
+  )
 
 ;; find-things-fast helps with locating files in git repos (and other kinds of
 ;; "projects").
@@ -436,7 +449,7 @@ particular, $PATH) via shell profile."
          ("C-9 s" . ftf-grepsource))
 
   :custom
-  ;; find-things-fast only searches for extensions used in chromium source by
+  ;; find-things-fast only searches for extensions used in Chromium source by
   ;; default - make it search for all file types.
   (ftf-filetypes '("*"))
 
@@ -471,7 +484,6 @@ particular, $PATH) via shell profile."
   (advice-add 'ftf-grepsource :around 'sc/add-ftf-grepsource-exclusions))
 
 (use-package grep
-  :defer t
   :custom
   ;; Don't prompt to save buffers when grepping for things.
   (grep-save-buffers nil))
@@ -480,7 +492,6 @@ particular, $PATH) via shell profile."
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 
 (use-package xref
-  :defer t
   :custom
   ;; Default to using thing at point instead of prompting for identifier.
   (xref-prompt-for-identifier '(not xref-find-definitions
@@ -490,8 +501,8 @@ particular, $PATH) via shell profile."
 
 ;; For projects where we can't use LSP (or something equivalent), fall back to a
 ;; simpler regex-based xref backend.
+;; TODO: how does this get loaded??
 (use-package dumb-jump
-  :defer t
   ;; :config
   ;; ;; dumb-jump only implements jumping to definitions (via e.g. `C-.`). Here we
   ;; ;; provide a simple way to list references to a symbol so that `C-?` also does
@@ -514,8 +525,7 @@ particular, $PATH) via shell profile."
 ;; # Git
 
 (use-package magit
-  :bind (("C-x g" . magit-status) ;; TODO: remove
-         ("C-9 g" . magit-status)
+  :bind (("C-9 g" . magit-status)
          ;; TODO: jump to rev at point in browser
          ;; :map magit-revision-mode-map
          :map magit-status-mode-map
@@ -541,6 +551,7 @@ particular, $PATH) via shell profile."
           (branch (magit-main-branch)))
       (magit-checkout branch)
       (magit-run-git "fetch" "--prune" remote)
+      ;; TODO: stash changes in working tree?
       (magit-reset-hard (format "%s/%s" remote branch))))
 
   (defun sc/browse-gh-rev (rev remote)
@@ -556,8 +567,6 @@ particular, $PATH) via shell profile."
 ;; PR descriptions. I configure this because I want to unset the max line length
 ;; for PR descriptions. (There might be an easier way to do this.)
 (use-package git-commit
-  :defer t
-
   :custom
   (git-commit-summary-max-length 50)
 
@@ -568,7 +577,7 @@ particular, $PATH) via shell profile."
     "Set line length limits when writing commit & pull request messages."
     (if (equal (buffer-name) "PULLREQ_EDITMSG")
         (progn
-          (setq-local git-commit-summary-max-length 100)
+          (setq-local git-commit-summary-max-length 100) ; FIXME: doesn't work anymore
           ;; `most-positive-fixnum' rather than nil, so
           ;; that fill-paragraph & fill-region work
           (setq fill-column most-positive-fixnum))
@@ -597,8 +606,6 @@ particular, $PATH) via shell profile."
   (add-hook 'prog-mode-hook 'sc/configure-flycheck))
 
 (use-package compile
-  :defer t
-
   :custom
   ;; TODO: determine if this is needed
   (compilation-message-face 'default)
@@ -627,6 +634,8 @@ particular, $PATH) via shell profile."
   (lsp-clients-typescript-javascript-server-args '("--npmLocation $HOMEBREW_PREFIX/bin/npm"))
   ;; Do not want header line
   (lsp-headerline-breadcrumb-enable nil)
+  ;; Don't have yasnippet installed anymore
+  (lsp-enable-snippet nil)
 
   :config
   (with-eval-after-load 'lsp-clients
@@ -649,6 +658,7 @@ particular, $PATH) via shell profile."
 
 ;; Tree-sitter language grammars
 ;; Note: after adding entries here, run `treesit-install-language-grammar'
+;; TODO: should this be wrapped in `with-eval-after-load'?
 (setq treesit-language-source-alist
       '(;; (bash "https://github.com/tree-sitter/tree-sitter-bash")
         ;; (css "https://github.com/tree-sitter/tree-sitter-css")
@@ -665,18 +675,20 @@ particular, $PATH) via shell profile."
 ;; Specific language configurations
 
 (use-package clojure-mode
-  :defer t
-
   :custom
-  (clojure-defun-indents '(async div render table thead tbody tr ns query ul li
-                           reg-cofx reg-event-db reg-event-fx reg-sub reg-fx))
+  (clojure-defun-indents '(async
+                           ;; div render table thead tbody tr ns query ul li
+                           reg-cofx
+                           reg-event-db
+                           reg-event-fx
+                           reg-fx
+                           reg-sub))
 
   ;; :config
   ;; (add-hook 'clojure-mode-hook (lambda () (setq-local fill-column 100)))
   )
 
 (use-package elisp-mode
-  :defer t
   :config
   ;; (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local fill-column 100)))
   ;; Sometimes I type non-Lisp stuff into the *scratch* buffer and I don't want
@@ -718,7 +730,6 @@ project-wide search."
          ("M-." . sc/js2-jump)))
 
 (use-package python
-  :defer t
   :custom
   ;; Disable pydoc pager so that `help(…)` doesn't complain about not having a
   ;; fully-functional terminal. Note: the final print() is required, because
@@ -730,23 +741,17 @@ project-wide search."
   :config
   (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
 
-;; Invoke pytest directly from Python files
-(use-package pytest
-  :defer t)
-
 ;; Switch between Python virtual environments.
 ;; TODO: start using this
 ;; (use-package pyvenv :defer t)
 
 (use-package ruby-mode
-  :defer t
   :custom
   (ruby-insert-encoding-magic-comment nil)
   :config
   (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
 
 (use-package inf-ruby
-  :defer t
   ;; :custom
   ;; (inf-ruby-default-implementation "pry")
   :config
@@ -756,19 +761,18 @@ project-wide search."
   )
 
 ;; Switch between Ruby versions.
-(use-package chruby
-  :defer t)
+;; TODO: are we still using this?
+(use-package chruby)
 
 (use-package sass-mode
-  :mode "\\.scss\\'")
+  :mode "\\.s[ac]ss\\'")
 
 (use-package sh-script
-  :defer t
   :custom
   (sh-basic-offset 2))
 
 (use-package sql
-  :mode "\\.pl[bs]\\'"
+  :mode "\\.\\(sql\\|pl[bs]\\)\\'"
   :config
   ;; Query results look bad when wrapped, so extend them off-screen instead
   (add-hook 'sql-interactive-mode-hook 'toggle-truncate-lines t)
@@ -783,8 +787,8 @@ project-wide search."
          ;; ("M-j" . c-indent-new-comment-line)
          ))
 
+;; TODO: still using this?
 (use-package ts-comint
-  :defer t
   :custom
   (ts-comint-program-command "npx")
   ;; If ts-node is invoked in the context of a tsconfig.json that specifies
@@ -797,7 +801,6 @@ project-wide search."
 
 (use-package web-mode
   :mode "\\.\\(erb\\|hbs\\|html\\|twig\\)\\'"
-
   :custom
   (web-mode-markup-indent-offset 2))
 
@@ -814,8 +817,6 @@ project-wide search."
 ;; - margins above headings
 
 (use-package org
-  :defer t
-
   :bind
   (("C-c a" . 'org-agenda)
    ("C-c n" . 'org-capture))
