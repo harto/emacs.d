@@ -772,7 +772,7 @@ project-wide search."
   (sh-basic-offset 2))
 
 (use-package sql
-  :mode "\\.\\(sql\\|pl[bs]\\)\\'"
+  :mode ("\\.\\(sql\\|pl[bs]\\)\\'" . sql-mode)
   :config
   ;; Query results look bad when wrapped, so extend them off-screen instead
   (add-hook 'sql-interactive-mode-hook 'toggle-truncate-lines t)
