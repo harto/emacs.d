@@ -1,21 +1,27 @@
 (defvar sc/org-export-uri nil
   "Org data is automatically exported in JSON format to this (S3) URI.")
 
+(defvar sc/org-sync-s3-access-key-id nil
+  "AWS access key for writing exported org data to S3.")
+
+(defvar sc/org-sync-s3-secret-access-key nil
+  "AWS secret access key for writing exported org data to S3.")
+
 (defun sc/maybe-export-org-data (&optional org-path)
   "Exports org data to S3 in JSON format if `sc/org-export-uri' is set.
 
-Note: AWS credentials must be provided as variables
-`sc/org-sync-s3-access-key-id' and `sc/org-sync-s3-secret-access-key'. These are
-currently defined in the (unversioned) file var/org-sync-s3-credentials.el."
+AWS credentials should be provided as variables
+`sc/org-sync-s3-access-key-id' and
+`sc/org-sync-s3-secret-access-key'."
   (when sc/org-export-uri
     (let* ((org-path (or org-path buffer-file-name))
-           (local-json-path (make-temp-file (format "%s.json." (file-name-sans-extension org-path)))))
-      (with-temp-file local-json-path
+           (json-tmp-path (make-temp-file (format "%s.json." (file-name-sans-extension org-path)))))
+      (with-temp-file json-tmp-path
         (insert (sc/org-todo-json org-path)))
-      (load (no-littering-expand-var-file-name "org-sync-s3-credentials") nil t)
       (with-environment-variables (("AWS_ACCESS_KEY_ID" sc/org-sync-s3-access-key-id)
                                    ("AWS_SECRET_ACCESS_KEY" sc/org-sync-s3-secret-access-key))
-        (start-process "org-sync" "*org-sync*" "aws" "s3" "mv" local-json-path sc/org-export-uri)))))
+        (start-process "org-sync" "*org-sync*" "aws" "s3" "mv" json-tmp-path sc/org-export-uri))
+      (delete-file json-tmp-path))))
 
 (defun sc/org-todo-json (org-path)
   (json-encode `((todos . ,(sc/org-todo-data org-path))
