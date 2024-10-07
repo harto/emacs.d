@@ -534,7 +534,7 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   ;; ;; provide a simple way to list references to a symbol so that `C-?` also does
   ;; ;; something useful.
   ;; (cl-defmethod xref-backend-references ((_backend (eql dump-jump)) identifier)
-  ;;   ;; TODO: maybe reuse bits of https://github.com/harto/emacs.d/blob/1b1a9b11d1a2ed92badcbc83eb6546b029314157/lisp/search.el
+  ;;   ;; TODO: rg-dwim gives the result that we need, but how do we get it into the correct form?
   ;;   )
   )
 
