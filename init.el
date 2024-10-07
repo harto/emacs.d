@@ -754,15 +754,9 @@ project-wide search."
 (use-package inf-ruby
   ;; :custom
   ;; (inf-ruby-default-implementation "pry")
+  ;; TODO: move to work config?
   :config
-  (add-to-list 'inf-ruby-implementations '("rails" . "rails console"))
-  ;; ;; TODO: figure out if we should switch to some non-OS-default Ruby
-  ;; (chruby-use-corresponding)
-  )
-
-;; Switch between Ruby versions.
-;; TODO: are we still using this?
-(use-package chruby)
+  (add-to-list 'inf-ruby-implementations '("rails" . "rails console")))
 
 (use-package sass-mode
   :mode "\\.s[ac]ss\\'")
