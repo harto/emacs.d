@@ -349,6 +349,10 @@ particular, $PATH) via shell profile."
          ;; TODO: think of a more obvious binding
          ("C-0 m" . mc/mark-all-symbols-like-this-in-defun)))
 
+(use-package newcomment
+  :custom
+  (comment-empty-lines t))
+
 ;; Custom editing functions
 
 (defun sc/diff-current-buffer-with-file ()
