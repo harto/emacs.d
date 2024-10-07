@@ -503,6 +503,17 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   ;; Don't prompt to save buffers when grepping for things.
   (grep-save-buffers nil))
 
+(use-package rg
+  :bind (("C-9 r" . rg)
+         ;; ("C-u C-9 r" . sc/rg-all)
+         )
+
+  ;; :config
+  ;; (defun sc/rg-all ()
+  ;;   (interactive)
+  ;;   )
+  )
+
 ;; Backwards window navigation (opposite of `C-x o`).
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
 
@@ -530,6 +541,8 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
 
 ;; # vterm
 (use-package vterm
+  :bind (("C-9 v" . vterm))
+
   :custom
   ;; See https://github.com/akermu/emacs-libvterm/#vterm-buffer-name-string,
   ;; and shell extensions in vterm.zsh (in this repo)
@@ -782,11 +795,15 @@ project-wide search."
 
 (use-package sql
   :mode ("\\.\\(sql\\|pl[bs]\\)\\'" . sql-mode)
+
   :config
   ;; Query results look bad when wrapped, so extend them off-screen instead
   (add-hook 'sql-interactive-mode-hook 'toggle-truncate-lines t)
   ;; Recognise dashes and numbers as valid parts of DB names
-  (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:][:digit:]_-]*=[#>] "))
+  (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:][:digit:]_-]*=[#>] ")
+
+  :bind (:map sql-mode-map
+         ("C-8 c" . sql-set-sqli-buffer)))
 
 (use-package typescript-ts-mode
   :mode "\\.tsx?\\'"
