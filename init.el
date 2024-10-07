@@ -326,7 +326,7 @@ particular, $PATH) via shell profile."
 ;; cursor forwards & backwards by word. i.e. with point like "|FooBar", pressing
 ;; `M-f` moves to "Foo|Bar", not "FooBar|".
 (use-package subword
-  :hook ((js2-mode python-mode ruby-mode typescript-ts-mode) . subword-mode))
+  :hook ((js2-mode python-ts-mode ruby-ts-mode typescript-ts-mode) . subword-mode))
 
 ;; Automatically insert closing parentheses, brackets, etc. in certain
 ;; (non-Lisp) modes. (In Lisp code we use paredit instead.)
@@ -694,7 +694,8 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
         (json "https://github.com/tree-sitter/tree-sitter-json")
         ;; (make "https://github.com/alemuller/tree-sitter-make")
         ;; (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        ;; (python "https://github.com/tree-sitter/tree-sitter-python")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (ruby "https://github.com/tree-sitter/tree-sitter-ruby" "v0.20.1")
         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "tsx/src")
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "typescript/src")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")
@@ -773,7 +774,7 @@ project-wide search."
 ;; TODO: start using this
 ;; (use-package pyvenv :defer t)
 
-(use-package ruby-mode
+(use-package ruby-ts-mode
   :custom
   (ruby-insert-encoding-magic-comment nil)
   :config
