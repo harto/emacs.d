@@ -666,11 +666,11 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   (lsp-enable-snippet nil)
 
   :config
-  (with-eval-after-load 'lsp-clients
+  (with-eval-after-load 'lsp-javascript
     ;; TODO: investigate automatically adding node_modules/.bin to PATH
     ;; e.g. https://github.com/codesuki/add-node-modules-path
     (lsp-dependency
-     'typescript
+     'typescript-language-server
      `(:system "/Users/stuart/src/remix/client/node_modules/.bin/tsserver"))))
 
 ;; Autocompletion framework. (This seems to be automatically required by
