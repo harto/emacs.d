@@ -393,11 +393,22 @@ particular, $PATH) via shell profile."
 ;;
 ;; (global-set-key (kbd "C-c e") 'sc/eval-and-replace-preceding-sexp)
 
+(defun sc/delete-horizontal-whitespace-forward ()
+  "Delete all spaces and tabs after point.
+Like the opposite of `delete-horizontal-space' with prefix arg."
+  (interactive)
+  (let ((orig-pos (point)))
+    (delete-region orig-pos
+                   (progn
+                     (skip-chars-forward " \t")
+                     (constrain-to-field nil orig-pos)))))
+
 (global-set-key (kbd "C-0 a") 'align-regexp)
 (global-set-key (kbd "C-0 b") 'browse-url-at-point)
 (global-set-key (kbd "C-0 d") 'sc/diff-current-buffer-with-file)
 (global-set-key (kbd "C-0 S") 'sort-lines)
 (global-set-key (kbd "C-0 s") 'sc/sort-lines-case-insensitive)
+(global-set-key (kbd "C-0 |") 'sc/delete-horizontal-whitespace-forward)
 
 (define-key isearch-mode-map (kbd "M-.") 'sc/isearch-yank-symbol-at-point)
 
