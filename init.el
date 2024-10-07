@@ -369,10 +369,11 @@ particular, $PATH) via shell profile."
 (defun sc/isearch-yank-symbol-at-point ()
   "Put entire symbol at point into the current isearch string."
   (interactive)
+  ;; TODO: where did I get this from?
   (let ((sym (symbol-at-point)))
     (if sym
-        (setq isearch-regexp t
-              isearch-string (concat "\\_<" (regexp-quote (symbol-name sym)) "\\_>")
+        (setq isearch-regexp nil
+              isearch-string (symbol-name sym)
               isearch-message (mapconcat 'isearch-text-char-description isearch-string "")
               isearch-yank-flag t)
       (ding)))
