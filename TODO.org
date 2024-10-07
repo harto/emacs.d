@@ -16,12 +16,11 @@
 
 * Investigate / try out
 - native elisp compilation: https://www.masteringemacs.org/article/speed-up-emacs-libjansson-native-elisp-compilation
+- https://github.com/mickeynp/combobulate
 - https://github.com/joostkremers/visual-fill-column
 - project.el
-- dumb-jump mode
 - tab-bar mode
 - desktop.el
-- mu / mu4e: https://www.djcbsoftware.nl/code/mu/
 - some kind of Slack integration??
 - python virtualenv
   - https://github.com/jorgenschaefer/pyvenv
