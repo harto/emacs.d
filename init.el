@@ -805,6 +805,10 @@ project-wide search."
   :bind (:map sql-mode-map
          ("C-8 c" . sql-set-sqli-buffer)))
 
+(use-package terraform-mode
+  :custom
+  (terraform-format-on-save t))
+
 (use-package typescript-ts-mode
   :mode "\\.tsx?\\'"
   :bind (:map typescript-ts-mode-map
