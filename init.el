@@ -5,6 +5,7 @@
 ;; use-package provides a nice way to lazy-load and configure packages.
 (eval-when-compile
   (require 'use-package))
+
 (setq use-package-always-defer t)
 ;; (setq use-package-compute-statistics t)
 
