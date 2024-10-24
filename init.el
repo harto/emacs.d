@@ -591,9 +591,9 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
     (interactive)
     (let ((remote (magit-get-push-remote))
           (branch (magit-main-branch)))
+      ;; TODO: abort if dirty worktree
       (magit-checkout branch)
       (magit-run-git "fetch" "--prune" remote)
-      ;; TODO: stash changes in working tree?
       (magit-reset-hard (format "%s/%s" remote branch))))
 
   (defun sc/browse-gh-rev (rev remote)
@@ -691,6 +691,7 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
 ;; Tree-sitter language grammars
 ;; Note: after adding entries here, run `treesit-install-language-grammar'
 ;; TODO: should this be wrapped in `with-eval-after-load'?
+;; TODO: Do we only need this when we're installing a new grammar?
 (setq treesit-language-source-alist
       '(;; (bash "https://github.com/tree-sitter/tree-sitter-bash")
         ;; (css "https://github.com/tree-sitter/tree-sitter-css")
