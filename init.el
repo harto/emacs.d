@@ -197,6 +197,10 @@ particular, $PATH) via shell profile."
   :bind (:map dired-mode-map
               ("C-u C-o" . sc/dired-open-file-in-default-application)))
 
+;; More functional buffer list
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer))
+
 
 ;; # Modeline
 
