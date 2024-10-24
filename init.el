@@ -655,25 +655,15 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   (add-hook 'compilation-filter-hook 'sc/maybe-reset-compilation-buffer))
 
 (use-package lsp-mode
-  :hook ((typescript-ts-mode tsx-ts-mode) . lsp)
-
   :custom
-  ;; Hard-code npm location - without this, tsserver looks for it in the same
-  ;; directory as node, e.g. $HOMEBREW_PREFIX/Cellar/node@14/14.18.3/bin. See:
-  ;; https://github.com/microsoft/TypeScript/issues/23924
-  (lsp-clients-typescript-javascript-server-args '("--npmLocation $HOMEBREW_PREFIX/bin/npm"))
+  ;; By default, lsp-mode automatically downloads and installs tsserver, but we
+  ;; prefer to use project-specific tsserver (to match the project's TypeScript
+  ;; configuration).
+  (lsp-clients-typescript-prefer-use-project-ts-server t)
   ;; Do not want header line
   (lsp-headerline-breadcrumb-enable nil)
-  ;; Don't have yasnippet installed anymore
-  (lsp-enable-snippet nil)
-
-  :config
-  (with-eval-after-load 'lsp-javascript
-    ;; TODO: investigate automatically adding node_modules/.bin to PATH
-    ;; e.g. https://github.com/codesuki/add-node-modules-path
-    (lsp-dependency
-     'typescript-language-server
-     `(:system "/Users/stuart/src/remix/client/node_modules/.bin/tsserver"))))
+  ;; Don't have yasnippet installed
+  (lsp-enable-snippet nil))
 
 ;; Autocompletion framework. (This seems to be automatically required by
 ;; lsp-mode, but we list it here as documentation.)
