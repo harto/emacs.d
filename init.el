@@ -575,6 +575,14 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
     (interactive)
     (async-shell-command "hub pull-request --browse"))
 
+  (defun sc/git-lfs-push ()
+    (interactive)
+    (let ((remote (magit-get-push-remote))
+          (branch (magit-get-current-branch)))
+      (message "Pushing LFS files to %s/%s..." remote branch)
+      (magit-run-git "lfs" "push" remote branch)
+      (message "Pushed LFS files")))
+
   (defun sc/fetch-and-reset ()
     (interactive)
     (let ((remote (magit-get-push-remote))
