@@ -199,6 +199,7 @@ particular, $PATH) via shell profile."
 
 ;; More functional buffer list
 (use-package ibuffer
+  :custom (ibuffer-expert t)
   :bind ("C-x C-b" . ibuffer))
 
 
