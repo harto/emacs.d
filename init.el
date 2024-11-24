@@ -1026,7 +1026,7 @@ project-wide search."
 (add-to-list 'load-path "~/src/remix-utils/lisp")
 ;; TODO: should we lazy-load any of these?
 (load "utils")
-(load "remix")
+(load "remix" t t)
 
 
 ;; # Finalise configuration
