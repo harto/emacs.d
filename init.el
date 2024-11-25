@@ -678,6 +678,10 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   ;; prefer to use project-specific tsserver (to match the project's TypeScript
   ;; configuration).
   (lsp-clients-typescript-prefer-use-project-ts-server t)
+  ;; Without this setting, tsconfig.json keeps getting mangled whenever I add
+  ;; new files to a project. See:
+  ;; https://www.reddit.com/r/emacs/comments/1b0ppls/anyone_using_lspmode_with_tsls_having_trouble/
+  (lsp-apply-edits-after-file-operations nil)
   ;; Do not want header line
   (lsp-headerline-breadcrumb-enable nil)
   ;; Don't have yasnippet installed
