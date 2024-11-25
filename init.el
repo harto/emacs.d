@@ -939,6 +939,10 @@ project-wide search."
       ((agenda "" ((org-agenda-span 'day)))
        (tags-todo "TODO=\"STARTED\""
                   ((org-agenda-overriding-header "Currently doing")))
+       (tags-todo "@work+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Waiting")
+                   ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))
+                   ))
        (tags-todo "@work+TODO=\"TODO\""
                   ((org-agenda-overriding-header "Unscheduled")
                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
@@ -946,6 +950,10 @@ project-wide search."
       ((agenda "")
        (tags-todo "TODO=\"STARTED\""
                   ((org-agenda-overriding-header "Currently doing")))
+       (tags-todo "@work+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Waiting")
+                   ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))
+                   ))
        (tags-todo "@work+TODO=\"TODO\""
                   ((org-agenda-overriding-header "Unscheduled")
                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
