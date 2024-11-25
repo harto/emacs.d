@@ -818,8 +818,26 @@ project-wide search."
   ;; Recognise dashes and numbers as valid parts of DB names
   (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:][:digit:]_-]*=[#>] ")
 
+  (defun sc/pop-to-sql-query-buffer ()
+    (interactive)
+    (let* ((target-buffer (current-buffer))
+           (query-buffer (format "*Query: <%s>*" sql-connection)))
+      (unless (buffer-live-p query-buffer)
+        (with-current-buffer (generate-new-buffer query-buffer)
+          (sql-mode)
+          (insert "---\n"
+                  "--- " sql-connection "\n"
+                  "---\n")
+          ;; The following is verbatim from sql-set-sqli-buffer. We don't call
+          ;; that function directly because it prompts for the target buffer.
+          (setq sql-buffer target-buffer)
+          (run-hooks 'sql-set-sqli-hook)))
+      (pop-to-buffer query-buffer)))
+
   :bind (:map sql-mode-map
-         ("C-8 c" . sql-set-sqli-buffer)))
+         ("C-8 c" . sql-set-sqli-buffer)
+         :map sql-interactive-mode-map
+         ("C-8 q" . sc/pop-to-sql-query-buffer)))
 
 (use-package terraform-mode
   :custom
