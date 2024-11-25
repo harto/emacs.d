@@ -15,6 +15,7 @@
 - https://www.youtube.com/watch?v=43Dg5zYPHTU
 
 * Investigate / try out
+- https://github.com/DamienCassou/json-navigator
 - native elisp compilation
   - https://www.masteringemacs.org/article/speed-up-emacs-libjansson-native-elisp-compilation
   - https://www.gnu.org/software/emacs/manual/html_node/elisp/Native-Compilation.html
