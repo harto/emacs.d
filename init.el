@@ -674,7 +674,14 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
                     compilation-num-warnings-found 0
                     compilation-num-infos-found 0))))
 
+  ;; http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html
+  (require 'ansi-color)
+  (defun sc/colorize-compilation ()
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region compilation-filter-start (point))))
+
   (add-hook 'compilation-filter-hook 'sc/maybe-reset-compilation-buffer))
+  (add-hook 'compilation-filter-hook 'sc/colorize-compilation)
 
 (use-package lsp-mode
   :custom
