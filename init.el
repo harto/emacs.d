@@ -574,14 +574,18 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   :config
   (defun sc/hub-pull-request (&optional configure)
     "Creates a GitHub pull request via the `hub` CLI."
-    (interactive "P")
+    (interactive "p")
     (let ((opts (list "--browse")))
-      (when configure
-        ;; TODO: can we make a better guess at the base branch?
-        (when-let ((base (magit-read-local-branch "Base branch" "master")))
-          (setq opts (append opts (list "--base" base))))
-        (when (yes-or-no-p "Submit as draft PR?")
-          (push "--draft" opts)))
+
+      (cond ((equal configure 4)
+             (message "Submitting as draft PR")
+             (push "--draft" opts))
+
+            ((equal configure 16)
+             (when-let ((base (magit-read-local-branch "Base branch" "master")))
+               (setq opts (append opts (list "--base" base))))
+             (when (yes-or-no-p "Submit as draft PR?")
+               (push "--draft" opts))))
       (async-shell-command (format "hub pull-request %s"
                                    (mapconcat #'identity opts " ")))))
 
