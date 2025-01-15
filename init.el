@@ -852,13 +852,14 @@ project-wide search."
   (defun sc/pop-to-sql-query-buffer ()
     (interactive)
     (let* ((target-buffer (current-buffer))
-           (query-buffer (format "*Query: <%s>*" sql-connection)))
+           (conn sql-connection)
+           (query-buffer (format "*Query: <%s>*" conn)))
       (unless (buffer-live-p query-buffer)
         (with-current-buffer (generate-new-buffer query-buffer)
           (sql-mode)
           (insert "---\n"
-                  "--- " sql-connection "\n"
-                  "---\n")
+                  "--- Querying " conn "\n"
+                  "---\n\n")
           ;; The following is verbatim from sql-set-sqli-buffer. We don't call
           ;; that function directly because it prompts for the target buffer.
           (setq sql-buffer target-buffer)
