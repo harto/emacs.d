@@ -804,7 +804,27 @@ project-wide search."
   :custom
   (ruby-insert-encoding-magic-comment nil)
   :config
-  (add-hook 'xref-backend-functions 'dumb-jump-xref-activate))
+  (add-hook 'xref-backend-functions 'dumb-jump-xref-activate)
+
+  (defun sc/rubocop-fix ()
+    (interactive)
+    (save-excursion
+      ;; FIXME: this doesn't restore point to its original position
+      (call-process-region nil nil
+                           ;; TODO: decouple this from flycheck?
+                           flycheck-ruby-rubocop-executable
+                           t
+                           (list t nil) ; replace nil with t to debug
+                           t
+                           "--autocorrect-all"
+                           "--stderr"
+                           "--stdin"
+                           ;; The final arg seems to be ignored.
+                           ;; We add a dummy one here so that our real args above are all consumed.
+                           "unused")))
+
+  :bind (:map ruby-ts-mode-map
+              ("C-8 f" . sc/rubocop-fix)))
 
 (use-package inf-ruby
   ;; :custom
