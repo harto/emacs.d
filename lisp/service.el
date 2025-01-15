@@ -21,8 +21,7 @@
 ;; - https://github.com/zweifisch/foreman-mode
 
 ;; TODO:
-;; - service list mode
-;; - figure out top-level deps (postgres, etc.)
+;; - flesh out service list mode
 ;; - optionally interactively edit config prior to start
 
 (require 'comint)
@@ -83,7 +82,8 @@ Once defined, groups may be managed like services using
 (defun service-directory (service)
   "Gets home directory of SERVICE."
   (if-let ((dir (alist-get :cd (service--config service))))
-    (expand-file-name dir)))
+      (expand-file-name dir)
+    default-directory))
 
 (defun service-build-command (service &optional command)
   "Construct a command for execution in the context of SERVICE.
@@ -126,7 +126,7 @@ If COMMAND is not specified, the `:start' configuration option is used."
 
 (defun service--read-service (verb &optional pred default)
   "Prompts user for a service to act upon with VERB."
-  (service--completing-read (format "%s service" verb) (mapcar #'car service-configs-alist)))
+  (service--completing-read (format "%s service" verb) (mapcar #'car service-configs-alist) pred default))
 
 (defun service--read-group (verb)
   "Prompts user for a service group to act upon with VERB."
@@ -137,7 +137,7 @@ If COMMAND is not specified, the `:start' configuration option is used."
   "Builds SERVICE via `compile' using the configured `:build' command.
 
 If not configured, the build command defaults to \"make\"."
-  (interactive (list (service--read-service "Build service")))
+  (interactive (list (service--read-service "Build")))
   (let ((default-directory (service-directory service)))
     (compile (service-build-command service (or (alist-get :build (service--config service))
                                                 "make")))))
@@ -150,19 +150,31 @@ If not configured, the build command defaults to \"make\"."
   (message "Starting service: %s" service)
   (let ((config (service--config service)))
     (dolist (dep (alist-get :depends-on config))
-      (service-start dep))
+      (service--init dep))
     (let* ((default-directory (service-directory service))
            (service-buffer (make-comint (symbol-name service) "/bin/sh" nil "-c" (service-build-command service))))
       (with-current-buffer service-buffer
         (setq service-current service)
         (service-process-mode +1)))))
 
+(defun service--default-dwim ()
+  "Guesses which service would make a reasonable default value.
+
+When in a service buffer, returns `service-current'.
+When in Service List mode, returns the service at point."
+  (or service-current (tabulated-list-get-id)))
+
+;; start service contexts:
+;; - ad hoc / interactively (M-x service-start)
+;; - from service buffer
+;; - from service list
+
 ;;;###autoload
-(defun service-start ()
+(defun service-start (&optional service)
   "Prompts for a service to start."
   ;; TODO: When called with prefix argument, override various options
   (interactive)
-  (let ((service (service--read-service "Start" nil service-current)))
+  (let ((service (or service (service--read-service "Start" nil (service--default-dwim)))))
     (service--init service)
     (pop-to-buffer (service--get-buffer service))))
 
@@ -176,15 +188,19 @@ If not configured, the build command defaults to \"make\"."
 (defun service-stop (&optional service)
   "Stops a service.
 
-When called interatively, prompts for SERVICE.
-SERVICE defaults to `service-current'."
+When called interatively, prompts for SERVICE."
   ;; TODO: filter to running services?
-  (interactive (list (service--read-service "Stop" nil service-current)))
+  (interactive (list (service--read-service "Stop" nil (service--default-dwim))))
   (setq service (or service service-current (error "No service specified")))
   (let ((service-buffer (or (service--get-buffer service)
                             (error "Service not running: %s" service))))
     (pop-to-buffer service-buffer)
-    (call-interactively 'comint-interrupt-subjob)))
+    (comint-interrupt-subjob)
+    (with-timeout (5 (progn
+                       (message "Forcibly killing %s process" service)
+                       (comint-kill-subjob)))
+      (while (process-live-p (get-buffer-process service-buffer))
+        (sleep-for 0.05)))))
 
 (defun service-restart (&optional service)
   "Restarts a service.
@@ -246,12 +262,14 @@ SERVICE defaults to `service-current'."
 
 (defvar service-menu-mode-map
   (define-keymap
+    "s" 'service-start
+    "k" 'service-stop
     "r" 'service-restart))
 
 (define-derived-mode service-menu-mode tabulated-list-mode "Service Menu"
   "Major mode for listing services."
   (setq tabulated-list-format [("Service" 20 t)
-                               ("Status" 7 t)
+                               ("Status" 8 t)
                                ("Buffer" 25 t)
                                ("Command" 0 t)])
   (setq tabulated-list-sort-key (cons "Service" nil))
@@ -279,11 +297,21 @@ SERVICE defaults to `service-current'."
   (setq tabulated-list-entries
         (mapcar (lambda (service)
                   (list service
-                        (vector (symbol-name service)
-                                "todo"
-                                (service-menu--service-buffer-link service)
-                                "todo"
-                                )))
+                        (let* ((buffer (service--get-buffer service))
+                               (process (get-buffer-process buffer)))
+                          (vector (symbol-name service)
+                                  (if buffer
+                                      (if (process-live-p process)
+                                          "running"
+                                        ;; TODO: distinguish between stopped & crashed
+                                        ;; TODO: colorize
+                                        "stopped")
+                                    "--")
+                                  (service-menu--service-buffer-link service)
+                                  (if process
+                                      ;; TODO: drop "sh -c" prefix
+                                      (string-join (process-command process) " ")
+                                    "")))))
                 (mapcar #'car service-configs-alist)))
   (tabulated-list-init-header))
 
