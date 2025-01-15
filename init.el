@@ -709,23 +709,23 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
          ("M-?" . nil)  ; don't shadow xref-find-references
          ("C-M-<backspace>" . backward-kill-sexp)))
 
-;; Tree-sitter language grammars
-;; Note: after adding entries here, run `treesit-install-language-grammar'
-;; TODO: should this be wrapped in `with-eval-after-load'?
-;; TODO: Do we only need this when we're installing a new grammar?
-(setq treesit-language-source-alist
-      '(;; (bash "https://github.com/tree-sitter/tree-sitter-bash")
-        ;; (css "https://github.com/tree-sitter/tree-sitter-css")
-        ;; (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (json "https://github.com/tree-sitter/tree-sitter-json")
-        ;; (make "https://github.com/alemuller/tree-sitter-make")
-        ;; (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (ruby "https://github.com/tree-sitter/tree-sitter-ruby" "v0.20.1")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "tsx/src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "typescript/src")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-        ))
+;; Tree-sitter language grammars. We only need this when we're installing a new grammar.
+;; (setq treesit-language-source-alist
+;;       '((json "https://github.com/tree-sitter/tree-sitter-json")
+;;         (python "https://github.com/tree-sitter/tree-sitter-python")
+;;         (ruby "https://github.com/tree-sitter/tree-sitter-ruby" "v0.20.1")
+;;         (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.2")
+;;         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "tsx/src")
+;;         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.4" "typescript/src")
+;;         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+;; (treesit-install-language-grammar 'json)
+;; (treesit-install-language-grammar 'python)
+;; (treesit-install-language-grammar 'ruby)
+;; (treesit-install-language-grammar 'rust)
+;; (treesit-install-language-grammar 'tsx)
+;; (treesit-install-language-grammar 'typescript)
+;; (treesit-install-language-grammar 'yaml)
+
 
 ;; Specific language configurations
 
