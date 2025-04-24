@@ -467,8 +467,7 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
 ;; "projects").
 (use-package find-things-fast
   :bind (("C-9 f" . ftf-find-file)
-         ("C-9 4 f" . sc/ftf-find-file-other-window)
-         ("C-9 s" . ftf-grepsource))
+         ("C-9 4 f" . sc/ftf-find-file-other-window))
 
   :custom
   ;; find-things-fast only searches for extensions used in Chromium source by
@@ -479,31 +478,7 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   (defun sc/ftf-find-file-other-window ()
     (interactive)
     (cl-letf (((symbol-function 'find-file) #'find-file-other-window))
-      (command-execute 'ftf-find-file)))
-
-  ;; When searching and grepping in a non-git context, i.e. using `find`, make
-  ;; sure to only include regular files (not directories, symlinks, etc.)
-  (advice-add 'ftf-get-find-command
-              :filter-return
-              (lambda (find-command)
-                (concat find-command " -type f")))
-
-  ;; Provide a way to exclude files from searches. find-things-fast already
-  ;; excludes git-ignored files, but we might also want to exclude certain
-  ;; versioned files (fixtures, package lockfiles, etc.).
-  (defvar sc/ftf-grepsource-exclusions ()
-    "List of paths to exclude from `ftf-grepsource'.")
-
-  (defun sc/add-ftf-grepsource-exclusions (func &rest args)
-    "Temporarily incorporates `sc/ftf-grepsource-exclusions' into `ftf-filetypes'."
-    (let* ((exclusions (mapcar (lambda (path)
-                                 (format ":!%s" path))
-                               sc/ftf-grepsource-exclusions))
-           (ftf-filetypes (append ftf-filetypes exclusions)))
-      (message "%s" ftf-filetypes)
-      (apply func args)))
-
-  (advice-add 'ftf-grepsource :around 'sc/add-ftf-grepsource-exclusions))
+      (command-execute 'ftf-find-file))))
 
 (use-package grep
   :custom
@@ -512,14 +487,25 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
 
 (use-package rg
   :bind (("C-9 r" . rg)
-         ;; ("C-u C-9 r" . sc/rg-all)
-         )
+         ("C-9 s" . sc/search-thing-at-point))
 
-  ;; :config
-  ;; (defun sc/rg-all ()
-  ;;   (interactive)
-  ;;   )
-  )
+  :config
+  (rg-define-search sc/search-similar-files-thing-at-point
+    :query point
+    :format literal
+    :files current
+    :dir project)
+  (rg-define-search sc/search-all-files-thing-at-point
+    :query point
+    :format literal
+    :files "*"
+    :dir project)
+  (defun sc/search-thing-at-point (&optional prefix)
+    (interactive "p")
+    (command-execute
+     (if (>= prefix 4)
+         'sc/search-all-files-thing-at-point
+       'sc/search-similar-files-thing-at-point))))
 
 ;; Backwards window navigation (opposite of `C-x o`).
 (global-set-key (kbd "C-x p") (lambda () (interactive) (other-window -1)))
@@ -536,7 +522,9 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
 ;; simpler regex-based xref backend.
 ;; TODO: how does this get loaded??
 (use-package dumb-jump
-  ;; :config
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+
   ;; ;; dumb-jump only implements jumping to definitions (via e.g. `C-.`). Here we
   ;; ;; provide a simple way to list references to a symbol so that `C-?` also does
   ;; ;; something useful.
