@@ -47,7 +47,6 @@ with the following keys supported:
   :stop        Optional command to stop the service (e.g.
                \"docker-compose down ...\"). By default, services
                are terminated via SIGTERM.
-  :direnv      If non-nil, commands are prefixed with \"direnv exec ...\"
   :env         Optional alist of environment variables
 
 Example usage:
@@ -100,8 +99,6 @@ If COMMAND is not specified, the `:start' configuration option is used."
     ;;                                                collect (format "%s=%s" k v))
     ;;                                       " "))
     ;;         parts))
-    (when (alist-get :direnv config)
-      (push "direnv exec ." parts))
     (string-join parts " ")))
 
 (defun service--get-buffer (service)
