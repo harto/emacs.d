@@ -169,7 +169,7 @@ particular, $PATH) via shell profile."
 (defun sc/jump-to-emacs-config (&optional remix-config)
   (interactive "P")
   (let ((config-path (expand-file-name (if remix-config
-                                           "~/src/remix-utils/lisp/remix.el"
+                                           "~/src/remix-utils/remix.el"
                                          "~/.emacs.d/init.el"))))
     (unless (equal buffer-file-name config-path)
       (find-file-other-window config-path))))
@@ -1078,10 +1078,9 @@ project-wide search."
 ;; # Miscellanous helper functions and utilities
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(add-to-list 'load-path "~/src/remix-utils/lisp")
 ;; TODO: should we lazy-load any of these?
 (load "utils")
-(load "remix" t t)
+(load "~/src/remix-utils/remix.el" t t)
 
 
 ;; # Finalise configuration
