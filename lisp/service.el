@@ -199,6 +199,13 @@ When called interatively, prompts for SERVICE."
       (while (process-live-p (get-buffer-process service-buffer))
         (sleep-for 0.05)))))
 
+(defun service-stop-group (group)
+  (interactive (list (service--read-group "Stop")))
+  (message "Stopping service group: %s" group)
+  (dolist (member (alist-get group service-groups-alist))
+    ;; TODO: continue even if one member fails
+    (service-stop member)))
+
 (defun service-restart (&optional service)
   "Restarts a service.
 
