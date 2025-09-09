@@ -91,15 +91,14 @@ If COMMAND is not specified, the `:start' configuration option is used."
   (let* ((config (service--config service))
          (command (or command (alist-get :start config)))
          (parts (list command)))
-    ;; TODO
-    ;; (when-let ((env (alist-get :env config)))
-    ;;   (push (format "env %s" (string-join (cl-loop for (k v)
-    ;;                                                on env
-    ;;                                                by 'cddr
-    ;;                                                collect (format "%s=%s" k v))
-    ;;                                       " "))
-    ;;         parts))
+    (when-let ((envs (alist-get :env config)))
+      (push (format "env %s" (service--format-envs envs)) parts))
     (string-join parts " ")))
+
+(defun service--format-envs (envs)
+  (string-join
+   (mapcar (lambda (kv) (format "%s=%s" (car kv) (cadr kv))) envs)
+   " "))
 
 (defun service--get-buffer (service)
   "Returns the buffer associated with SERVICE, if any."
