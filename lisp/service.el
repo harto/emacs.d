@@ -179,7 +179,9 @@ When in Service List mode, returns the service at point."
   (interactive (list (service--read-group "Start")))
   (message "Starting service group: %s" group)
   (dolist (member (alist-get group service-groups-alist))
-    (service--init member)))
+    (if (assoc member service-groups-alist)
+        (service-start-group member)
+      (service--init member))))
 
 (defun service-stop (&optional service)
   "Stops a service.
@@ -202,8 +204,10 @@ When called interatively, prompts for SERVICE."
   (interactive (list (service--read-group "Stop")))
   (message "Stopping service group: %s" group)
   (dolist (member (alist-get group service-groups-alist))
-    ;; TODO: continue even if one member fails
-    (service-stop member)))
+    (if (assoc member service-groups-alist)
+        (service-stop-group member)
+      ;; TODO: continue even if one member fails
+      (service-stop member))))
 
 (defun service-restart (&optional service)
   "Restarts a service.
