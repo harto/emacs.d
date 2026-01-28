@@ -828,7 +828,7 @@ project-wide search."
 
   :config
   ;; Query results look bad when wrapped, so extend them off-screen instead
-  (add-hook 'sql-interactive-mode-hook 'toggle-truncate-lines t)
+  (add-hook 'sql-interactive-mode-hook (lambda () (toggle-truncate-lines +1)))
   ;; Recognise dashes and numbers as valid parts of Postgres DB names
   (sql-set-product-feature 'postgres :prompt-regexp "^[[:alpha:][:digit:]_-]*=[#>] ")
 
