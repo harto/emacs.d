@@ -325,7 +325,7 @@ particular, $PATH) via shell profile."
 ;; Treat components of CamelCasedWords as individual words when moving the
 ;; cursor forwards & backwards by word.
 (use-package subword
-  :hook (js2-mode python-ts-mode ruby-ts-mode typescript-ts-mode))
+  :hook (js2-mode python-ts-mode ruby-ts-mode typescript-ts-mode tsx-ts-mode))
 
 ;; Automatically insert closing parentheses, brackets, etc. in certain
 ;; (non-Lisp) modes. (In Lisp code, use paredit instead.)
