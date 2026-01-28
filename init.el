@@ -89,7 +89,7 @@
 ;; - C-1: theme/font switching
 ;; - C-7: flycheck (error checking)
 ;; - C-8: custom extensions to the current major mode
-;; - C-9: project navigation
+;; - C-9: project tools
 ;; - C-0: text editing
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n))))
@@ -531,6 +531,7 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
 
 ;; # vterm
 (use-package vterm
+  ;; TODO: this isn't a project-specific thing, so maybe C-9 isn't quite right
   :bind (("C-9 v" . vterm))
 
   :custom
