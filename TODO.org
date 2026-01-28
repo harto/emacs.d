@@ -41,3 +41,4 @@
 - jump to SHA in GitHub UI
   - https://github.com/sshaw/git-link
   - https://github.com/magit/forge/issues/91
+** better csv-mode for filtering/sorting
