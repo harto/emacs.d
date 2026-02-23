@@ -591,7 +591,7 @@ With \\[universal-argument] \\[universal-argument], prompts for base branch and 
           (branch (magit-main-branch)))
       (magit-run-git "fetch" "--prune" remote)
       ;; FIXME: abort if dirty worktree
-      (magit-checkout branch)
+      (magit--checkout branch)
       (magit-reset-hard (format "%s/%s" remote branch))))
 
   (defun sc/browse-gh-rev (rev remote)
