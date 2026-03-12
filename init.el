@@ -587,12 +587,23 @@ With \\[universal-argument] \\[universal-argument], prompts for base branch and 
 
   (defun sc/fetch-and-reset ()
     (interactive)
-    (let ((remote (magit-get-push-remote))
-          (branch (magit-main-branch)))
-      (magit-run-git "fetch" "--prune" remote)
-      ;; FIXME: abort if dirty worktree
-      (magit--checkout branch)
-      (magit-reset-hard (format "%s/%s" remote branch))))
+    (let* ((main-branch (magit-main-branch))
+           (remote (magit-get-upstream-remote main-branch))
+           (remote-branch (magit-get-upstream-branch main-branch)))
+      (or remote (error "Upstream branch not configured"))
+      (message "Fetching %s..." remote)
+      (magit-call-git "fetch" "--prune" remote)
+      (message "Resetting %s to %s" main-branch remote-branch)
+      (if (equal main-branch (magit-get-current-branch))
+          ;; Main branch is already checked out. Ensure we won't lose work when
+          ;; hard-resetting to upstream.
+          (if (magit-anything-unstaged-p)
+              (error "Unstaged changes in worktree; aborting")
+            (magit-reset-hard remote-branch)
+            (magit-refresh))
+        ;; Reset the main branch without checking it out.
+        ;; https://stackoverflow.com/a/1591255
+        (magit-run-git "update-ref" (magit-ref-fullname main-branch) (magit-get-upstream-ref main-branch)))))
 
   (defun sc/browse-gh-rev (rev remote)
     (interactive (list magit-buffer-revision (magit-primary-remote))) ; FIXME: figure out the right things to put here
