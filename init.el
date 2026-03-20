@@ -219,7 +219,7 @@ particular, $PATH) via shell profile."
   (doom-modeline-bar-width 2)
   ;; Major mode is already shown on the RHS -- don't also need to see an icon
   (doom-modeline-major-mode-icon nil)
-  (doom-modeline-buffer-file-name-style 'relative-to-project)
+  (doom-modeline-buffer-file-name-style 'relative-from-project)
 
   :init
   (doom-modeline-mode))
