@@ -191,7 +191,7 @@ particular, $PATH) via shell profile."
     (start-process "default-app" nil "open" (dired-get-file-for-visit)))
 
   :bind (:map dired-mode-map
-              ("C-u C-o" . sc/dired-open-file-in-default-application)))
+              ("C-c C-o" . sc/dired-open-file-in-default-application)))
 
 ;; More functional buffer list
 (use-package ibuffer
