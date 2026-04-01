@@ -790,13 +790,17 @@ project-wide search."
   :config
   (add-hook 'xref-backend-functions 'dumb-jump-xref-activate)
 
+  (defun sc/rubocop-executable-path ()
+    (or lsp-rubocop-server-path
+        flycheck-ruby-rubocop-executable
+        "rubocop"))
+
   (defun sc/rubocop-fix ()
     (interactive)
     (save-excursion
-      ;; FIXME: this doesn't restore point to its original position
+      ;; FIXME: this doesn't restore point to its original position(?)
       (call-process-region nil nil
-                           ;; TODO: decouple this from flycheck?
-                           flycheck-ruby-rubocop-executable
+                           (sc/rubocop-executable-path)
                            t
                            (list t nil) ; replace nil with t to debug
                            t
