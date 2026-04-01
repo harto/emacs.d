@@ -4,8 +4,9 @@ set -euo pipefail
 # Wrapper around emacsclient that overrides the default server socket location.
 #
 # The default socket location depends on $TMPDIR. $TMPDIR is subject to
-# alteration by Nix. That affects emacsclient, but not the Emacs server. So,
-# client and server may assume a different location for the socket.
+# alteration by Nix. That may affect emacsclient, depending on where it gets
+# invoked, but not the Emacs server. That is, client and server may assume a
+# different location for the socket.
 #
 # We work around this by hard-coding the socket location, in both init.el and
 # this wrapper.
