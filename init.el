@@ -514,14 +514,7 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   ;; See https://github.com/akermu/emacs-libvterm/#vterm-buffer-name-string,
   ;; and shell extensions in etc/vterm.zsh (in this repo)
   (vterm-buffer-name-string "*vterm*:%s")
-  (vterm-max-scrollback 10000)
-
-  :config
-  (defun sc/with-blank-process-environment (f &rest args)
-    (let ((process-environment ()))
-      (apply f args)))
-
-  (advice-add 'vterm :around 'sc/with-blank-process-environment))
+  (vterm-max-scrollback 10000))
 
 
 ;; # Git
