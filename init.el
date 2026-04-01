@@ -125,48 +125,24 @@
   (setq server-socket-dir (no-littering-expand-var-file-name "server-socket/")))
 
 ;; When starting Emacs.app from the macOS GUI, the process environment doesn't
-;; have a useful PATH (and other env vars) that are currently configured in
-;; .zshenv.  To work around this, we start a login shell from within Emacs, dump
-;; its environment to stdout, and copy those variables into the Emacs process
-;; (and also update `exec-path'). This approximates the behaviour of launching
-;; Emacs from zsh.
+;; have variables (PATH, etc.) that are set in .zshenv. To work around this,
+;; exec-path-from-shell starts a shell from within Emacs, reads its environment,
+;; and sets corresponding variables in the Emacs process environment (and also
+;; updates `exec-path'). This approximates the behaviour of launching Emacs from
+;; zsh.
+(use-package exec-path-from-shell
+  :if (eq window-system 'ns)
 
-(defun sc/env-from-shell ()
-  (mapcar (lambda (line) (split-string line "="))
-          (split-string (shell-command-to-string "$SHELL -ic env") "\n" t)))
+  :custom
+  ;; Don't use a login shell, because all env vars are defined in .zshenv
+  (exec-path-from-shell-arguments nil)
 
-;; TODO: replace with exec-path-from-shell package? (NOTE: that package doesn't
-;; automatically load all env vars)
-(defun sc/init-process-env ()
-  "Works around macOS environment problems by loading env (in
-particular, $PATH) via shell profile."
-  (message "Initialising process env from login shell")
-  ;; FIXME: when zsh is started via Emacs (e.g. vterm), .zshenv is evaled a
-  ;; second time, so $PATH has a bunch of duplicates.
-  ;;
-  ;; Possible solutions:
-  ;;
-  ;; - somehow modify .zshenv to not update $PATH a second time, perhaps by
-  ;;   checking $INSIDE_EMACS (this could be annoying when iterating on shell
-  ;;   config, since changes wouldn't be reflected until Emacs is restarted)
-  ;;
-  ;; - somehow figure out how to set $PATH and other stuff persistently on login
-  ;;   (or whenever) and remove this hack
-  ;;
-  ;; - ???
-  (dolist (kv (sc/env-from-shell))
-    (setenv (car kv) (cadr kv)))
-  (setq exec-path (split-string (getenv "PATH") path-separator)))
-
-(when (eq window-system 'ns)
-  ;; NOTE: If we defer this with after-init-hook, rg-executable does not get
-  ;; set correctly.
-  (sc/init-process-env))
+  :hook (after-init . exec-path-from-shell-initialize))
 
 (defun sc/jump-to-emacs-config (&optional remix-config)
   (interactive "P")
   (let ((config-path (expand-file-name (if remix-config
-                                           "~/src/remix-utils/remix.el"
+                                           "~/src/remix-setup/remix.el"
                                          "~/.emacs.d/init.el"))))
     (unless (equal buffer-file-name config-path)
       (find-file-other-window config-path))))
@@ -538,7 +514,14 @@ Like the opposite of `delete-horizontal-space' with prefix arg."
   ;; See https://github.com/akermu/emacs-libvterm/#vterm-buffer-name-string,
   ;; and shell extensions in etc/vterm.zsh (in this repo)
   (vterm-buffer-name-string "*vterm*:%s")
-  (vterm-max-scrollback 10000))
+  (vterm-max-scrollback 10000)
+
+  :config
+  (defun sc/with-blank-process-environment (f &rest args)
+    (let ((process-environment ()))
+      (apply f args)))
+
+  (advice-add 'vterm :around 'sc/with-blank-process-environment))
 
 
 ;; # Git
@@ -1084,7 +1067,7 @@ project-wide search."
 (add-to-list 'load-path "~/.emacs.d/lisp")
 ;; TODO: should we lazy-load any of these?
 (load "utils")
-(load "~/src/remix-utils/remix.el" t t)
+(load "~/src/remix-setup/remix.el" t)
 
 
 ;; # Finalise configuration
