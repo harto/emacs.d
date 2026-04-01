@@ -568,12 +568,18 @@ With \\[universal-argument] \\[universal-argument], prompts for base branch and 
       (magit-run-git "lfs" "push" remote branch)
       (message "Pushed LFS files")))
 
-  (defun sc/fetch-and-reset ()
-    (interactive)
+  (defun sc/fetch-and-reset (&optional prefix)
+    "Fetches upstream and resets main branch to match updates there.
+
+With \\[universal-argument], checks out main branch first."
+    (interactive "p")
     (let* ((main-branch (magit-main-branch))
            (remote (magit-get-upstream-remote main-branch))
            (remote-branch (magit-get-upstream-branch main-branch)))
       (or remote (error "Upstream branch not configured"))
+      (when prefix
+        (message "Checking out %s" main-branch)
+        (magit--checkout main-branch))
       (message "Fetching %s..." remote)
       (magit-call-git "fetch" "--prune" remote)
       (message "Resetting %s to %s" main-branch remote-branch)
